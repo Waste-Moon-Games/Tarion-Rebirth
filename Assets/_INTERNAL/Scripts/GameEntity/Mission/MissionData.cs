@@ -3,6 +3,7 @@ using GameEntity.Unit.Data;
 
 namespace GameEntity.Mission
 {
+    [System.Serializable]
     public struct MissionData
     {
         public MissionType Type;

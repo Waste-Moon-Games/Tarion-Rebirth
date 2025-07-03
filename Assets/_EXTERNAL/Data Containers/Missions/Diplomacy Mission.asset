@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69bc4ce4437d8974da69cef004e318bc, type: 3}
+  m_Name: Diplomacy Mission
+  m_EditorClassIdentifier: 
+  <MissionData>k__BackingField:
+    Type: 1
+    GainedExperience: 15
+    Difficult: 0
+    Duration: 0
+    TargetPlanet:
+      Population: 0
+      PlanetPower: 0
+      TechPower: 0
+      Resistance: 0
+      Type: 0
+    ChosenHero:
+      Name: 
+      Description: 
+      Level: 0
+      Experience: 0
+      Rank: 0
