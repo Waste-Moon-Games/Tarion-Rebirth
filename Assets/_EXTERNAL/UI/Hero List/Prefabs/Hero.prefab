@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7311033421462087991}
   - component: {fileID: 4836865166337167889}
   m_Layer: 5
-  m_Name: Planet Name
+  m_Name: Hero Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,10 +147,10 @@ GameObject:
   - component: {fileID: 5204297031415971980}
   - component: {fileID: 6620623634427960005}
   - component: {fileID: 3646958689253757029}
-  - component: {fileID: 3574976536664377990}
+  - component: {fileID: 1718517717830998914}
   - component: {fileID: 759557084570534438}
   m_Layer: 5
-  m_Name: Planet
+  m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3574976536664377990
+--- !u!114 &1718517717830998914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,10 +223,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8977382756885389041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8cabd43b7d0c5d489dd3afb6c72d7e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 53fc1ca18a5877048a922a87381917cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planetNameText: {fileID: 4836865166337167889}
+  _heroName: {fileID: 4836865166337167889}
 --- !u!114 &759557084570534438
 MonoBehaviour:
   m_ObjectHideFlags: 0

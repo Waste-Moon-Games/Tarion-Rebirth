@@ -9,6 +9,8 @@ namespace Scripts.GameEntity.DataInstance
         private readonly HeroDataContainer _baseData;
         private HeroData _runtimeData;
 
+        public HeroData RuntimeData => _runtimeData;
+
         public HeroInstance(HeroDataContainer baseData)
         {
             _baseData = baseData;

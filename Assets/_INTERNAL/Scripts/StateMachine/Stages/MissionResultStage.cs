@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace StateMachine.Stages
 {
-    public class ResultStage : IStage
+    public class MissionResultStage : IStage
     {
-        private readonly IGameStageController _controller;
+        private readonly GameStageController _controller;
 
-        public ResultStage(IGameStageController controller)
+        public MissionResultStage(GameStageController controller)
         {
             _controller = controller;
         }
@@ -16,7 +16,7 @@ namespace StateMachine.Stages
         {
             Debug.Log("Result Stage: Enter");
             // TODO: результаты миссии
-            _controller.SetStage(new PlanetSelectionStage(_controller));
+            //_controller.SetStage(new PlanetSelectionStage(_controller));
         }
 
         public void Exit()

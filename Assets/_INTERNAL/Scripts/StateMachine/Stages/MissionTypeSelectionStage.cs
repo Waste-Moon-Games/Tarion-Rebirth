@@ -5,9 +5,9 @@ namespace StateMachine.Stages
 {
     public class MissionTypeSelectionStage : IStage
     {
-        private readonly IGameStageController _controller;
+        private readonly GameStageController _controller;
 
-        public MissionTypeSelectionStage(IGameStageController controller)
+        public MissionTypeSelectionStage(GameStageController controller)
         {
             _controller = controller;
         }
@@ -16,7 +16,6 @@ namespace StateMachine.Stages
         {
             Debug.Log("Mission Selection Stage: Enter");
             // TODO: выбор миссии
-            _controller.SetStage(new MissionPreparationStage(_controller));
         }
 
         public void Exit()

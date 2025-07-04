@@ -1,10 +1,11 @@
 ﻿using GameEntity.Planet;
 using GameEntity.Unit.Data;
+using UnityEngine;
 
 namespace GameEntity.Mission
 {
     [System.Serializable]
-    public struct MissionData
+    public class MissionData
     {
         public MissionType Type;
         public int GainedExperience;

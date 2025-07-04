@@ -15,14 +15,21 @@ MonoBehaviour:
   <MissionData>k__BackingField:
     Type: 0
     GainedExperience: 10
-    Difficult: 0
-    Duration: 0
+    Difficult: 1
+    Duration: 1
     TargetPlanet:
+      PlanetName: 
+      PlanetDescription: 
       Population: 0
       PlanetPower: 0
+      BaseTechPower: 0
       TechPower: 0
+      TechMultiplier: 0
+      BaseResistance: 0
       Resistance: 0
+      ResistanceMultiplier: 0
       Type: 0
+      IsCaptured: 0
     ChosenHero:
       Name: 
       Description: 

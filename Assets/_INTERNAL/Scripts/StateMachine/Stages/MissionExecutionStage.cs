@@ -5,9 +5,9 @@ namespace StateMachine.Stages
 {
     public class MissionExecutionStage : IStage
     {
-        private readonly IGameStageController _controller;
+        private readonly GameStageController _controller;
 
-        public MissionExecutionStage(IGameStageController controller)
+        public MissionExecutionStage(GameStageController controller)
         {
             _controller = controller;
         }
@@ -16,7 +16,7 @@ namespace StateMachine.Stages
         {
             Debug.Log("Mission Execution Stage: Enter");
             // TODO: выполнение миссии
-            _controller.SetStage(new ResultStage(_controller));
+            _controller.SetStage(new MissionResultStage(_controller));
         }
 
         public void Exit()

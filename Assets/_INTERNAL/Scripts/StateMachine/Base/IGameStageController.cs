@@ -1,4 +1,7 @@
-﻿namespace StateMachine.Base
+﻿using GameEntity.DataInstance.Main;
+using Mono.UI.PlanetListUI;
+
+namespace StateMachine.Base
 {
     public interface IGameStageController
     {
