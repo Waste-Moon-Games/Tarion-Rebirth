@@ -26,6 +26,12 @@ namespace StateMachine.Stages
         public void Enter()
         {
             Debug.Log("Hero Selection Stage: Enter");
+
+            if (!_heroListController.gameObject.activeSelf)
+            {
+                _heroListController.Show();
+            }
+
             _heroListController.Initialize(_instanceHolder);
             _heroListController.OnHeroSelected += HandleSelectedHero;
         }
@@ -43,8 +49,12 @@ namespace StateMachine.Stages
         private void HandleSelectedHero(HeroInstance selectedHero)
         {
             Debug.Log($"Selected {selectedHero.RuntimeData.Name} hero");
+
             _missionContex.SetHero(selectedHero);
-            _controller.SetStage(_controller.CreateMissionTypeSelectionStage());
+
+            _heroListController.Hide();
+
+            _controller.SetStage(_controller.CreateMissionTypeSelectionStage(_missionContex, _instanceHolder));
         }
     }
 }

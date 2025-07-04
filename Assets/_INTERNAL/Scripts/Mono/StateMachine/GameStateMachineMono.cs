@@ -1,6 +1,5 @@
 ﻿using Mono.InstanceInitialize;
 using StateMachine;
-using StateMachine.Base;
 using UnityEngine;
 
 namespace Mono.StateMachine
@@ -10,7 +9,9 @@ namespace Mono.StateMachine
         [SerializeField] private BootDatas _bootDatas;
         [SerializeField] private StateMachineUIDependencies _machineUIDependencies;
 
-        private IGameStageController _gameStageController;
+        private GameStageController _gameStageController;
+
+        public GameStageController GameStageController => _gameStageController;
 
         public void Run()
         {

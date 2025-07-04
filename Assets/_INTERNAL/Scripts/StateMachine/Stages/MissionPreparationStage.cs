@@ -29,5 +29,15 @@ namespace StateMachine.Stages
         public void Tick()
         {
         }
+
+        private void CalculateMissionDifficulty()
+        {
+
+        }
+
+        private void CalculateMissionDuration()
+        {
+
+        }
     }
 }

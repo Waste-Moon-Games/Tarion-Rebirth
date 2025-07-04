@@ -15,6 +15,8 @@ namespace StateMachine
         private readonly InstanceHolder _instanceHolder;
         private readonly StateMachineUIDependencies _uiDependencies;
 
+        public MissionContex MissionContex => _missionContex;
+
         public GameStageController(InstanceHolder instanceHolder, StateMachineUIDependencies uiDependencies)
         {
             _instanceHolder = instanceHolder;
@@ -55,12 +57,12 @@ namespace StateMachine
             return new HeroSelectionStage(this, missionContex, _uiDependencies.HeroListController, instanceHolder);
         }
 
-        public IStage CreateMissionTypeSelectionStage(/*MissionTypeUI missionType*/)
+        public IStage CreateMissionTypeSelectionStage(MissionContex missionContex, InstanceHolder instanceHolder)
         {
-            return new MissionTypeSelectionStage(this/*, missionType*/);
+            return new MissionTypeSelectionStage(this, missionContex, instanceHolder, _uiDependencies.MissionTypeListController);
         }
 
-        public IStage CreateMissionPreparationStage(MissionContex missionContex)
+        public IStage CreateMissionPreparationStage(MissionContex missionContex, InstanceHolder instanceHolder)
         {
             return new MissionPreparationStage(this, missionContex);
         }

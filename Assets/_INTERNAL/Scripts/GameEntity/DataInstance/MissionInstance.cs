@@ -9,10 +9,12 @@ namespace GameEntity.DataInstance
         private readonly MissionDataContainer _baseData;
         private MissionData _runtimeData;
 
-        public MissionInstance(MissionDataContainer baseData, MissionData runtimeData)
+        public MissionData RuntimeData => _runtimeData;
+
+        public MissionInstance(MissionDataContainer baseData)
         {
             _baseData = baseData;
-            _runtimeData = runtimeData;
+            _runtimeData = baseData.MissionData;
 
             Debug.Log($"Mission instance: {_runtimeData.Type} is initialized");
         }

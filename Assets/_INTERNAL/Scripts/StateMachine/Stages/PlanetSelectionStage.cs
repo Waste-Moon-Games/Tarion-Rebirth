@@ -26,6 +26,11 @@ namespace StateMachine.Stages
         public void Enter()
         {
             Debug.Log("Planet Selection Stage: Enter");
+            if (!_planetListController.isActiveAndEnabled)
+            {
+                _planetListController.Show();
+            }
+
             _planetListController.Initialize(_instanceHolder);
             _planetListController.OnPlanetSelected += HandleSelectedPlanet;
         }
@@ -33,6 +38,7 @@ namespace StateMachine.Stages
         public void Exit()
         {
             _planetListController.OnPlanetSelected -= HandleSelectedPlanet;
+            _planetListController.Hide();
             Debug.Log("Planet Selectio Stage: Exit");
         }
 

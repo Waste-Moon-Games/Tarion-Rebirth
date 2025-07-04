@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Mono.UI.PlanetListUI
 {
-    public class PlanetListController : MonoBehaviour
+    public class PlanetListController : UIListBase
     {
         [SerializeField] private Transform _contentParent;
         [SerializeField] private PlanetViewItem _planetItemPrefab;

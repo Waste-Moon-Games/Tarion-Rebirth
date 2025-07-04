@@ -21,9 +21,9 @@ namespace Mono.UI.PlanetListUI
             _selectButton.onClick.RemoveListener(() => OnPlanetSelected?.Invoke(_planetInstance));
         }
 
-        public void Setup(PlanetInstance instanceHolder)
+        public void Setup(PlanetInstance planetInstance)
         {
-            _planetInstance = instanceHolder;
+            _planetInstance = planetInstance;
             _planetNameText.text = _planetInstance.RuntimeData.PlanetName;
 
             _selectButton = GetComponent<Button>();

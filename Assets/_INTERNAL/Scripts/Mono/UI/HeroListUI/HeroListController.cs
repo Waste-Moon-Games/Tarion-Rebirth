@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Mono.UI.HeroListUI
 {
-    public class HeroListController : MonoBehaviour
+    public class HeroListController : UIListBase
     {
-        [SerializeField] private Transform _contentparent;
+        [SerializeField] private Transform _contentParent;
         [SerializeField] private HeroItemView _heroItemPrefab;
 
         [SerializeField] private List<HeroItemView> _heroItems = new();
@@ -33,9 +33,15 @@ namespace Mono.UI.HeroListUI
 
         private void GenerateHeroList()
         {
+            foreach (Transform child in _contentParent)
+            {
+                Destroy(child.gameObject);
+            }
+            _heroItems.Clear();
+
             foreach (var hero in _instanceHolder.Heros)
             {
-                var itemGO = Instantiate(_heroItemPrefab, _contentparent);
+                var itemGO = Instantiate(_heroItemPrefab, _contentParent);
                 var item = itemGO.GetComponent<HeroItemView>();
 
                 _heroItems.Add(item);
