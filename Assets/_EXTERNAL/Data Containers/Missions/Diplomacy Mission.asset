@@ -12,20 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69bc4ce4437d8974da69cef004e318bc, type: 3}
   m_Name: Diplomacy Mission
   m_EditorClassIdentifier: 
-  <MissionData>k__BackingField:
-    Type: 1
-    GainedExperience: 15
-    Difficult: 0
-    Duration: 0
-    TargetPlanet:
-      Population: 0
-      PlanetPower: 0
-      TechPower: 0
-      Resistance: 0
-      Type: 0
-    ChosenHero:
-      Name: 
-      Description: 
-      Level: 0
-      Experience: 0
-      Rank: 0
+  <MissionType>k__BackingField: 1

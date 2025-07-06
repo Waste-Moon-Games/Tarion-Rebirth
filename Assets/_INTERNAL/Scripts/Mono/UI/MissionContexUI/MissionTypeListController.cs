@@ -1,5 +1,6 @@
 ﻿using GameEntity.DataInstance;
 using GameEntity.DataInstance.Main;
+using GameEntity.Mission;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Mono.UI.MissionContexUI
 
         private InstanceHolder _instanceHolder;
 
-        public event Action<MissionInstance> OnMissionTypeSelected;
+        public event Action<MissionType> OnMissionTypeSelected;
 
         public void Initialize(InstanceHolder instanceHolder)
         {
@@ -51,7 +52,7 @@ namespace Mono.UI.MissionContexUI
             }
         }
 
-        private void HandleSelectedMissionType(MissionInstance missionType)
+        private void HandleSelectedMissionType(MissionType missionType)
         {
             OnMissionTypeSelected?.Invoke(missionType);
         }

@@ -1,4 +1,5 @@
-﻿using GameEntity.ScriptableObjects;
+﻿using GameEntity.Mission;
+using GameEntity.ScriptableObjects;
 using Scripts.GameEntity.DataInstance;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace GameEntity.DataInstance.Main
     {
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
-        [field: SerializeField] public List<MissionInstance> Missions { get; private set; } = new();
+        [field: SerializeField] public List<MissionType> Missions { get; private set; } = new();
 
         public void Initialize(List<HeroDataContainer> heroDatas,
             List<PlanetDataContainer> planetDatas, List<MissionDataContainer> missionDatas)
@@ -45,7 +46,7 @@ namespace GameEntity.DataInstance.Main
 
             foreach (MissionDataContainer data in missionDatas)
             {
-                Missions.Add(new(data));
+                Missions.Add(data.MissionType);
             }
         }
     }

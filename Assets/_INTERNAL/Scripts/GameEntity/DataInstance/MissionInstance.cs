@@ -1,20 +1,17 @@
 ﻿using GameEntity.Mission;
-using GameEntity.ScriptableObjects;
 using UnityEngine;
 
 namespace GameEntity.DataInstance
 {
     public class MissionInstance
     {
-        private readonly MissionDataContainer _baseData;
         private MissionData _runtimeData;
 
         public MissionData RuntimeData => _runtimeData;
 
-        public MissionInstance(MissionDataContainer baseData)
+        public MissionInstance(MissionData data)
         {
-            _baseData = baseData;
-            _runtimeData = baseData.MissionData;
+            _runtimeData = data;
 
             Debug.Log($"Mission instance: {_runtimeData.Type} is initialized");
         }

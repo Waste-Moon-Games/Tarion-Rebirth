@@ -8,5 +8,7 @@ namespace GameEntity.Unit.Data
         public int Level;
         public int Experience;
         public Rank Rank;
+
+        public HeroStats Stats;
     }
 }

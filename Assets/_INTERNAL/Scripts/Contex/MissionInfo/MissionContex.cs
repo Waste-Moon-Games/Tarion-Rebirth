@@ -62,5 +62,15 @@ namespace Contex.MissionInfo
 
             OnMissionDurationCalculated?.Invoke(missionDuration);
         }
+
+        public MissionInstance TryCreateMissionInstane()
+        {
+            if (SelectedPlanet != null && SelectedHero != null)
+            {
+                return new MissionInstance(CurrentMissionData);
+            }
+
+            return null;
+        }
     }
 }

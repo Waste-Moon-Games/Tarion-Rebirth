@@ -22,3 +22,9 @@ MonoBehaviour:
     Level: 0
     Experience: 0
     Rank: 0
+    Stats:
+      BasePower: 0.9
+      PowerGrowthMultiplier: 1
+      Strenght: 3
+      Agility: 7
+      Intelligence: 7

@@ -6,6 +6,6 @@ namespace GameEntity.ScriptableObjects
     [CreateAssetMenu(menuName = "Data Containers/Mission", fileName = "Mission Container")]
     public class MissionDataContainer : ScriptableObject
     {
-        [field: SerializeField] public MissionData MissionData { get; private set; }
+        [field: SerializeField] public MissionType MissionType { get; private set; }
     }
 }

@@ -11,25 +11,25 @@ namespace Mono.UI.MissionContexUI
     {
         [SerializeField] private TextMeshProUGUI _missionTypeText;
 
-        private MissionInstance _missionInstance;
+        private MissionType _missionType;
 
         private Button _selectButton;
 
-        public event Action<MissionInstance> OnMissionTypeSelected;
+        public event Action<MissionType> OnMissionTypeSelected;
 
         private void OnDisable()
         {
-            _selectButton.onClick?.RemoveListener(() => OnMissionTypeSelected?.Invoke(_missionInstance));
+            _selectButton.onClick?.RemoveListener(() => OnMissionTypeSelected?.Invoke(_missionType));
         }
 
-        public void Setup(MissionInstance missionInstance)
+        public void Setup(MissionType missionType)
         {
-            _missionInstance = missionInstance;
+            _missionType = missionType;
 
-            _missionTypeText.text = $"{_missionInstance.RuntimeData.Type}";
+            _missionTypeText.text = $"{_missionType}";
 
             _selectButton = GetComponent<Button>();
-            _selectButton.onClick.AddListener(() => OnMissionTypeSelected?.Invoke(_missionInstance));
+            _selectButton.onClick.AddListener(() => OnMissionTypeSelected?.Invoke(_missionType));
         }
     }
 }
