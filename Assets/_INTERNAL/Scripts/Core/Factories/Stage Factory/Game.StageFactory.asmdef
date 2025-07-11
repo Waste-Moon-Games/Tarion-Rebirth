@@ -1,0 +1,18 @@
+{
+    "name": "Game.StageFactory",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:59ec5196efc993047a104ec5d7a1633f",
+        "GUID:edf3fef3c1db9904eb77b60b13c66af3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Game.Contex",
+    "rootNamespace": "",
+    "references": [
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3",
+        "GUID:8dd7d41d8daace348bea711251ca1168"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

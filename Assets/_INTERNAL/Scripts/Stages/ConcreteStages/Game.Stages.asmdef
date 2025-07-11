@@ -1,0 +1,21 @@
+{
+    "name": "Game.Stages",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
+        "GUID:85483b29e00cc4841bf1dc8fe556417a",
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3",
+        "GUID:edf3fef3c1db9904eb77b60b13c66af3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

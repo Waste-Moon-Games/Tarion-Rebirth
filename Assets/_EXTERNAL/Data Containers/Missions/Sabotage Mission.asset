@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69bc4ce4437d8974da69cef004e318bc, type: 3}
   m_Name: Sabotage Mission
   m_EditorClassIdentifier: 
-  <MissionType>k__BackingField: 3
+  <MissionType>k__BackingField: 2

@@ -1,0 +1,18 @@
+{
+    "name": "Game.EntryData",
+    "rootNamespace": "",
+    "references": [
+        "GUID:85483b29e00cc4841bf1dc8fe556417a",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

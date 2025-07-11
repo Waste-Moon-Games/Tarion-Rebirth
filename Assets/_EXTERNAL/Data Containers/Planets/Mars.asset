@@ -15,15 +15,14 @@ MonoBehaviour:
   <PlanetData>k__BackingField:
     PlanetName: "\u041C\u0430\u0440\u0441"
     PlanetDescription: "\u041C\u0430\u0440\u0441 - \u043F\u0435\u0440\u0432\u0430\u044F
-      \u0443\u0434\u0430\u0447\u043D\u0430\u044F \u043A\u043E\u043B\u043E\u043D\u0438\u044F
-      \u0437\u0435\u043C\u043B\u044F\u043D."
+      \u043A\u043E\u043B\u043E\u043D\u0438\u044F \u0417\u0435\u043C\u043B\u044F\u043D."
     Population: 1500
     PlanetPower: 0
-    BaseTechPower: 1
+    BaseTechPower: 0.8
     TechPower: 0
-    TechMultiplier: 0.85
-    BaseResistance: 1.25
+    TechMultiplier: 1.2
+    BaseResistance: 1
     Resistance: 0
-    ResistanceMultiplier: 0.25
+    ResistanceMultiplier: 1.2
     Type: 4
     IsCaptured: 0

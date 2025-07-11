@@ -1,0 +1,23 @@
+{
+    "name": "Game.Entry",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
+        "GUID:edf3fef3c1db9904eb77b60b13c66af3",
+        "GUID:415d49886ea3bb64d83c7c7d53705a44",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:a3d74a47ca3ec974fa30b0784d04e905",
+        "GUID:b82ec909a2546084f8f1ac7081e0631f",
+        "GUID:85483b29e00cc4841bf1dc8fe556417a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
