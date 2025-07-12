@@ -21,10 +21,10 @@ MonoBehaviour:
       \u0440\u0430\u0434\u0438 \u0431\u0438\u0442\u0432."
     Level: 1
     Experience: 0
-    Rank: 0
+    Rank: 4
     Stats:
-      BasePower: 1
+      BasePower: 35
       PowerGrowthMultiplier: 1.25
-      Strenght: 8
-      Agility: 6
-      Intelligence: 5
+      Strenght: 1
+      Agility: 1
+      Intelligence: 1

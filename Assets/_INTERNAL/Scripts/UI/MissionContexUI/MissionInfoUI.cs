@@ -3,6 +3,7 @@ using GameEntity.DataInstance;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using TMPro;
+using UI.MissionContexUI;
 using UnityEngine;
 
 namespace Mono.UI.MissionContexUI
@@ -13,6 +14,7 @@ namespace Mono.UI.MissionContexUI
         [SerializeField] private TextMeshProUGUI _selectedPlanetText;
         [SerializeField] private TextMeshProUGUI _selectedHeroText;
         [SerializeField] private TextMeshProUGUI _selectedType;
+        [SerializeField] private MissionPreparationUI _missionPrepareUI;
 
         private MissionContex _missionContex;
 
@@ -74,12 +76,12 @@ namespace Mono.UI.MissionContexUI
 
         private void HandleCalculatedMissionDifficulty(float calculatedDifficulty)
         {
-
+            _missionPrepareUI.DifficultyText.text = $"Сложность: {calculatedDifficulty}";
         }
 
         private void HandleCalculatedMissionDuration(float calculatedDuration)
         {
-
+            _missionPrepareUI.DurationText.text = $"Длительность (в минутах): {calculatedDuration}";
         }
 
         private void Refresh()

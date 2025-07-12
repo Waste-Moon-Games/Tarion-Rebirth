@@ -6,8 +6,11 @@ namespace Scripts.GameEntity.DataInstance
 {
     public class HeroInstance
     {
+        [field: SerializeField] public float HeroPower { get; private set; }
+        [field: SerializeField] public int HeroLevel { get; private set; }  
+
         private readonly HeroDataContainer _baseData;
-        private HeroData _runtimeData;
+        private readonly HeroData _runtimeData;
 
         public HeroData RuntimeData => _runtimeData;
 
@@ -16,12 +19,14 @@ namespace Scripts.GameEntity.DataInstance
             _baseData = baseData;
             _runtimeData = _baseData.HeroData;
 
+            HeroPower = CalculateHeroPower();
+            HeroLevel = _runtimeData.Level;
             Debug.Log($"Hero instance: {_runtimeData.Name} is initialized");
         }
 
         public float CalculateHeroPower()
         {
-            return _runtimeData.Stats.CalculatePower(_runtimeData.Level);
+            return _runtimeData.Stats.CalculatePower(_runtimeData.Level, _runtimeData.Rank);
         }
     }
 }

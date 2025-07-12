@@ -10,13 +10,36 @@
         public int Agility;
         public int Intelligence;
 
-        public float CalculatePower(int level)
+        private float _strenghtMultiplier;
+        private float _agilityMultiplier;
+        private float _intelligenceMultiplier;
+
+        public float CalculatePower(int level, Rank rank)
         {
-            return BasePower + 
-                (level * PowerGrowthMultiplier) + 
-                (Strenght * 0.5f) + 
-                (Agility * 0.3f) + 
-                (Intelligence * 2f);
+            SetupMultipliers(rank);
+
+            float scaledStr = (Strenght + level * _strenghtMultiplier);
+            float scaledAgi = (Agility + level * _agilityMultiplier);
+            float scaledInt = (Intelligence + level * _intelligenceMultiplier);
+
+            return BasePower + (level * PowerGrowthMultiplier) + scaledStr + scaledAgi + scaledInt;
+        }
+
+        private void SetupMultipliers(Rank rank)
+        {
+            float value = rank switch
+            {
+                Rank.Recruit => 0.20f,
+                Rank.Veteran => 0.35f,
+                Rank.Elite => 0.40f,
+                Rank.Champion => 0.45f,
+                Rank.Guardian => 0.50f,
+                _ => 0.2f
+            };
+
+            _strenghtMultiplier = value;
+            _agilityMultiplier = value;
+            _intelligenceMultiplier = value;
         }
     }
 }

@@ -10,12 +10,14 @@ namespace Contex.MissionInfo
     {
         [field: SerializeField] public PlanetInstance SelectedPlanet {  get; private set; }
         [field: SerializeField] public HeroInstance SelectedHero { get; private set; }
+        [field: SerializeField] public MissionInstance PreparedMission { get; private set; }
         [field: SerializeField] public MissionType SelectedMissionType { get; private set; }
         [field: SerializeField] public MissionData CurrentMissionData { get; private set; }
 
         public event Action<PlanetInstance> OnPlanetSelected;
         public event Action<HeroInstance> OnHeroSelected;
         public event Action<MissionType> OnMissionTypeSelected;
+        public event Action OnMissionPrepared;
 
         public event Action<float> OnMissionDifficultCalculated;
         public event Action<float> OnMissionDurationCalculated;
@@ -49,25 +51,20 @@ namespace Contex.MissionInfo
             OnMissionTypeSelected?.Invoke(SelectedMissionType);
         }
 
-        public void SetMissionDifficult(float missionDifficult)
+        public void SetPreparedMission(MissionInstance missionInstance)
         {
-            CurrentMissionData.Difficult = missionDifficult;
+            PreparedMission = missionInstance;
 
-            OnMissionDifficultCalculated?.Invoke(missionDifficult);
-        }
-
-        public void SetMissionDuration(float missionDuration)
-        {
-            CurrentMissionData.Duration = missionDuration;
-
-            OnMissionDurationCalculated?.Invoke(missionDuration);
+            OnMissionDifficultCalculated?.Invoke(missionInstance.Difficulty);
+            OnMissionDurationCalculated?.Invoke(Mathf.RoundToInt(missionInstance.Duration / 60f));
+            OnMissionPrepared?.Invoke();
         }
 
         public MissionInstance TryCreateMissionInstane()
         {
             if (SelectedPlanet != null && SelectedHero != null)
             {
-                return new MissionInstance(CurrentMissionData);
+                return new MissionInstance(CurrentMissionData, SelectedPlanet, SelectedHero);
             }
 
             return null;

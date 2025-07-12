@@ -1,6 +1,5 @@
 ﻿using GameEntity.Planet;
 using GameEntity.Unit.Data;
-using UnityEngine;
 
 namespace GameEntity.Mission
 {
@@ -8,11 +7,11 @@ namespace GameEntity.Mission
     public class MissionData
     {
         public MissionType Type;
-        public int GainedExperience;
-        public float Difficult;
-        public float Duration;
+        public int GainedExperience {  get; set; }
+        public float Difficulty {  get; set; }
+        public float Duration { get; set; }
 
-        public PlanetData TargetPlanet;
-        public HeroData ChosenHero;
+        public PlanetData TargetPlanet { get; set; }
+        public HeroData ChosenHero { get; set; }
     }
 }

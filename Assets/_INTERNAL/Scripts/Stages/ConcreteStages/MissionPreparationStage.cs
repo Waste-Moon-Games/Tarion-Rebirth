@@ -1,7 +1,7 @@
 ﻿using Contex.MissionInfo;
 using Core.Factories.Stage_Factory;
+using GameEntity.DataInstance;
 using StateMachine.Base;
-using UI.MissionContexUI;
 using UnityEngine;
 
 namespace StateMachine.Stages
@@ -10,42 +10,38 @@ namespace StateMachine.Stages
     {
         private readonly IGameStageController _controller;
         private MissionContex _missionContex;
-        private MissionPreparationUI _missionPreparationUI;
 
         public MissionPreparationStage(IGameStageController controller, StageDependencies dependencies)
         {
             _controller = controller;
             _missionContex = dependencies.MissionContex;
-            _missionPreparationUI = dependencies.UIDependencies.MissionPreparationUI;
         }
 
         public void Enter()
         {
             Debug.Log("Mission Preparation Stage: Enter");
             // TODO: подготовка к миссии, расчёт мощи героя и планеты
-            float heroPower = _missionContex.SelectedHero.CalculateHeroPower();
+            _missionContex.OnMissionPrepared += HandlePreparedMission;
 
-            _missionContex.SelectedPlanet.CalculatePlanetPower();
-            float planetPower = _missionContex.SelectedPlanet.RuntimeData.PlanetPower;
-        }
+            MissionInstance mission = _missionContex.TryCreateMissionInstane();
 
-        public void Exit()
-        {
-            Debug.Log("Mission Preparation Stage: Exir");
+            mission?.PrepareMission();
+            _missionContex.SetPreparedMission(mission);
         }
 
         public void Tick()
         {
         }
 
-        private void CalculateMissionDifficulty()
+        public void Exit()
         {
-
+            Debug.Log("Mission Preparation Stage: Exit");
+            _missionContex.OnMissionPrepared -= HandlePreparedMission;
         }
 
-        private void CalculateMissionDuration()
+        private void HandlePreparedMission()
         {
-
+            _controller.SetStage(_controller.StageFactory.CreateMissionExecutionStage(_controller));
         }
     }
 }

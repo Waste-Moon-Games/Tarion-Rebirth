@@ -48,7 +48,7 @@ namespace StateMachine.Stages
         private void HandleSelectedMissionType(MissionType missionType)
         {
             _missionContex.SetMissionType(missionType);
-            //_controller.SetStage();
+            _controller.SetStage(_controller.StageFactory.CreateMissionPreparationStage(_controller));
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Mono.UI.HeroListUI
     public class HeroItemView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _heroName;
+        [SerializeField] private TextMeshProUGUI _heroPower;
+        [SerializeField] private TextMeshProUGUI _heroLevel;
 
         private Button _selectButton;
 
@@ -25,6 +27,8 @@ namespace Mono.UI.HeroListUI
         {
             _heroInstance = heroInstance;
             _heroName.text = _heroInstance.RuntimeData.Name;
+            _heroPower.text = $"Мощь: {_heroInstance.HeroPower}";
+            _heroLevel.text = $"Уровень: {_heroInstance.HeroLevel}";
 
             _selectButton = GetComponent<Button>();
 

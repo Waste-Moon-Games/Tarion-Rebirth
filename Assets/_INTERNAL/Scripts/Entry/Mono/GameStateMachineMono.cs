@@ -29,5 +29,10 @@ namespace Mono.StateMachine
 
             _gameStageController.Start();
         }
+
+        private void Update()
+        {
+            _gameStageController?.Update();
+        }
     }
 }
