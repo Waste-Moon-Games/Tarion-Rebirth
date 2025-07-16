@@ -11,7 +11,7 @@ namespace GameEntity.Mission
         public float Difficulty {  get; set; }
         public float Duration { get; set; }
 
-        public PlanetData TargetPlanet { get; set; }
-        public HeroData ChosenHero { get; set; }
+        public PlanetRuntimeData TargetPlanet { get; set; }
+        public HeroRuntimeData ChosenHero { get; set; }
     }
 }

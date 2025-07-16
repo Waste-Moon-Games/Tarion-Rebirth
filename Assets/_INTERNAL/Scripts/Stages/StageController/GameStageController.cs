@@ -1,5 +1,6 @@
 ﻿using Core.Factories;
 using StateMachine.Base;
+using Core.Common;
 using UnityEngine;
 
 namespace Stages.StageController
@@ -25,8 +26,15 @@ namespace Stages.StageController
             }
 
             _currentStage?.Exit();
+            (_currentStage as IDisposable)?.Dispose();
             _currentStage = newStage;
             _currentStage.Enter();
+        }
+
+        public void ExitStage()
+        {
+            _currentStage?.Exit();
+            (_currentStage as IDisposable)?.Dispose();
         }
 
         public void Start()

@@ -21,14 +21,14 @@ namespace GameEntity.DataInstance
 
         public float Difficulty => _runtimeData.Difficulty;
         public float Duration => _runtimeData.Duration;
+        public float Success => _successChance;
+        public int GainedExp => _runtimeData.GainedExperience;
 
         public MissionInstance(MissionData data, PlanetInstance planetInstance, HeroInstance heroInstance)
         {
             _runtimeData = data;
             _planetInstance = planetInstance;
             _heroInstance = heroInstance;
-
-            Debug.Log($"Mission instance: {_runtimeData.Type} is initialized");
         }
 
         public void PrepareMission()
@@ -42,6 +42,19 @@ namespace GameEntity.DataInstance
             float difficult = planetPower / heroPower;
             _runtimeData.Difficulty = Mathf.RoundToInt(difficult);
             _runtimeData.Duration = Mathf.RoundToInt(_duration);
+
+            _runtimeData.GainedExperience = CalculateGainedExperience(difficult, _heroInstance.HeroLevel);
+        }
+
+        private int CalculateGainedExperience(float difficult, int heroLevel)
+        {
+            float baseExp = 50f;
+            float scaling = 1.25f;
+            float heroPenalty = Mathf.Clamp01((difficult - heroLevel) * 0.1f);
+
+            float result = baseExp * Mathf.Pow(difficult, scaling) * (1f + heroPenalty);
+
+            return Mathf.RoundToInt(result);
         }
 
         private float CalculateSuccessChance(float heroPower, float planetPower)
@@ -56,7 +69,6 @@ namespace GameEntity.DataInstance
             float baseDuration = 60f;
             float difficultyFactor = planetPower / heroPower;
 
-            Debug.Log($"Difficulty factor: {difficultyFactor}");
             return Mathf.Clamp(baseDuration * difficultyFactor, _minDuration, _maxDuration);
         }
     }

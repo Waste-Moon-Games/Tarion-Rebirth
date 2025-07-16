@@ -9,14 +9,16 @@ namespace GameEntity.DataInstance
         [field: SerializeField] public float PlanetPower {  get; private set; }
 
         private readonly PlanetDataContainer _baseData;
-        private PlanetData _runtimeData;
+        private readonly PlanetData _sourceData;
+        private PlanetRuntimeData _runtimeData;
 
-        public PlanetData RuntimeData => _runtimeData;
+        public PlanetRuntimeData RuntimeData => _runtimeData;
 
         public PlanetInstance(PlanetDataContainer container)
         {
             _baseData = container;
-            _runtimeData = _baseData.PlanetData;
+            _sourceData = _baseData.PlanetData;
+            _runtimeData = new(_sourceData);
 
             PlanetPower = CalculatePlanetPower();
             Debug.Log($"Planet instance: {_runtimeData.PlanetName} is initialized");
@@ -29,6 +31,11 @@ namespace GameEntity.DataInstance
             float rawPower = planetTechPower * planetResistance;
 
             return _runtimeData.PlanetPower = Mathf.RoundToInt(Mathf.Sqrt(rawPower));
+        }
+
+        public void SetPlanetStatus(bool status)
+        {
+            _runtimeData.IsCaptured = status;
         }
 
         private float CalculatePlanetTechPower()

@@ -18,12 +18,12 @@ MonoBehaviour:
       \u0418\u043C\u0435\u0440\u0438\u0438 \u0422\u0430\u0440\u0438\u043E\u043D.
       \u0421\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0438\u0439 \u0438\u0437 \u0436\u0438\u0432\u0443\u0449\u0438\u0445
       \u043D\u044B\u043D\u0435 \u0442\u0430\u0440\u0438\u043E\u043D\u0446\u0435\u0432."
-    Level: 1
+    Level: 100
     Experience: 0
-    Rank: 0
+    Rank: 4
     Stats:
       BasePower: 50
-      PowerGrowthMultiplier: 1
-      Strenght: 1
-      Agility: 1
-      Intelligence: 1
+      PowerGrowthMultiplier: 10
+      Strenght: 99
+      Agility: 99
+      Intelligence: 99

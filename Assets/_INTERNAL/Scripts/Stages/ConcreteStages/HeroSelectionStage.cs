@@ -4,13 +4,13 @@ using GameEntity.DataInstance.Main;
 using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
 using StateMachine.Base;
-using UnityEngine;
+using Core.Common;
 
 namespace StateMachine.Stages
 {
-    public class HeroSelectionStage : IStage
+    public class HeroSelectionStage : IStage, IDisposable
     {
-        private readonly IGameStageController _controller;
+        private IGameStageController _controller;
         private MissionContex _missionContex;
         private HeroListController _heroListController;
         private InstanceHolder _instanceHolder;
@@ -18,15 +18,13 @@ namespace StateMachine.Stages
         public HeroSelectionStage(IGameStageController controller, StageDependencies dependencies)
         {
             _controller = controller;
-            _heroListController = dependencies.UIDependencies.HeroListController;
+            _heroListController = dependencies.UIDependencies.SelectionPanel.HeroListController;
             _instanceHolder = dependencies.InstanceHolder;
             _missionContex = dependencies.MissionContex;
         }
 
         public void Enter()
         {
-            Debug.Log("Hero Selection Stage: Enter");
-
             if (!_heroListController.gameObject.activeSelf)
             {
                 _heroListController.Show();
@@ -36,20 +34,23 @@ namespace StateMachine.Stages
             _heroListController.OnHeroSelected += HandleSelectedHero;
         }
 
+        public void Tick() { }
+
         public void Exit()
         {
             _heroListController.OnHeroSelected -= HandleSelectedHero;
-            Debug.Log("Hero Selection Stage: Exit");
         }
 
-        public void Tick()
+        public void Dispose()
         {
+            _controller = null;
+            _missionContex = null;
+            _instanceHolder = null;
+            _heroListController = null;
         }
 
         private void HandleSelectedHero(HeroInstance selectedHero)
         {
-            Debug.Log($"Selected {selectedHero.RuntimeData.Name} hero");
-
             _missionContex.SetHero(selectedHero);
 
             _heroListController.Hide();

@@ -56,7 +56,7 @@ namespace Contex.MissionInfo
             PreparedMission = missionInstance;
 
             OnMissionDifficultCalculated?.Invoke(missionInstance.Difficulty);
-            OnMissionDurationCalculated?.Invoke(Mathf.RoundToInt(missionInstance.Duration / 60f));
+            OnMissionDurationCalculated?.Invoke(missionInstance.Duration);
             OnMissionPrepared?.Invoke();
         }
 
@@ -68,6 +68,12 @@ namespace Contex.MissionInfo
             }
 
             return null;
+        }
+
+        public void ApplyAcceptedResults()
+        {
+            SelectedHero.AddExperience(PreparedMission.GainedExp);
+            //SelectedPlanet.SetPlanetStatus(planetStatus);
         }
     }
 }

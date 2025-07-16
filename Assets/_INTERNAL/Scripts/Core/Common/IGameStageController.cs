@@ -8,5 +8,6 @@ namespace StateMachine.Base
         void Start();
         void Update();
         void SetStage(IStage newStage);
+        void ExitStage();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Contex.MissionInfo;
+using Core.Common;
 using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance;
 using StateMachine.Base;
@@ -6,9 +7,9 @@ using UnityEngine;
 
 namespace StateMachine.Stages
 {
-    public class MissionPreparationStage : IStage
+    public class MissionPreparationStage : IStage, IDisposable
     {
-        private readonly IGameStageController _controller;
+        private IGameStageController _controller;
         private MissionContex _missionContex;
 
         public MissionPreparationStage(IGameStageController controller, StageDependencies dependencies)
@@ -19,8 +20,6 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            Debug.Log("Mission Preparation Stage: Enter");
-            // TODO: подготовка к миссии, расчёт мощи героя и планеты
             _missionContex.OnMissionPrepared += HandlePreparedMission;
 
             MissionInstance mission = _missionContex.TryCreateMissionInstane();
@@ -29,14 +28,17 @@ namespace StateMachine.Stages
             _missionContex.SetPreparedMission(mission);
         }
 
-        public void Tick()
-        {
-        }
+        public void Tick() { }
 
         public void Exit()
         {
-            Debug.Log("Mission Preparation Stage: Exit");
             _missionContex.OnMissionPrepared -= HandlePreparedMission;
+        }
+
+        public void Dispose()
+        {
+            _controller = null;
+            _missionContex = null;
         }
 
         private void HandlePreparedMission()

@@ -10,18 +10,30 @@ namespace Scripts.GameEntity.DataInstance
         [field: SerializeField] public int HeroLevel { get; private set; }  
 
         private readonly HeroDataContainer _baseData;
-        private readonly HeroData _runtimeData;
+        private readonly HeroData _sourceData;
 
-        public HeroData RuntimeData => _runtimeData;
+        private readonly HeroRuntimeData _runtimeData;
+
+        public HeroRuntimeData RuntimeData => _runtimeData;
 
         public HeroInstance(HeroDataContainer baseData)
         {
             _baseData = baseData;
-            _runtimeData = _baseData.HeroData;
+            _sourceData = _baseData.HeroData;
+            _runtimeData = new(_sourceData);
 
             HeroPower = CalculateHeroPower();
             HeroLevel = _runtimeData.Level;
             Debug.Log($"Hero instance: {_runtimeData.Name} is initialized");
+        }
+
+        public void AddExperience(int exp)
+        {
+            if (exp < 0) return;
+
+            _runtimeData.Experience += exp;
+
+            Debug.Log($"Gained experience: {exp}");
         }
 
         public float CalculateHeroPower()

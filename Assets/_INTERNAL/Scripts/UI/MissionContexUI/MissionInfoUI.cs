@@ -5,6 +5,7 @@ using Scripts.GameEntity.DataInstance;
 using TMPro;
 using UI.MissionContexUI;
 using UnityEngine;
+using Utils.Formatter;
 
 namespace Mono.UI.MissionContexUI
 {
@@ -17,6 +18,7 @@ namespace Mono.UI.MissionContexUI
         [SerializeField] private MissionPreparationUI _missionPrepareUI;
 
         private MissionContex _missionContex;
+        private DurationFormatter _durationFormatter;
 
         private void OnDisable()
         {
@@ -26,6 +28,8 @@ namespace Mono.UI.MissionContexUI
         public void Initialize(MissionContex missionContex)
         {
             _missionContex = missionContex;
+            _durationFormatter = new();
+
             SubscribeOnContexEvents();
 
             Refresh();
@@ -81,7 +85,8 @@ namespace Mono.UI.MissionContexUI
 
         private void HandleCalculatedMissionDuration(float calculatedDuration)
         {
-            _missionPrepareUI.DurationText.text = $"Длительность (в минутах): {calculatedDuration}";
+            string duration = _durationFormatter.FormatDuraion(calculatedDuration);
+            _missionPrepareUI.DurationText.text = $"Длительность: {duration}";
         }
 
         private void Refresh()

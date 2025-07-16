@@ -1,4 +1,5 @@
 ﻿using Contex.MissionInfo;
+using Core.Common;
 using Core.Factories.Stage_Factory;
 using StateMachine.Base;
 using UI.MissionExecutionUI;
@@ -6,9 +7,9 @@ using UnityEngine;
 
 namespace StateMachine.Stages
 {
-    public class MissionExecutionStage : IStage
+    public class MissionExecutionStage : IStage, IDisposable
     {
-        private readonly IGameStageController _controller;
+        private IGameStageController _controller;
 
         private MissionContex _missionContex;
         private MissionExecutionTimer _uiController;
@@ -22,7 +23,6 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            Debug.Log("Mission Execution Stage: Enter");
             _uiController.OnTimeEnded += HandleEndedTime;
 
             if (!_uiController.gameObject.activeSelf)
@@ -36,15 +36,20 @@ namespace StateMachine.Stages
 
         public void Tick()
         {
-            // TODO: выполнение миссии
             _uiController.UpdateTimer();
         }
 
         public void Exit()
         {
-            Debug.Log("Mission Execution Stage: Exit");
             _uiController.OnTimeEnded -= HandleEndedTime;
             _uiController.Hide();
+        }
+
+        public void Dispose()
+        {
+            _controller = null;
+            _missionContex = null;
+            _uiController = null;
         }
 
         private void HandleEndedTime()

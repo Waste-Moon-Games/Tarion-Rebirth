@@ -4,13 +4,14 @@ using GameEntity.DataInstance;
 using GameEntity.DataInstance.Main;
 using Mono.UI.PlanetListUI;
 using StateMachine.Base;
+using Core.Common;
 using UnityEngine;
 
 namespace StateMachine.Stages
 {
-    public class PlanetSelectionStage : IStage
+    public class PlanetSelectionStage : IStage, IDisposable
     {
-        private readonly IGameStageController _controller;
+        private IGameStageController _controller;
         private PlanetListController _planetListController;
         private MissionContex _contex;
         private InstanceHolder _instanceHolder;
@@ -18,14 +19,13 @@ namespace StateMachine.Stages
         public PlanetSelectionStage(IGameStageController controller, StageDependencies dependencies)
         {
             _controller = controller;
-            _planetListController = dependencies.UIDependencies.PlanetListController;
+            _planetListController = dependencies.UIDependencies.SelectionPanel.PlanetListController;
             _contex = dependencies.MissionContex;
             _instanceHolder = dependencies.InstanceHolder;
         }
 
         public void Enter()
         {
-            Debug.Log("Planet Selection Stage: Enter");
             if (!_planetListController.isActiveAndEnabled)
             {
                 _planetListController.Show();
@@ -35,21 +35,25 @@ namespace StateMachine.Stages
             _planetListController.OnPlanetSelected += HandleSelectedPlanet;
         }
 
+        public void Tick() { }
+
         public void Exit()
         {
             _planetListController.OnPlanetSelected -= HandleSelectedPlanet;
             _planetListController.Hide();
-            Debug.Log("Planet Selection Stage: Exit");
         }
 
-        public void Tick()
+        public void Dispose()
         {
-            //Обычно пусто (ждём ввода игрока)
+            _contex = null;
+            _controller = null;
+            _planetListController = null;
+            _instanceHolder = null;
         }
 
         private void HandleSelectedPlanet(PlanetInstance selectedPlanet)
         {
-            Debug.Log($"Planet {selectedPlanet.RuntimeData.PlanetName} selected");
+            Debug.Log($"Selected planet: {selectedPlanet.RuntimeData.PlanetName}");
             _contex.SetPlanet(selectedPlanet);
             _controller.SetStage(_controller.StageFactory.CreateHeroSelectionStage(_controller));
         }
