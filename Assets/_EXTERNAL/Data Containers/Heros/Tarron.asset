@@ -23,7 +23,7 @@ MonoBehaviour:
     Rank: 4
     Stats:
       BasePower: 50
-      PowerGrowthMultiplier: 10
+      PowerGrowthMultiplier: 50
       Strenght: 99
       Agility: 99
       Intelligence: 99
