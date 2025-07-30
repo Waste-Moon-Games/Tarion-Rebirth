@@ -31,13 +31,13 @@ namespace StateMachine.Stages
                 _panelHolder.Show();
             }
 
-            float chance = Random.Range(0.05f, 0.95f);
-            float succes = _missionContex.PreparedMission.Success;
+            //float chance = Random.Range(0.05f, 0.95f);
+            //float succes = _missionContex.PreparedMission.Success;
 
-            if (chance <= succes)
-            {
-                _missionContex.ApplyAcceptedResults();
-            }
+            //if (chance <= succes)
+            //{
+            //    _missionContex.ApplyAcceptedResults();
+            //}
         }
 
         public void Tick() { }

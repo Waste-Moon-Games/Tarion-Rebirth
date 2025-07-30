@@ -2601,6 +2601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bootDatas: {fileID: 757484108}
   _uiDependencies: {fileID: 735604582}
+  _prepareMissionButton: {fileID: 707486689}
 --- !u!1 &1188416560
 GameObject:
   m_ObjectHideFlags: 0
@@ -3619,7 +3620,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _contentParent: {fileID: 1754902462}
   _planetItemPrefab: {fileID: 3574976536664377990, guid: daa82f9f2481f8e4bb6583c1e9989f29, type: 3}
-  _planetItems: []
 --- !u!1 &1742950189
 GameObject:
   m_ObjectHideFlags: 0

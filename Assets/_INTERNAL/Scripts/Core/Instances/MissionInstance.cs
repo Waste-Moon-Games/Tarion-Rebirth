@@ -1,4 +1,6 @@
-﻿using GameEntity.Mission;
+﻿using Core.EntityDatas.Mission;
+using Core.Instances.MissionPreparation;
+using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using UnityEngine;
 
@@ -11,17 +13,18 @@ namespace GameEntity.DataInstance
         private readonly PlanetInstance _planetInstance;
         private readonly HeroInstance _heroInstance;
 
-        private float _successChance;
-        private readonly float _maxSuccessChance = 0.95f;
-        private readonly float _mixSuccesChance = 0.05f;
+        private MissionResultCalculator _calculator;
+        private MissionResult _result;
 
-        private float _duration;
+        private readonly float _maxSuccessChance = 0.95f;
+        private readonly float _minSuccessChance = 0.05f;
+
         private readonly float _minDuration = 30f;
         private readonly float _maxDuration = 300f;
 
+        public MissionType Type => _runtimeData.Type;
         public float Difficulty => _runtimeData.Difficulty;
         public float Duration => _runtimeData.Duration;
-        public float Success => _successChance;
         public int GainedExp => _runtimeData.GainedExperience;
 
         public MissionInstance(MissionData data, PlanetInstance planetInstance, HeroInstance heroInstance)
@@ -29,47 +32,42 @@ namespace GameEntity.DataInstance
             _runtimeData = data;
             _planetInstance = planetInstance;
             _heroInstance = heroInstance;
+
+            _calculator = new(_minSuccessChance, _maxSuccessChance, _minDuration, _maxDuration);
+        }
+
+        public HeroInstance GetChosenHero()
+        {
+            return _heroInstance;
+        }
+
+        public PlanetInstance GetChonesPlanet()
+        {
+            return _planetInstance;
+        }
+
+        public float GetPlanetPower()
+        {
+            float result = _planetInstance.CalculatePlanetPower();
+
+            return result;
+        }
+
+        public float GetHeroPower()
+        {
+            float result = _heroInstance.CalculateHeroPower();
+
+            return result;
         }
 
         public void PrepareMission()
         {
-            float planetPower = _planetInstance.CalculatePlanetPower();
-            float heroPower = _heroInstance.CalculateHeroPower();
+            _result = _calculator.CalculateResult(this);
 
-            _successChance = CalculateSuccessChance(heroPower, planetPower);
-            _duration = CalculateDuration(heroPower, planetPower);
+            _runtimeData.Difficulty = Mathf.RoundToInt(_result.Difficult);
+            _runtimeData.Duration = Mathf.RoundToInt(_result.Duration);
 
-            float difficult = planetPower / heroPower;
-            _runtimeData.Difficulty = Mathf.RoundToInt(difficult);
-            _runtimeData.Duration = Mathf.RoundToInt(_duration);
-
-            _runtimeData.GainedExperience = CalculateGainedExperience(difficult, _heroInstance.HeroLevel);
-        }
-
-        private int CalculateGainedExperience(float difficult, int heroLevel)
-        {
-            float baseExp = 50f;
-            float scaling = 1.25f;
-            float heroPenalty = Mathf.Clamp01((difficult - heroLevel) * 0.1f);
-
-            float result = baseExp * Mathf.Pow(difficult, scaling) * (1f + heroPenalty);
-
-            return Mathf.RoundToInt(result);
-        }
-
-        private float CalculateSuccessChance(float heroPower, float planetPower)
-        {
-            float baseChance = heroPower / (heroPower + planetPower);
-
-            return Mathf.Clamp(baseChance, _mixSuccesChance, _maxSuccessChance);
-        }
-
-        private float CalculateDuration(float heroPower, float planetPower)
-        {
-            float baseDuration = 60f;
-            float difficultyFactor = planetPower / heroPower;
-
-            return Mathf.Clamp(baseDuration * difficultyFactor, _minDuration, _maxDuration);
+            _runtimeData.GainedExperience = _result.HeroExperience;
         }
     }
 }

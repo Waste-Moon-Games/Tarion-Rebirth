@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Entry.Mono.MissionPanel
 {
-    public class MissionPanelToggler : MonoBehaviour
+    public class MissionUIToggler : MonoBehaviour
     {
         [SerializeField] private GameObject _missionPanel;
 

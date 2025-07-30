@@ -10,6 +10,7 @@ namespace GameEntity.Unit.Data
         [TextArea]
         public string Description;
 
+        public int BaseHealth;
         public int Level;
         public int Experience;
         public Rank Rank;
@@ -24,6 +25,7 @@ namespace GameEntity.Unit.Data
         [TextArea]
         public string Description;
 
+        public int BaseHealth;
         public int Level;
         public int Experience;
         public Rank Rank;
@@ -34,6 +36,7 @@ namespace GameEntity.Unit.Data
         {
             Name = source.Name;
             Description = source.Description;
+            BaseHealth = source.BaseHealth;
             Level = source.Level;
             Experience = source.Experience;
             Rank = source.Rank;

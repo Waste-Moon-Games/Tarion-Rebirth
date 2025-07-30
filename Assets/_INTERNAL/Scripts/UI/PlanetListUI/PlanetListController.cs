@@ -11,11 +11,19 @@ namespace Mono.UI.PlanetListUI
         [SerializeField] private Transform _contentParent;
         [SerializeField] private PlanetViewItem _planetItemPrefab;
 
-        [SerializeField] private List<PlanetViewItem> _planetItems = new();
+        private List<PlanetViewItem> _planetItems = new();
 
         private InstanceHolder _instanceHolder;
 
         public event Action<PlanetInstance> OnPlanetSelected;
+
+        private void OnDestroy()
+        {
+            foreach (PlanetViewItem itemPlanet in _planetItems)
+            {
+                itemPlanet.OnPlanetSelected -= HandleSelectedPlanet;
+            }
+        }
 
         public void Initialize(InstanceHolder instanceHolder)
         {
@@ -23,26 +31,21 @@ namespace Mono.UI.PlanetListUI
             GeneratePlanetList();
         }
 
-        private void OnDisable()
-        {
-            foreach (var itemPlanet in _planetItems)
-            {
-                itemPlanet.OnPlanetSelected -= HandleSelectedPlanet;
-            }
-        }
-
         private void GeneratePlanetList()
         {
             foreach (var planet in _instanceHolder.Planets)
             {
-                var itemGO = Instantiate(_planetItemPrefab, _contentParent);
-                var item = itemGO.GetComponent<PlanetViewItem>();
+                if (_planetItems.Count != _instanceHolder.Planets.Count)
+                {
+                    var itemGO = Instantiate(_planetItemPrefab, _contentParent);
+                    var item = itemGO.GetComponent<PlanetViewItem>();
 
-                _planetItems.Add(item);
+                    _planetItems.Add(item);
 
-                item.Setup(planet);
+                    item.Setup(planet);
 
-                item.OnPlanetSelected += HandleSelectedPlanet;
+                    item.OnPlanetSelected += HandleSelectedPlanet;
+                }
             }
         }
 

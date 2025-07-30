@@ -34,8 +34,8 @@ namespace UI.Result
         {
             _contex = contex;
             _gainedExpText.text = $"Опыт: {_contex.PreparedMission.GainedExp}";
-            _selectedHeroText.text = $"{_contex.SelectedHero.RuntimeData.Name}";
-            _targetPlanetText.text = $"{_contex.SelectedPlanet.RuntimeData.PlanetName}";
+            _selectedHeroText.text = $"Герой: {_contex.SelectedHero.RuntimeData.Name}";
+            _targetPlanetText.text = $"Планета: {_contex.SelectedPlanet.RuntimeData.PlanetName}";
         }
     }
 }

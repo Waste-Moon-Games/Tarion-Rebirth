@@ -12,6 +12,8 @@ namespace Entry.Mono.MissionPanel
 
         private Button _startPrepareMissionButton;
 
+        public Button PrepareMissionButton => _startPrepareMissionButton;
+
         private void OnEnable()
         {
             if(_startPrepareMissionButton == null)
@@ -31,6 +33,7 @@ namespace Entry.Mono.MissionPanel
         {
             _stateMachineMono.Run();
             _missionInfoUI.Initialize(_stateMachineMono.StageDependencies.MissionContex);
+            _startPrepareMissionButton.interactable = false;
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Core.Factories;
 using StateMachine.Base;
-using Core.Common;
 using UnityEngine;
+using System;
+using IDisposable = Core.Common.IDisposable;
 
 namespace Stages.StageController
 {
@@ -11,6 +12,8 @@ namespace Stages.StageController
         private IStageFactory _factory;
 
         public IStageFactory StageFactory { get { return _factory; } }
+
+        public event Action OnResultAccepted;
 
         public GameStageController(IStageFactory factory)
         {
@@ -35,6 +38,8 @@ namespace Stages.StageController
         {
             _currentStage?.Exit();
             (_currentStage as IDisposable)?.Dispose();
+
+            OnResultAccepted?.Invoke();
         }
 
         public void Start()
