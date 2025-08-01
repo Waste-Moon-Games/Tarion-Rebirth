@@ -25,6 +25,13 @@
             return BasePower + (level * PowerGrowthMultiplier) + scaledStr + scaledAgi + scaledInt;
         }
 
+        public void ApplyLevelUp()
+        {
+            Strenght += 1;
+            Agility += 1;
+            Intelligence += 1;
+        }
+
         private void SetupMultipliers(Rank rank)
         {
             float value = rank switch

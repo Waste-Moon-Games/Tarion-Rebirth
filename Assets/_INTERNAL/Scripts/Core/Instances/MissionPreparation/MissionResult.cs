@@ -8,5 +8,6 @@
         public bool PlanetStatus {  get; set; }
         public float Difficult { get; set; }
         public float Duration { get; set; }
+        public float SuccessChance { get; set; }
     }
 }

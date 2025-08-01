@@ -10,7 +10,7 @@ namespace GameEntity.DataInstance
 
         private readonly PlanetDataContainer _baseData;
         private readonly PlanetData _sourceData;
-        private PlanetRuntimeData _runtimeData;
+        private readonly PlanetRuntimeData _runtimeData;
 
         public PlanetRuntimeData RuntimeData => _runtimeData;
 

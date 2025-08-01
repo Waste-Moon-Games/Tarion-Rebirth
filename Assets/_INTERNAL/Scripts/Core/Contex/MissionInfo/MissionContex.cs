@@ -21,6 +21,7 @@ namespace Contex.MissionInfo
 
         public event Action<float> OnMissionDifficultCalculated;
         public event Action<float> OnMissionDurationCalculated;
+        public event Action<float> OnMissionSuccessChanceCalculated;
 
         public MissionContex()
         {
@@ -57,6 +58,8 @@ namespace Contex.MissionInfo
 
             OnMissionDifficultCalculated?.Invoke(missionInstance.Difficulty);
             OnMissionDurationCalculated?.Invoke(missionInstance.Duration);
+            OnMissionSuccessChanceCalculated?.Invoke(missionInstance.SuccessChance);
+
             OnMissionPrepared?.Invoke();
         }
 
@@ -73,7 +76,7 @@ namespace Contex.MissionInfo
         public void ApplyAcceptedResults()
         {
             SelectedHero.AddExperience(PreparedMission.GainedExp);
-            //SelectedPlanet.SetPlanetStatus(planetStatus);
+            SelectedPlanet.SetPlanetStatus(PreparedMission.MissionSuccessful);
         }
     }
 }

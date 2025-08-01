@@ -30,7 +30,7 @@ namespace Core.Instances.MissionPreparation
             float difficult = planetPower / heroPower;
 
             //Бросок кубика на успех
-            result.IsMissionSuccessful = RollSuccess(heroPower, planetPower);
+            result.IsMissionSuccessful = RollSuccess(heroPower, planetPower, result);
 
             //Опыт герою
             result.HeroExperience = CalculateExperience(difficult, instance.GetChosenHero().HeroLevel);
@@ -61,10 +61,11 @@ namespace Core.Instances.MissionPreparation
             return Mathf.Clamp(baseDuration * difficultyFactor, _minDuration, _maxDuration);
         }
 
-        private bool RollSuccess(float heroPower, float planetPower)
+        private bool RollSuccess(float heroPower, float planetPower, MissionResult result)
         {
             float baseChance = heroPower / (heroPower + planetPower);
             float successChance = Mathf.Clamp(baseChance, _minSuccessChance, _maxSuccessChance);
+            result.SuccessChance = successChance;
 
             float roll = Random.value;
 

@@ -15,6 +15,7 @@ namespace UI.Result
         [SerializeField] private TextMeshProUGUI _gainedExpText;
         [SerializeField] private TextMeshProUGUI _selectedHeroText;
         [SerializeField] private TextMeshProUGUI _targetPlanetText;
+        [SerializeField] private TextMeshProUGUI _resultText;
 
         private MissionContex _contex;
 
@@ -36,6 +37,17 @@ namespace UI.Result
             _gainedExpText.text = $"Опыт: {_contex.PreparedMission.GainedExp}";
             _selectedHeroText.text = $"Герой: {_contex.SelectedHero.RuntimeData.Name}";
             _targetPlanetText.text = $"Планета: {_contex.SelectedPlanet.RuntimeData.PlanetName}";
+            _resultText.text = CheckResultStatus(contex);
+        }
+
+        private string CheckResultStatus(MissionContex contex)
+        {
+            if (contex.PreparedMission.MissionSuccessful)
+            {
+                return "Миссия выполнена";
+            }
+
+            return "Миссия провалена";
         }
     }
 }
