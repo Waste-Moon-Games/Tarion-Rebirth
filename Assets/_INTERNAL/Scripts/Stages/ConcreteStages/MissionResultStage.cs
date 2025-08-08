@@ -3,7 +3,6 @@ using Core.Common;
 using Core.Factories.Stage_Factory;
 using StateMachine.Base;
 using UI.Result;
-using UnityEngine;
 
 namespace StateMachine.Stages
 {
@@ -22,26 +21,19 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            Debug.Log("Result Stage: Enter");
             _panelHolder.OnResultAccepted += HandleAcceptedResult;
             _panelHolder.ResultUI.Initialize(_missionContex);
 
             if (!_panelHolder.gameObject.activeSelf)
-            {
                 _panelHolder.Show();
-            }
 
-            if (_missionContex.PreparedMission.MissionSuccessful)
-            {
-                _missionContex.ApplyAcceptedResults();
-            }
+            _missionContex.ApplyMissionResults();
         }
 
         public void Tick() { }
 
         public void Exit()
         {
-            Debug.Log("Result Stage: Exit");
             _panelHolder.Hide();
             _panelHolder.OnResultAccepted -= HandleAcceptedResult;
         }

@@ -18,11 +18,11 @@ MonoBehaviour:
       \u043A\u043E\u043B\u043E\u043D\u0438\u044F \u0417\u0435\u043C\u043B\u044F\u043D."
     Population: 1500
     PlanetPower: 0
-    BaseTechPower: 25
+    BaseTechPower: 250
     TechPower: 0
     TechMultiplier: 1.5
-    BaseResistance: 35
+    BaseResistance: 450
     Resistance: 0
-    ResistanceMultiplier: 2
+    ResistanceMultiplier: 0.85
     Type: 4
     IsCaptured: 0

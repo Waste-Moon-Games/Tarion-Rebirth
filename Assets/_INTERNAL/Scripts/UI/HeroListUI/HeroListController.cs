@@ -11,7 +11,7 @@ namespace Mono.UI.HeroListUI
         [SerializeField] private Transform _contentParent;
         [SerializeField] private HeroItemView _heroItemPrefab;
 
-        [SerializeField] private List<HeroItemView> _heroItems = new();
+        private readonly List<HeroItemView> _heroItems = new();
 
         private InstanceHolder _instanceHolder;
 
@@ -20,35 +20,52 @@ namespace Mono.UI.HeroListUI
         public void Initialize(InstanceHolder instanceHolder)
         {
             _instanceHolder = instanceHolder;
-            GenerateHeroList();
+
+            CreateHeroList();
+            RefreshHeroList();
+        }
+
+        private void OnEnable()
+        {
+            RefreshHeroList();
         }
 
         private void OnDisable()
         {
-            foreach (var heroItem in _heroItems)
+            if (_heroItems.Count == _instanceHolder.Heros.Count)
             {
-                heroItem.OnHeroSelected -= HandleSelectedHero;
+                foreach (HeroItemView heroItem in _heroItems)
+                {
+                    heroItem.OnHeroSelected -= HandleSelectedHero;
+                }
             }
         }
 
-        private void GenerateHeroList()
+        private void CreateHeroList()
         {
+            if (_heroItems.Count == _instanceHolder.Heros.Count)
+                return;
+
             foreach (Transform child in _contentParent)
-            {
                 Destroy(child.gameObject);
-            }
+
             _heroItems.Clear();
 
-            foreach (var hero in _instanceHolder.Heros)
+            for (int i = 0; i < _instanceHolder.Heros.Count; i++)
             {
                 var itemGO = Instantiate(_heroItemPrefab, _contentParent);
                 var item = itemGO.GetComponent<HeroItemView>();
 
                 _heroItems.Add(item);
+            }
+        }
 
-                item.Setup(hero);
-
-                item.OnHeroSelected += HandleSelectedHero;
+        private void RefreshHeroList()
+        {
+            for (int i = 0; i < _instanceHolder.Heros.Count; i++)
+            {
+                _heroItems[i].Setup(_instanceHolder.Heros[i]);
+                _heroItems[i].OnHeroSelected += HandleSelectedHero;
             }
         }
 

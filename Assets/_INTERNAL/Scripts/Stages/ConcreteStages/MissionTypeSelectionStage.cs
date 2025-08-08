@@ -26,12 +26,11 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            if (!_missionTypeListController.gameObject.activeSelf)
-            {
-                _missionTypeListController.Show();
-            }
             _missionTypeListController.Initialize(_instanceHolder);
             _missionTypeListController.OnMissionTypeSelected += HandleSelectedMissionType;
+
+            if (!_missionTypeListController.gameObject.activeSelf)
+                _missionTypeListController.Show();
         }
 
         public void Tick() { }

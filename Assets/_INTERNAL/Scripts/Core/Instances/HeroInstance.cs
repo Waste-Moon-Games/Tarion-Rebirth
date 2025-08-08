@@ -1,6 +1,7 @@
-﻿using Core.ExpSystem;
+﻿using Core.GrowthSystem;
 using GameEntity.ScriptableObjects;
 using GameEntity.Unit.Data;
+using System;
 using UnityEngine;
 
 namespace Scripts.GameEntity.DataInstance
@@ -9,39 +10,37 @@ namespace Scripts.GameEntity.DataInstance
     {
         [field: SerializeField] public float HeroPower { get; private set; }
 
-        private readonly HeroDataContainer _baseData;
         private readonly HeroData _sourceData;
 
         private readonly HeroRuntimeData _runtimeData;
-        private readonly ExperienceSystem _experienceSystem;
+        private readonly HeroGrowthSystem _growthSystem;
 
         public HeroRuntimeData RuntimeData => _runtimeData;
-        public int HeroLevel => _experienceSystem.Level;
+        public HeroGrowthSystem GrowthSystem => _growthSystem;
+        public int HeroLevel => _runtimeData.Level;
+
+        public event Action<int> OnLevelUp;
+        public event Action<float> OnPowerChanged;
 
         public HeroInstance(HeroDataContainer baseData)
         {
-            _baseData = baseData;
-            _sourceData = _baseData.HeroData;
+            _sourceData = baseData.HeroData;
             _runtimeData = new(_sourceData);
-            _experienceSystem = new();
+            _growthSystem = new(_runtimeData.Stats);
 
             HeroPower = CalculateHeroPower();
-            _experienceSystem.SetLevelFromDataObject(_runtimeData.Level);
+            _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
 
-            _experienceSystem.OnLevelUp += HandleLevelUp;
-
-            Debug.Log($"Hero instance: {_runtimeData.Name} is initialized");
+            _growthSystem.OnSkillPointsChanged += HandleLevelUp;
+            _growthSystem.OnStatChanged += HandleChangedStats;
         }
 
         public void AddExperience(int exp)
         {
-            _experienceSystem.AddExperience(exp);
+            _growthSystem.AddExperience(exp);
 
-            // Синхронизируем рантайм-данные для UI и сериализации
-            _runtimeData.Experience = _experienceSystem.CurrentExperience;
-            _runtimeData.Level = _experienceSystem.Level;
-
-            Debug.Log($"Gained experience: {exp}");
+            _runtimeData.Experience = _growthSystem.CurrentExperience;
+            _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
         }
 
         public float CalculateHeroPower()
@@ -49,17 +48,25 @@ namespace Scripts.GameEntity.DataInstance
             return _runtimeData.Stats.CalculatePower(_runtimeData.Level, _runtimeData.Rank);
         }
 
-        public float GetExperienceProgress() => (float)_experienceSystem.CurrentExperience / _experienceSystem.GetRequiredExperienceForNextLevel();
+        public float GetExperienceProgress() => (float)_growthSystem.CurrentExperience / _growthSystem.GetRequiredExperienceForNextLevel();
 
-        public int GetExperienceToNextLevel() => _experienceSystem.GetRequiredExperienceForNextLevel();
+        public int GetExperienceToNextLevel() => _growthSystem.GetRequiredExperienceForNextLevel();
 
-        private void HandleLevelUp(int level)
+        public int GetCurrentSkillPoints() => _growthSystem.CurrentSkillPoints;
+
+        private void HandleLevelUp(int skillPoints)
         {
-            _runtimeData.Stats.ApplyLevelUp();
+            _runtimeData.Level = _growthSystem.Level;
 
             HeroPower = CalculateHeroPower();
 
-            Debug.Log($"Level up! Новый уровень: {level}. Базовые характеристики увеличены.");
+            OnLevelUp?.Invoke(skillPoints);
+        }
+
+        private void HandleChangedStats(HeroStatsRuntime stats)
+        {
+            HeroPower = CalculateHeroPower();
+            OnPowerChanged?.Invoke(HeroPower);
         }
     }
 }

@@ -25,13 +25,11 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            if (!_heroListController.gameObject.activeSelf)
-            {
-                _heroListController.Show();
-            }
-
             _heroListController.Initialize(_instanceHolder);
             _heroListController.OnHeroSelected += HandleSelectedHero;
+
+            if (!_heroListController.gameObject.activeSelf)
+                _heroListController.Show();
         }
 
         public void Tick() { }

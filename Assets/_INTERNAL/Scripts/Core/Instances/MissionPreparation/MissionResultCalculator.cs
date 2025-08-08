@@ -41,7 +41,7 @@ namespace Core.Instances.MissionPreparation
             //Длительность миссии
             result.Duration = CalculateDuration(heroPower, planetPower);
 
-            //Повреждения героя
+            //Ранение героя
             //result.HeroInjuries = CalculateInjuries(instance);
 
             //Захват планеты

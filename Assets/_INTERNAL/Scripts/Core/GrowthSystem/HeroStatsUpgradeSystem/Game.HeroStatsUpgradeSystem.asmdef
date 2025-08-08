@@ -1,0 +1,19 @@
+{
+    "name": "Game.HeroStatsUpgradeSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:62f72973877f8bd4ba600d11aea7c8a9",
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

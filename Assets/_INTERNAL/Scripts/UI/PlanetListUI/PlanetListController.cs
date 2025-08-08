@@ -11,41 +11,61 @@ namespace Mono.UI.PlanetListUI
         [SerializeField] private Transform _contentParent;
         [SerializeField] private PlanetViewItem _planetItemPrefab;
 
-        private List<PlanetViewItem> _planetItems = new();
+        private readonly List<PlanetViewItem> _planetItems = new();
 
         private InstanceHolder _instanceHolder;
 
         public event Action<PlanetInstance> OnPlanetSelected;
 
-        private void OnDestroy()
-        {
-            foreach (PlanetViewItem itemPlanet in _planetItems)
-            {
-                itemPlanet.OnPlanetSelected -= HandleSelectedPlanet;
-            }
-        }
-
         public void Initialize(InstanceHolder instanceHolder)
         {
             _instanceHolder = instanceHolder;
-            GeneratePlanetList();
+
+            CreatePlanetList();
+            RefreshPlanetList();
         }
 
-        private void GeneratePlanetList()
+        private void OnEnable()
         {
-            foreach (var planet in _instanceHolder.Planets)
+            RefreshPlanetList();
+        }
+
+        private void OnDisable()
+        {
+            if (_planetItems.Count == _instanceHolder.Planets.Count)
             {
-                if (_planetItems.Count != _instanceHolder.Planets.Count)
+                foreach (PlanetViewItem planet in _planetItems)
                 {
-                    var itemGO = Instantiate(_planetItemPrefab, _contentParent);
-                    var item = itemGO.GetComponent<PlanetViewItem>();
-
-                    _planetItems.Add(item);
-
-                    item.Setup(planet);
-
-                    item.OnPlanetSelected += HandleSelectedPlanet;
+                    planet.OnPlanetSelected -= HandleSelectedPlanet;
                 }
+            }
+        }
+
+        private void CreatePlanetList()
+        {
+            if (_planetItems.Count == _instanceHolder.Planets.Count)
+                return;
+
+            foreach (Transform child in _contentParent)
+                Destroy(child.gameObject);
+
+            _planetItems.Clear();
+
+            for (int i = 0; i < _instanceHolder.Planets.Count; i++)
+            {
+                var itemGO = Instantiate(_planetItemPrefab, _contentParent);
+                var item = itemGO.GetComponent<PlanetViewItem>();
+
+                _planetItems.Add(item);
+            }
+        }
+
+        private void RefreshPlanetList()
+        {
+            for (int i = 0; i < _planetItems.Count; i++)
+            {
+                _planetItems[i].Setup(_instanceHolder.Planets[i]);
+                _planetItems[i].OnPlanetSelected += HandleSelectedPlanet;
             }
         }
 

@@ -26,13 +26,11 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            if (!_planetListController.isActiveAndEnabled)
-            {
-                _planetListController.Show();
-            }
-
             _planetListController.Initialize(_instanceHolder);
             _planetListController.OnPlanetSelected += HandleSelectedPlanet;
+
+            if (!_planetListController.isActiveAndEnabled)
+                _planetListController.Show();
         }
 
         public void Tick() { }
@@ -53,7 +51,6 @@ namespace StateMachine.Stages
 
         private void HandleSelectedPlanet(PlanetInstance selectedPlanet)
         {
-            Debug.Log($"Selected planet: {selectedPlanet.RuntimeData.PlanetName}");
             _contex.SetPlanet(selectedPlanet);
             _controller.SetStage(_controller.StageFactory.CreateHeroSelectionStage(_controller));
         }

@@ -30,7 +30,7 @@ namespace GameEntity.Unit.Data
         public int Experience;
         public Rank Rank;
 
-        public HeroStats Stats;
+        public HeroStatsRuntime Stats;
 
         public HeroRuntimeData(HeroData source)
         {
@@ -40,7 +40,7 @@ namespace GameEntity.Unit.Data
             Level = source.Level;
             Experience = source.Experience;
             Rank = source.Rank;
-            Stats = source.Stats;
+            Stats = new(source.Stats);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using UI.Base;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI.Result
@@ -18,17 +19,20 @@ namespace UI.Result
         [SerializeField] private TextMeshProUGUI _resultText;
 
         private MissionContex _contex;
+        private UnityAction _clickHandler;
 
         public event Action OnResultAccepted;
 
         private void OnEnable()
         {
-            _acceptButton.onClick.AddListener(()=> OnResultAccepted?.Invoke());
+            _clickHandler = () => OnResultAccepted?.Invoke();
+
+            _acceptButton.onClick.AddListener(_clickHandler);
         }
 
         private void OnDisable()
         {
-            _acceptButton.onClick.RemoveListener(()=> OnResultAccepted?.Invoke());
+            _acceptButton.onClick.RemoveListener(_clickHandler);
         }
 
         public void Initialize(MissionContex contex)
@@ -44,10 +48,10 @@ namespace UI.Result
         {
             if (contex.PreparedMission.MissionSuccessful)
             {
-                return "Миссия выполнена";
+                return "Успех";
             }
 
-            return "Миссия провалена";
+            return "Провал";
         }
     }
 }

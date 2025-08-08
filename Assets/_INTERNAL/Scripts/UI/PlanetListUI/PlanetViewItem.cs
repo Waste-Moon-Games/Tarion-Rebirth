@@ -2,7 +2,9 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using Utils.Formatter;
 
 namespace Mono.UI.PlanetListUI
 {
@@ -15,23 +17,41 @@ namespace Mono.UI.PlanetListUI
         private Button _selectButton;
 
         private PlanetInstance _planetInstance;
+        private NumberFormatter _formatter;
+
+        private UnityAction _clickHandler;
 
         public event Action<PlanetInstance> OnPlanetSelected;
 
         private void OnDisable()
         {
-            _selectButton.onClick.RemoveListener(() => OnPlanetSelected?.Invoke(_planetInstance));
+            if (_clickHandler != null)
+                _selectButton.onClick.RemoveListener(_clickHandler);
         }
 
         public void Setup(PlanetInstance planetInstance)
         {
-            _planetInstance = planetInstance;
-            _planetNameText.text = _planetInstance.RuntimeData.PlanetName;
-            _planetPopulation.text = $"Популяция:{_planetInstance.RuntimeData.Population}";
-            _planetPower.text = $"Мощь: {_planetInstance.PlanetPower}";
+            _formatter ??= new();
 
+            _planetInstance = planetInstance;
+
+            _planetNameText.text = _planetInstance.RuntimeData.PlanetName;
+            _planetPopulation.text = $"Популяция:{_formatter.FormatNumber(_planetInstance.RuntimeData.Population)}";
+            _planetPower.text = $"Мощь: {_formatter.FormatNumber(_planetInstance.PlanetPower)}";
+
+            InitializeButton();
+        }
+
+        private void InitializeButton()
+        {
             _selectButton = GetComponent<Button>();
-            _selectButton.onClick.AddListener(() => OnPlanetSelected?.Invoke(_planetInstance));
+
+            if (_clickHandler != null)
+                _selectButton.onClick.RemoveListener(_clickHandler);
+
+            _clickHandler = () => OnPlanetSelected?.Invoke(_planetInstance);
+
+            _selectButton.onClick.AddListener(_clickHandler);
         }
     }
 }

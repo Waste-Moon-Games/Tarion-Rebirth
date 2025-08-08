@@ -1,8 +1,8 @@
-﻿using GameEntity.DataInstance;
-using GameEntity.Mission;
+﻿using GameEntity.Mission;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Mono.UI.MissionContexUI
@@ -14,12 +14,13 @@ namespace Mono.UI.MissionContexUI
         private MissionType _missionType;
 
         private Button _selectButton;
+        private UnityAction _clickHandler;
 
         public event Action<MissionType> OnMissionTypeSelected;
 
         private void OnDisable()
         {
-            _selectButton.onClick?.RemoveListener(() => OnMissionTypeSelected?.Invoke(_missionType));
+            _selectButton.onClick?.RemoveListener(_clickHandler);
         }
 
         public void Setup(MissionType missionType)
@@ -29,7 +30,9 @@ namespace Mono.UI.MissionContexUI
             _missionTypeText.text = $"{_missionType}";
 
             _selectButton = GetComponent<Button>();
-            _selectButton.onClick.AddListener(() => OnMissionTypeSelected?.Invoke(_missionType));
+
+            _clickHandler = () => OnMissionTypeSelected?.Invoke(missionType);
+            _selectButton.onClick.AddListener(_clickHandler);
         }
     }
 }

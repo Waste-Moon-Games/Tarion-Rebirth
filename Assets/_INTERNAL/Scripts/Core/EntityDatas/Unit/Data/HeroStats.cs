@@ -7,29 +7,42 @@
         public float PowerGrowthMultiplier;
 
         public int Strenght;
-        public int Agility;
+        public int Dexterity;
+        public int Intelligence;
+    }
+
+    public class HeroStatsRuntime
+    {
+        public float BasePower;
+        public float PowerGrowthMultiplier;
+
+        public int Strenght;
+        public int Dexterity;
         public int Intelligence;
 
         private float _strenghtMultiplier;
         private float _agilityMultiplier;
         private float _intelligenceMultiplier;
 
+        public HeroStatsRuntime(HeroStats source)
+        {
+            BasePower = source.BasePower;
+            PowerGrowthMultiplier = source.PowerGrowthMultiplier;
+
+            Strenght = source.Strenght;
+            Dexterity = source.Dexterity;
+            Intelligence = source.Intelligence;
+        }
+
         public float CalculatePower(int level, Rank rank)
         {
             SetupMultipliers(rank);
 
             float scaledStr = (Strenght + level * _strenghtMultiplier);
-            float scaledAgi = (Agility + level * _agilityMultiplier);
+            float scaledAgi = (Dexterity + level * _agilityMultiplier);
             float scaledInt = (Intelligence + level * _intelligenceMultiplier);
 
-            return BasePower + (level * PowerGrowthMultiplier) + scaledStr + scaledAgi + scaledInt;
-        }
-
-        public void ApplyLevelUp()
-        {
-            Strenght += 1;
-            Agility += 1;
-            Intelligence += 1;
+            return BasePower + (level * PowerGrowthMultiplier * (scaledStr + scaledAgi + scaledInt));
         }
 
         private void SetupMultipliers(Rank rank)
@@ -37,10 +50,10 @@
             float value = rank switch
             {
                 Rank.Recruit => 0.20f,
-                Rank.Veteran => 0.35f,
-                Rank.Elite => 0.40f,
-                Rank.Champion => 0.45f,
-                Rank.Guardian => 0.50f,
+                Rank.Veteran => 0.50f,
+                Rank.Elite => 1f,
+                Rank.Champion => 1.2f,
+                Rank.Guardian => 1.5f,
                 _ => 0.2f
             };
 

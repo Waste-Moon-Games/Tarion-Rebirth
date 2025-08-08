@@ -1,15 +1,16 @@
 ﻿using Contex.MissionInfo;
 using Core.Factories.Stage_Factory;
+using Entry;
 using Entry.Mono.MissionPanel;
-using Mono.InstanceInitialize;
 using Stages.StageController;
+using System;
 using UnityEngine;
 
 namespace Mono.StateMachine
 {
     public class GameStateMachineMono : MonoBehaviour
     {
-        [SerializeField] private BootDatas _bootDatas;
+        [SerializeField] private DataHolder _dataHolder;
         [SerializeField] private StateMachineUIDependencies _uiDependencies;
         [SerializeField] private StartPrepareMission _prepareMissionButton;
 
@@ -18,11 +19,14 @@ namespace Mono.StateMachine
         private StageFactory _stageFactory;
 
         public StageDependencies StageDependencies => _stageDependencies;
+        public GameStageController GameStageController => _gameStageController;
+
+        public event Action<GameStageController> OnGameStageControllerInitialized;
 
         public void Run()
         {
             _stageDependencies = new StageDependencies(
-                    _bootDatas.InstanceHolder,
+                    _dataHolder.BootDatas.InstanceHolder,
                     new MissionContex(),
                     _uiDependencies);
 
@@ -33,6 +37,8 @@ namespace Mono.StateMachine
             _gameStageController.OnResultAccepted += HandleAcceptedResult;
 
             _gameStageController.Start();
+
+            OnGameStageControllerInitialized?.Invoke(_gameStageController);
         }
 
         private void Update()

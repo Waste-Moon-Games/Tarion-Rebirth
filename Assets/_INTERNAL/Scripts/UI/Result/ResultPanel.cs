@@ -8,16 +8,19 @@ namespace UI.Result
     {
         [field: SerializeField] public ResultUI ResultUI { get; private set; }
 
+        private Action _onResultAccepted;
+
         public event Action OnResultAccepted;
 
         private void OnEnable()
         {
-            ResultUI.OnResultAccepted += ()=> OnResultAccepted?.Invoke();
+            _onResultAccepted = () => OnResultAccepted?.Invoke();
+            ResultUI.OnResultAccepted += _onResultAccepted;
         }
 
         private void OnDisable()
         {
-            ResultUI.OnResultAccepted -= ()=> OnResultAccepted?.Invoke();
+            ResultUI.OnResultAccepted -= _onResultAccepted;
         }
     }
 }

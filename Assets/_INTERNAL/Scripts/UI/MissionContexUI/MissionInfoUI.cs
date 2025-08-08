@@ -38,22 +38,29 @@ namespace Mono.UI.MissionContexUI
 
         private void SubscribeOnContexEvents()
         {
-            _missionContex.OnPlanetSelected += HandleSelectedPlanet;
-            _missionContex.OnHeroSelected += HandleSelectedHero;
-            _missionContex.OnMissionTypeSelected += HandleSelectedMissionType;
-            _missionContex.OnMissionDifficultCalculated += HandleCalculatedMissionDifficulty;
-            _missionContex.OnMissionDurationCalculated += HandleCalculatedMissionDuration;
-            _missionContex.OnMissionSuccessChanceCalculated += HandlePreparedMission;
+            if (_missionContex != null)
+            {
+                _missionContex.OnPlanetSelected += HandleSelectedPlanet;
+                _missionContex.OnHeroSelected += HandleSelectedHero;
+                _missionContex.OnMissionTypeSelected += HandleSelectedMissionType;
+                _missionContex.OnMissionDifficultCalculated += HandleCalculatedMissionDifficulty;
+                _missionContex.OnMissionDurationCalculated += HandleCalculatedMissionDuration;
+                _missionContex.OnMissionSuccessChanceCalculated += HandlePreparedMission;
+            }
         }
 
         private void UnsubscribeFromContexEvents()
         {
-            _missionContex.OnHeroSelected -= HandleSelectedHero;
-            _missionContex.OnPlanetSelected -= HandleSelectedPlanet;
-            _missionContex.OnMissionTypeSelected -= HandleSelectedMissionType;
-            _missionContex.OnMissionDifficultCalculated -= HandleCalculatedMissionDifficulty;
-            _missionContex.OnMissionDurationCalculated -= HandleCalculatedMissionDuration;
-            _missionContex.OnMissionSuccessChanceCalculated -= HandlePreparedMission;
+            if (_missionContex != null)
+            {
+                _missionContex.OnHeroSelected -= HandleSelectedHero;
+                _missionContex.OnPlanetSelected -= HandleSelectedPlanet;
+                _missionContex.OnMissionTypeSelected -= HandleSelectedMissionType;
+                _missionContex.OnMissionDifficultCalculated -= HandleCalculatedMissionDifficulty;
+                _missionContex.OnMissionDurationCalculated -= HandleCalculatedMissionDuration;
+                _missionContex.OnMissionSuccessChanceCalculated -= HandlePreparedMission;
+            }
+            
         }
 
         private void HandleSelectedHero(HeroInstance selectedHero)

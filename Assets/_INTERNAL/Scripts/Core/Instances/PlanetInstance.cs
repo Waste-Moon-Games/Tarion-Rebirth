@@ -6,13 +6,25 @@ namespace GameEntity.DataInstance
 {
     public class PlanetInstance
     {
-        [field: SerializeField] public float PlanetPower {  get; private set; }
-
         private readonly PlanetDataContainer _baseData;
         private readonly PlanetData _sourceData;
         private readonly PlanetRuntimeData _runtimeData;
 
         public PlanetRuntimeData RuntimeData => _runtimeData;
+        public float PlanetPower
+        {
+            get
+            {
+                return _runtimeData.PlanetPower;
+            }
+            private set
+            {
+                if (value < 0)
+                    throw new System.ArgumentOutOfRangeException(nameof(_runtimeData.PlanetPower));
+
+                _runtimeData.PlanetPower = value;
+            }
+        }
 
         public PlanetInstance(PlanetDataContainer container)
         {
@@ -21,7 +33,6 @@ namespace GameEntity.DataInstance
             _runtimeData = new(_sourceData);
 
             PlanetPower = CalculatePlanetPower();
-            Debug.Log($"Planet instance: {_runtimeData.PlanetName} is initialized");
         }
 
         public float CalculatePlanetPower()
@@ -30,24 +41,26 @@ namespace GameEntity.DataInstance
             float planetTechPower = CalculatePlanetTechPower();
             float rawPower = planetTechPower * planetResistance;
 
-            return _runtimeData.PlanetPower = Mathf.RoundToInt(Mathf.Sqrt(rawPower));
+            return PlanetPower = Mathf.RoundToInt(Mathf.Sqrt(rawPower));
         }
 
         public void SetPlanetStatus(bool status)
         {
             _runtimeData.IsCaptured = status;
+            if (!status)
+                _runtimeData.ResistanceMultiplier *= 1.2f;
         }
 
         private float CalculatePlanetTechPower()
         {
-            float techPower = _runtimeData.BaseTechPower + (_runtimeData.Population * _runtimeData.TechMultiplier);
+            float techPower = _runtimeData.BaseTechPower * (_runtimeData.Population * _runtimeData.TechMultiplier);
 
             return _runtimeData.TechPower = Mathf.Sqrt(techPower);
         }
 
         private float CalculatePlanetResistance()
         {
-            float resistance = _runtimeData.BaseResistance + (_runtimeData.Population * _runtimeData.ResistanceMultiplier);
+            float resistance = _runtimeData.BaseResistance * (_runtimeData.Population * _runtimeData.ResistanceMultiplier);
 
             return _runtimeData.Resistance = Mathf.Sqrt(resistance);
         }

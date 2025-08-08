@@ -1,0 +1,23 @@
+{
+    "name": "Dev.Debugger",
+    "rootNamespace": "",
+    "references": [
+        "GUID:85483b29e00cc4841bf1dc8fe556417a",
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:62f72973877f8bd4ba600d11aea7c8a9",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3",
+        "GUID:6374a29456f859348a2fc4834e829bc8",
+        "GUID:b82ec909a2546084f8f1ac7081e0631f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,4 +1,5 @@
-﻿using GameEntity.DataInstance;
+﻿using Core.Contex.Debug;
+using GameEntity.DataInstance;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using System;
@@ -34,6 +35,8 @@ namespace Contex.MissionInfo
             CurrentMissionData.TargetPlanet = SelectedPlanet.RuntimeData;
 
             OnPlanetSelected?.Invoke(SelectedPlanet);
+
+            DebugContex.SetPlanet(SelectedPlanet);
         }
 
         public void SetHero(HeroInstance selectedHero)
@@ -42,6 +45,8 @@ namespace Contex.MissionInfo
             CurrentMissionData.ChosenHero = SelectedHero.RuntimeData;
 
             OnHeroSelected?.Invoke(SelectedHero);
+
+            DebugContex.SetHero(selectedHero);
         }
 
         public void SetMissionType(MissionType selectedMissionType)
@@ -73,10 +78,12 @@ namespace Contex.MissionInfo
             return null;
         }
 
-        public void ApplyAcceptedResults()
+        public void ApplyMissionResults()
         {
             SelectedHero.AddExperience(PreparedMission.GainedExp);
             SelectedPlanet.SetPlanetStatus(PreparedMission.MissionSuccessful);
+
+            SelectedPlanet.CalculatePlanetPower();
         }
     }
 }

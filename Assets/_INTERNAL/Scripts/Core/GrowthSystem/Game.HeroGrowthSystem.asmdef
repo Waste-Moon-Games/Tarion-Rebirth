@@ -1,0 +1,16 @@
+{
+    "name": "Game.HeroGrowthSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

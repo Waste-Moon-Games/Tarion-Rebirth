@@ -23,14 +23,12 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
+            _uiController.Initialize(_missionContex);
             _uiController.OnTimeEnded += HandleEndedTime;
 
             if (!_uiController.gameObject.activeSelf)
-            {
                 _uiController.Show();
-            }
 
-            _uiController.Initialize(_missionContex);
             _uiController.StartTimer();
         }
 
