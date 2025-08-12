@@ -9,6 +9,6 @@ namespace Core.Common
         event Action OnDexterityClicked;
         event Action OnIntelligenceClicked;
         void SetSkillPoints(int value);
-        void SetStats(HeroStatsRuntime stats);
+        void SetStats(HeroRuntimeStats stats);
     }
 }

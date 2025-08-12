@@ -7,23 +7,24 @@ namespace Core.GrowthSystem
 {
     public class HeroGrowthSystem
     {
-        [field: SerializeField] public int Level { get; private set; } = 1;
+        [field: SerializeField] public int MaxLevel { get; private set; } = 50;
+        [field: SerializeField] public int CurrentLevel { get; private set; } = 1;
         [field: SerializeField] public int CurrentExperience { get; private set; } = 0;
         [field: SerializeField] public int CurrentSkillPoints { get; private set; } = 0;
 
-        private readonly HeroStatsRuntime _heroStats;
+        private readonly HeroRuntimeStats _heroStats;
 
         public event Action<int> OnSkillPointsChanged;
-        public event Action<HeroStatsRuntime> OnStatChanged;
+        public event Action<HeroRuntimeStats> OnStatChanged;
 
-        public HeroGrowthSystem(HeroStatsRuntime heroStats)
+        public HeroGrowthSystem(HeroRuntimeStats heroStats)
         {
             _heroStats = heroStats;
         }
 
         public void SetLevelFromDataObject(int level)
         {
-            Level = level;
+            CurrentLevel = level;
         }
 
         public void TryIncreaseStats(HeroStatType statType)
@@ -51,7 +52,7 @@ namespace Core.GrowthSystem
 
         public void AddExperience(int amount)
         {
-            if (amount <= 0) 
+            if (amount <= 0 || CurrentLevel >= MaxLevel) 
                 return;
 
             CurrentExperience += amount;
@@ -59,7 +60,7 @@ namespace Core.GrowthSystem
             while (CurrentExperience >= GetRequiredExperienceForNextLevel())
             {
                 CurrentExperience -= GetRequiredExperienceForNextLevel();
-                Level++;
+                CurrentLevel++;
                 AddSkillPoints();
                 OnSkillPointsChanged?.Invoke(CurrentSkillPoints);
             }
@@ -67,12 +68,12 @@ namespace Core.GrowthSystem
 
         public int GetRequiredExperienceForNextLevel()
         {
-            return 100 * Level;
+            return 100 * CurrentLevel;
         }
 
         private void AddSkillPoints()
         {
-            if (Level % 3 == 1)
+            if (CurrentLevel % 3 == 1)
             {
                 CurrentSkillPoints += 2;
             }

@@ -2,7 +2,8 @@
     "name": "Game.HeroGrowthSystem",
     "rootNamespace": "",
     "references": [
-        "GUID:27d466e22e1bb5a47885713bdda9d3a3"
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3",
+        "GUID:415d49886ea3bb64d83c7c7d53705a44"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

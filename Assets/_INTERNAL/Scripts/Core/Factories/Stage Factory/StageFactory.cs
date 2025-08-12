@@ -6,6 +6,7 @@ namespace Core.Factories.Stage_Factory
     public class StageFactory : IStageFactory
     {
         private readonly StageDependencies _deps;
+
         public StageFactory(StageDependencies dependencies)
         {
             _deps = dependencies;

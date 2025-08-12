@@ -12,13 +12,15 @@ namespace UI.HeroDetailInfoUI
         [SerializeField] private TextMeshProUGUI _level;
         [SerializeField] private TextMeshProUGUI _power;
         [SerializeField] private TextMeshProUGUI _description;
+        [SerializeField] private TextMeshProUGUI _rank;
 
         private HeroInstance _selectedHero;
         private NumberFormatter _formatter;
 
         private void OnDisable()
         {
-            _selectedHero.OnPowerChanged -= HandleChangedPower;
+            if(_selectedHero != null)
+                _selectedHero.OnPowerChanged -= HandleChangedPower;
         }
 
         public void Setup(HeroInstance heroInstance)
@@ -33,6 +35,7 @@ namespace UI.HeroDetailInfoUI
             _level.text = $"Уровень: {heroData.Level}";
             _description.text = $"{heroData.Description}";
             _power.text = $"Мощь: {_formatter.FormatNumber(heroInstance.HeroPower)}";
+            _rank.text = $"Ранг: {heroData.Rank}";
         }
 
         private void HandleChangedPower(float currentPower)

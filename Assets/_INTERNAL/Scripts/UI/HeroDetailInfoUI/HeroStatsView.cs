@@ -35,7 +35,19 @@ namespace UI.HeroDetailInfoUI
         public event Action OnDexterityClicked;
         public event Action OnIntelligenceClicked;
 
-        private void OnEnable()
+        //private void OnEnable()
+        //{
+        //    SubscribeOnButtonEvents();
+        //}
+
+        //private void OnDisable()
+        //{
+        //    UnsubscribeFromButtonEvents();
+
+        //    Cleanup();
+        //}
+
+        public void SubscribeOnButtonEvents()
         {
             _onStrengthButtonClick = () => OnStrengthClicked?.Invoke();
             _onDexterityButtonClick = () => OnDexterityClicked?.Invoke();
@@ -46,13 +58,14 @@ namespace UI.HeroDetailInfoUI
             _increaseINTButton.onClick.AddListener(_onIntelligenceButtonClick);
         }
 
-        private void OnDisable()
+        public void UnsubscribeFromButtonEvents()
         {
-            _increaseSTRButton.onClick.RemoveListener(_onStrengthButtonClick);
-            _increaseDEXButton.onClick.RemoveListener(_onDexterityButtonClick);
-            _increaseINTButton.onClick.RemoveListener(_onIntelligenceButtonClick);
-
-            Cleanup();
+            if(_onStrengthButtonClick != null)
+                _increaseSTRButton.onClick.RemoveListener(_onStrengthButtonClick);
+            if(_onDexterityButtonClick != null)
+                _increaseDEXButton.onClick.RemoveListener(_onDexterityButtonClick);
+            if(_onIntelligenceButtonClick != null)
+                _increaseINTButton.onClick.RemoveListener(_onIntelligenceButtonClick);
         }
 
         public void Init(HeroStatsUpgradeController controller)
@@ -66,6 +79,10 @@ namespace UI.HeroDetailInfoUI
 
         public void Setup(HeroInstance selectedHero)
         {
+            Cleanup();
+            UnsubscribeFromButtonEvents();
+            SubscribeOnButtonEvents();
+
             _strenght.text = $"STR: {selectedHero.RuntimeData.Stats.Strenght}";
             _dexterity.text = $"DEX: {selectedHero.RuntimeData.Stats.Dexterity}";
             _intelligence.text = $"INT: {selectedHero.RuntimeData.Stats.Intelligence}";
@@ -77,7 +94,7 @@ namespace UI.HeroDetailInfoUI
             _avaliablePointsText.text = $"{value}";
         }
 
-        public void SetStats(HeroStatsRuntime stats)
+        public void SetStats(HeroRuntimeStats stats)
         {
             _strenght.text = $"STR: {stats.Strenght}";
             _dexterity.text = $"DEX: {stats.Dexterity}";

@@ -21,10 +21,10 @@ MonoBehaviour:
     BaseHealth: 100
     Level: 100
     Experience: 0
-    Rank: 4
+    Rank: 0
     Stats:
-      BasePower: 50
+      BasePower: 100
       PowerGrowthMultiplier: 2
-      Strenght: 50
-      Dexterity: 50
-      Intelligence: 50
+      Strenght: 10
+      Dexterity: 10
+      Intelligence: 10

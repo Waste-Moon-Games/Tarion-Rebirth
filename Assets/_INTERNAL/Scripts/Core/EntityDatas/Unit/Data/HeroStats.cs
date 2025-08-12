@@ -11,7 +11,7 @@
         public int Intelligence;
     }
 
-    public class HeroStatsRuntime
+    public class HeroRuntimeStats
     {
         public float BasePower;
         public float PowerGrowthMultiplier;
@@ -24,7 +24,7 @@
         private float _agilityMultiplier;
         private float _intelligenceMultiplier;
 
-        public HeroStatsRuntime(HeroStats source)
+        public HeroRuntimeStats(HeroStats source)
         {
             BasePower = source.BasePower;
             PowerGrowthMultiplier = source.PowerGrowthMultiplier;

@@ -3,14 +3,13 @@ using Core.EntityDatas.Unit.Data;
 using GameEntity.Unit.Data;
 using Scripts.GameEntity.DataInstance;
 using System;
-using UnityEngine;
 
 namespace Core.GrowthSystem.HeroStatsUpgradeSystem
 {
     public class HeroStatsUpgradeController
     {
-        private readonly HeroInstance _heroInstace;
         private readonly IStatsUpgradeView _view;
+        private HeroInstance _heroInstace;
 
         private Action _onStrengthClicked;
         private Action _onDexterityClicked;
@@ -20,6 +19,11 @@ namespace Core.GrowthSystem.HeroStatsUpgradeSystem
         {
             _heroInstace = heroInstance;
             _view = view;
+        }
+
+        public void SetHero(HeroInstance selectedHero)
+        {
+            _heroInstace = selectedHero;
         }
 
         public void SubsribeOnEvents()
@@ -49,7 +53,7 @@ namespace Core.GrowthSystem.HeroStatsUpgradeSystem
             _heroInstace.GrowthSystem.OnSkillPointsChanged -= HandleChangedSkillPoints;
         }
 
-        private void HandleChangedStat(HeroStatsRuntime stats)
+        private void HandleChangedStat(HeroRuntimeStats stats)
         {
             _view.SetStats(stats);
         }

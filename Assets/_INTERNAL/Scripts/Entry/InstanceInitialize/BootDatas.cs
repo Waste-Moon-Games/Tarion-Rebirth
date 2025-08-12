@@ -1,5 +1,6 @@
 ﻿using GameEntity.DataInstance.Main;
 using GameEntity.ScriptableObjects;
+using SO.Containers.GameEntity;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Mono.InstanceInitialize
         [field:SerializeField] public List<HeroDataContainer> HeroDatas { get; private set; }
         [field: SerializeField] public List<PlanetDataContainer> PlanetDatas { get; private set; }
         [field: SerializeField] public List<MissionDataContainer> MissionDatas { get; private set; }
+        [field: SerializeField] public RankProgressionConfig RankProgressionConfig { get; private set; }
 
         [field: SerializeField] public InstanceHolder InstanceHolder { get; private set; }
 
@@ -17,7 +19,7 @@ namespace Mono.InstanceInitialize
         {
             InstanceHolder = new();
 
-            InstanceHolder.Initialize(HeroDatas, PlanetDatas, MissionDatas);
+            InstanceHolder.Initialize(HeroDatas, PlanetDatas, MissionDatas, RankProgressionConfig);
         }
     }
 }

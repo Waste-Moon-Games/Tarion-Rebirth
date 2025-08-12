@@ -46,10 +46,14 @@ namespace UI.HeroDetailInfoUI
         private void HandleSelectedHero(HeroInstance selectedHero)
         {
             _heroStatsUpgradeController ??= new(selectedHero, _statsView);
-            _statsView.Init(_heroStatsUpgradeController);
+            _heroStatsUpgradeController.SetHero(selectedHero);
 
             _statsView.Setup(selectedHero);
+            _statsView.Init(_heroStatsUpgradeController);
+
             _detailInfo.Setup(selectedHero);
+
+            Debug.Log($"{selectedHero.RuntimeData.Name} have {selectedHero.GetCurrentSkillPoints()} skill points");
         }
     }
 }
