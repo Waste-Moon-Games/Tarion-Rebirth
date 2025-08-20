@@ -9,9 +9,16 @@
         "GUID:8dd7d41d8daace348bea711251ca1168",
         "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
         "GUID:ade57361da74e0246ac345f441b938aa",
-        "GUID:47e9186edfe05814086da1dfb1d1c97c"
+        "GUID:47e9186edfe05814086da1dfb1d1c97c",
+        "GUID:1ad06e6daf9e0674abdc64df49d583c7",
+        "GUID:97377a84712c86a45bf393dd4293661f",
+        "GUID:415d49886ea3bb64d83c7c7d53705a44"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

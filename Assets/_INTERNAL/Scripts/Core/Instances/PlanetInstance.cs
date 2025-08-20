@@ -35,6 +35,14 @@ namespace GameEntity.DataInstance
             PlanetPower = CalculatePlanetPower();
         }
 
+        public PlanetInstance(PlanetData generatedSourceData)
+        {
+            _sourceData = generatedSourceData;
+            _runtimeData = new(_sourceData);
+
+            PlanetPower = CalculatePlanetPower();
+        }
+
         public float CalculatePlanetPower()
         {
             float planetResistance = CalculatePlanetResistance();

@@ -1,9 +1,9 @@
 {
-    "name": "Game.EntityContainers",
-    "rootNamespace": "",
+    "name": "Game.EntityGenerationConfigs",
+    "rootNamespace": "Core.EntityGenerationConfigs",
     "references": [
         "GUID:27d466e22e1bb5a47885713bdda9d3a3",
-        "GUID:97377a84712c86a45bf393dd4293661f"
+        "GUID:ade57361da74e0246ac345f441b938aa"
     ],
     "includePlatforms": [
         "Android",
