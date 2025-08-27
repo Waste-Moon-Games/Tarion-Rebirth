@@ -1,0 +1,16 @@
+{
+    "name": "Game.Abstractions",
+    "rootNamespace": "Core.Common.Abstractions",
+    "references": [
+        "GUID:8dd7d41d8daace348bea711251ca1168"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

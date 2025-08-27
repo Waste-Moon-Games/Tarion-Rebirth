@@ -2,6 +2,7 @@
 using GameEntity.ScriptableObjects;
 using Scripts.GameEntity.DataInstance;
 using SO.Containers.GameEntity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +14,23 @@ namespace GameEntity.DataInstance.Main
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
         [field: SerializeField] public List<MissionType> Missions { get; private set; } = new();
 
+        public event Action<PlanetInstance> OnPlanetsListUpdated;
+
         public void Initialize(List<HeroDataContainer> heroDatas,
             List<PlanetDataContainer> planetDatas, List<MissionDataContainer> missionDatas, RankProgressionConfig config)
         {
             InitializeHeros(heroDatas, config);
             InitializePlanets(planetDatas);
             InitializeMissions(missionDatas);
+        }
+
+        public void AddNewPlanet(PlanetInstance newPlanet)
+        {
+            if(!Planets.Contains(newPlanet))
+                Planets.Add(newPlanet);
+
+            Debug.Log($"Planet {newPlanet.RuntimeData.PlanetName} added to instance holder!");
+            OnPlanetsListUpdated?.Invoke(newPlanet);
         }
 
         private void InitializeHeros(List<HeroDataContainer> heroDatas, RankProgressionConfig config)

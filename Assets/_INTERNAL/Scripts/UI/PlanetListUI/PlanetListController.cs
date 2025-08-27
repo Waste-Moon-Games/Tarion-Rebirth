@@ -22,23 +22,21 @@ namespace Mono.UI.PlanetListUI
             _instanceHolder = instanceHolder;
 
             CreatePlanetList();
-            RefreshPlanetList();
+            SubscribeOnItemsEvent();
         }
 
         private void OnEnable()
         {
-            RefreshPlanetList();
+            SubscribeOnItemsEvent();
+
+            _instanceHolder.OnPlanetsListUpdated += RefreshItemList;
         }
 
         private void OnDisable()
         {
-            if (_planetItems.Count == _instanceHolder.Planets.Count)
-            {
-                foreach (PlanetViewItem planet in _planetItems)
-                {
-                    planet.OnPlanetSelected -= HandleSelectedPlanet;
-                }
-            }
+            UnsubscribeFromItemsEvent();
+
+            _instanceHolder.OnPlanetsListUpdated -= RefreshItemList;
         }
 
         private void CreatePlanetList()
@@ -56,17 +54,38 @@ namespace Mono.UI.PlanetListUI
                 var itemGO = Instantiate(_planetItemPrefab, _contentParent);
                 var item = itemGO.GetComponent<PlanetViewItem>();
 
+                item.Setup(_instanceHolder.Planets[i]);
+                item.InitializeButton();
+
                 _planetItems.Add(item);
             }
         }
 
-        private void RefreshPlanetList()
+        private void SubscribeOnItemsEvent()
         {
-            for (int i = 0; i < _planetItems.Count; i++)
+            foreach (PlanetViewItem item in _planetItems)
             {
-                _planetItems[i].Setup(_instanceHolder.Planets[i]);
-                _planetItems[i].OnPlanetSelected += HandleSelectedPlanet;
+                item.OnPlanetSelected += HandleSelectedPlanet;
+                item.InitializeButton();
             }
+        }
+
+        private void UnsubscribeFromItemsEvent()
+        {
+            foreach (PlanetViewItem planet in _planetItems)
+            {
+                planet.OnPlanetSelected -= HandleSelectedPlanet;
+            }
+        }
+
+        private void RefreshItemList(PlanetInstance newPlanet)
+        {
+            PlanetViewItem item = Instantiate(_planetItemPrefab, _contentParent);
+
+            item.Setup(newPlanet);
+            item.OnPlanetSelected += HandleSelectedPlanet;
+
+            _planetItems.Add(item);
         }
 
         private void HandleSelectedPlanet(PlanetInstance planetInstance)

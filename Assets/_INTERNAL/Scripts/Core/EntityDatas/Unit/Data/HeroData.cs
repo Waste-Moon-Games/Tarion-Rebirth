@@ -14,6 +14,7 @@ namespace GameEntity.Unit.Data
         public int Level;
         public int Experience;
         public Rank Rank;
+        public Sprite HeroArt;
 
         public HeroStats Stats;
     }
@@ -29,6 +30,7 @@ namespace GameEntity.Unit.Data
         public int Level;
         public int Experience;
         public Rank Rank;
+        public Sprite HeroArt;
 
         public HeroRuntimeStats Stats;
 
@@ -40,6 +42,7 @@ namespace GameEntity.Unit.Data
             Level = source.Level;
             Experience = source.Experience;
             Rank = source.Rank;
+            HeroArt = source.HeroArt;
             Stats = new(source.Stats);
         }
     }

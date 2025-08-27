@@ -52,8 +52,6 @@ namespace UI.HeroDetailInfoUI
             _statsView.Init(_heroStatsUpgradeController);
 
             _detailInfo.Setup(selectedHero);
-
-            Debug.Log($"{selectedHero.RuntimeData.Name} have {selectedHero.GetCurrentSkillPoints()} skill points");
         }
     }
 }

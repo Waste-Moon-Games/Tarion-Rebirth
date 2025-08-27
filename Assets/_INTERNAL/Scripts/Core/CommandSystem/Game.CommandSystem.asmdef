@@ -1,0 +1,18 @@
+{
+    "name": "Game.CommandSystem",
+    "rootNamespace": "CommandSystem",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:00f85be72c4482f4c97ab69bb843b299"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

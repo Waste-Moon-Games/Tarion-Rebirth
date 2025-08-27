@@ -38,13 +38,12 @@ namespace Mono.UI.PlanetListUI
             _planetNameText.text = _planetInstance.RuntimeData.PlanetName;
             _planetPopulation.text = $"Популяция:{_formatter.FormatNumber(_planetInstance.RuntimeData.Population)}";
             _planetPower.text = $"Мощь: {_formatter.FormatNumber(_planetInstance.PlanetPower)}";
-
-            InitializeButton();
         }
 
-        private void InitializeButton()
+        public void InitializeButton()
         {
-            _selectButton = GetComponent<Button>();
+            if(_selectButton == null)
+                _selectButton = GetComponent<Button>();
 
             if (_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);

@@ -37,10 +37,7 @@ namespace Mono.UI.HeroListUI
 
             _heroInstance = heroInstance;
             _heroInstance.OnPowerChanged += HandleChangedPower;
-
-            _heroName.text = _heroInstance.RuntimeData.Name;
-            _heroPower.text = $"Мощь: {_formatter.FormatNumber(_heroInstance.HeroPower)}";
-            _heroLevel.text = $"Уровень: {_heroInstance.HeroLevel}";
+            SetupText(_heroInstance);
 
             _selectButton = GetComponent<Button>();
 
@@ -49,6 +46,13 @@ namespace Mono.UI.HeroListUI
 
             _clickHandler = () => OnHeroSelected?.Invoke(heroInstance);
             _selectButton.onClick.AddListener(_clickHandler);
+        }
+
+        private void SetupText(HeroInstance hero)
+        {
+            _heroName.text = hero.RuntimeData.Name;
+            _heroPower.text = $"Мощь: {_formatter.FormatNumber(hero.HeroPower)}";
+            _heroLevel.text = $"Уровень: {hero.HeroLevel}";
         }
 
         private void HandleChangedPower(float currentPower)

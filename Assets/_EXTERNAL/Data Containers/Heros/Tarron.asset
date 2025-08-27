@@ -19,9 +19,10 @@ MonoBehaviour:
       \u0421\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0438\u0439 \u0438\u0437 \u043D\u044B\u043D\u0435
       \u0436\u0438\u0432\u0443\u0449\u0438\u0445 \u0442\u0430\u0440\u0438\u043E\u043D\u0446\u0435\u0432."
     BaseHealth: 100
-    Level: 100
+    Level: 1
     Experience: 0
     Rank: 0
+    HeroArt: {fileID: -74668207497188870, guid: 44eacc376da8dc3459d2010a9f649a79, type: 3}
     Stats:
       BasePower: 100
       PowerGrowthMultiplier: 2

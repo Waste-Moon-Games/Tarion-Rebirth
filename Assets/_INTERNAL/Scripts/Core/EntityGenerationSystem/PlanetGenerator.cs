@@ -3,6 +3,7 @@ using GameEntity.Planet;
 using SO.Containers.Configs;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Core.EntityGenerateSystem
@@ -25,39 +26,40 @@ namespace Core.EntityGenerateSystem
         /// </summary>
         public PlanetData GeneratePlanet()
         {
-            PlanetData data = new();
+            PlanetData data = new()
+            {
+                //Название планеты
+                PlanetName = GetRandomName(),
 
-            //Название планеты
-            data.PlanetName = GetRandomName();
+                //Тип планеты
+                Type = GetRandomPlanetType(),
 
-            //Тип планеты
-            data.Type = GetRandomPlanetType();
+                //Описание планеты
+                PlanetDescription = _planetDescriptionGenerator.GenerateDescription(),
 
-            //Описание планеты
-            data.PlanetDescription = _planetDescriptionGenerator.GenerateDescription();
+                //Популяция планеты
+                Population = Random.Range(
+                    _config.MinPopulation,
+                    _config.MaxPopulation),
 
-            //Популяция планеты
-            data.Population = Random.Range(
-                _config.MinPopulation,
-                _config.MaxPopulation);
+                //Сопротивление
+                BaseResistance = Random.Range(
+                    _config.MinBaseResistance,
+                    _config.MaxBaseResistance),
 
-            //Сопротивление
-            data.Resistance = Random.Range(
-                _config.MinBaseResistance,
-                _config.MaxBaseResistance);
+                ResistanceMultiplier = Random.Range(
+                    _config.MinResistanceMultiplier,
+                    _config.MaxResistanceMultiplier),
 
-            data.ResistanceMultiplier = Random.Range(
-                _config.MinResistanceMultiplier,
-                _config.MaxResistanceMultiplier);
+                //Технологии
+                BaseTechPower = Random.Range(
+                    _config.MinBaseTechPower,
+                    _config.MaxBaseTechPower),
 
-            //Технологии
-            data.BaseTechPower = Random.Range(
-                _config.MinBaseTechPower,
-                _config.MaxBaseTechPower);
-
-            data.TechMultiplier = Random.Range(
-                _config.MinTechMultiplier,
-                _config.MaxTechMultiplier);
+                TechMultiplier = Random.Range(
+                    _config.MinTechMultiplier,
+                    _config.MaxTechMultiplier)
+            };
 
             return data;
         }
@@ -67,6 +69,7 @@ namespace Core.EntityGenerateSystem
         /// </summary>
         public List<PlanetData> GeneratePlanets(int count)
         {
+            ResetUsedNames();
             List<PlanetData> planets = new();
             for (int i = 0; i < count; i++)
             {

@@ -10,27 +10,30 @@ namespace UI.PlanetsMap
     {
         [Header("Map buttons")]
         [SerializeField] private Button _refreshMapButton;
-        [SerializeField] private Button _addInTargetListButton;
 
         [Space(10), Header("Generated planets")]
-        [SerializeField] private List<PlanetInstance> _generatedPlanets = new();
+        [SerializeField] private List<PlanetMapView> _generatedPlanets = new();
+
+        [Space(10), Header("Selected planet UI")]
+        [SerializeField] private SelectedPlanetUI _selectedPlanetUI; 
 
         public event Action OnMapRefreshed;
+        public event Action<PlanetInstance> OnPlanetAdded;
 
         private void OnEnable()
         {
             if (_refreshMapButton != null)
                 _refreshMapButton.onClick.AddListener(RefreshMap);
-            if (_addInTargetListButton != null)
-                _addInTargetListButton.onClick.AddListener(AddInTargetList);
+
+            _selectedPlanetUI.OnPlanetAdded += HandleAddedPlanet;
         }
 
         private void OnDisable()
         {
             if (_refreshMapButton != null)
                 _refreshMapButton.onClick.RemoveListener(RefreshMap);
-            if (_addInTargetListButton != null)
-                _addInTargetListButton.onClick.RemoveListener(AddInTargetList);
+
+            _selectedPlanetUI.OnPlanetAdded -= HandleAddedPlanet;
         }
 
         private void Awake()
@@ -39,11 +42,16 @@ namespace UI.PlanetsMap
                 OnMapRefreshed?.Invoke();
         }
 
-        public void GetNewPlanets(List<PlanetInstance> planets)
+        public void GetNewPlanets(List<PlanetMapView> planets)
         {
             _generatedPlanets.Clear();
 
-            _generatedPlanets.AddRange(planets);
+            foreach (PlanetMapView view in planets)
+            {
+                view.OnPlanetSelected -= HandleSelectedPlanet;
+                view.OnPlanetSelected += HandleSelectedPlanet;
+                _generatedPlanets.Add(view);
+            }
         }
 
         private void RefreshMap()
@@ -51,9 +59,15 @@ namespace UI.PlanetsMap
             OnMapRefreshed?.Invoke();
         }
 
-        private void AddInTargetList()
+        private void HandleSelectedPlanet(PlanetInstance selectedPlanet)
         {
+            _selectedPlanetUI.Show();
+            _selectedPlanetUI.Setup(selectedPlanet);
+        }
 
+        private void HandleAddedPlanet(PlanetInstance addedPlanet)
+        {
+            OnPlanetAdded?.Invoke(addedPlanet);
         }
     }
 }

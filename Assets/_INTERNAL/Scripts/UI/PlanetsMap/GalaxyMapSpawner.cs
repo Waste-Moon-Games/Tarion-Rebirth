@@ -11,10 +11,10 @@ namespace UI.PlanetsMap
         [SerializeField] private RectTransform _mapArea;
         [SerializeField] private PlanetMapView _planetMapViewPrefab;
 
-        private List<PlanetMapView> _spawnedPlanets = new();
-        private List<Vector2> _usedPositions = new();
+        private readonly List<PlanetMapView> _spawnedPlanets = new();
+        private readonly List<Vector2> _usedPositions = new();
 
-        public void SpawnPlanets(List<PlanetInstance> planets)
+        public List<PlanetMapView> SpawnPlanets(List<PlanetInstance> planets)
         {
             ClearMap();
 
@@ -28,6 +28,18 @@ namespace UI.PlanetsMap
                 view.SetupPosition(pos);
 
                 _spawnedPlanets.Add(view);
+            }
+            return _spawnedPlanets;
+        }
+
+        public void RemovePlanet(PlanetInstance planet)
+        {
+            PlanetMapView view = _spawnedPlanets.FirstOrDefault(p => p.Planet == planet);
+
+            if(view != null)
+            {
+                _spawnedPlanets.Remove(view);
+                Destroy(view.gameObject);
             }
         }
 

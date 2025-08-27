@@ -27,12 +27,34 @@ namespace Mono.UI.MissionContexUI
         {
             _missionType = missionType;
 
-            _missionTypeText.text = $"{_missionType}";
+            SetupText(missionType);
 
             _selectButton = GetComponent<Button>();
 
             _clickHandler = () => OnMissionTypeSelected?.Invoke(missionType);
             _selectButton.onClick.AddListener(_clickHandler);
+        }
+
+        private void SetupText(MissionType missionType)
+        {
+            switch (missionType)
+            {
+                case MissionType.Force:
+                    _missionTypeText.text = "Захват";
+                break;
+
+                case MissionType.Diplomacy:
+                    _missionTypeText.text = "Дипломатия";
+                break;
+
+                case MissionType.Sabotage:
+                    _missionTypeText.text = "Саботаж";
+                break;
+
+                case MissionType.Recon:
+                    _missionTypeText.text = "Разведка";
+                break;
+            }
         }
     }
 }

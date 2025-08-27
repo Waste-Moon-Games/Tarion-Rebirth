@@ -23,6 +23,7 @@ MonoBehaviour:
     Level: 1
     Experience: 0
     Rank: 0
+    HeroArt: {fileID: 8445227937509937268, guid: e81db3aa03b014e45b8aebe47af5f747, type: 3}
     Stats:
       BasePower: 100
       PowerGrowthMultiplier: 1.25
