@@ -10,6 +10,7 @@ using GameEntity.Planet;
 using SO.Containers.Configs;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace UI.PlanetsMap
 {
@@ -47,6 +48,7 @@ namespace UI.PlanetsMap
             _localInstance ??= new();
             _generator ??= new(_config);
             _commandProcessor ??= new();
+            _spawner.CreatePlanetsPool(_config.PlanetCount);
         }
 
         private void Update()

@@ -9,7 +9,7 @@ namespace UI.Base
         [SerializeField] private GameObject _window;
 
         [Space(10), Header("Toggle button")]
-        [SerializeField] private Button _toggleButton;
+        [SerializeField] protected Button _toggleButton;
 
         private void OnEnable()
         {

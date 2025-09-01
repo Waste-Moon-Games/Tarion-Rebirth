@@ -5,6 +5,7 @@ namespace GameEntity.Planet
     [System.Serializable]
     public class PlanetData
     {
+        public string Id;
         public string PlanetName;
 
         [TextArea]
@@ -33,6 +34,7 @@ namespace GameEntity.Planet
 
     public class PlanetRuntimeData
     {
+        public string Id;
         public string PlanetName;
 
         public string PlanetDescription;
@@ -54,6 +56,8 @@ namespace GameEntity.Planet
 
         public PlanetRuntimeData(PlanetData source)
         {
+            Id = source.Id;
+
             PlanetName = source.PlanetName;
             PlanetDescription = source.PlanetDescription;
 

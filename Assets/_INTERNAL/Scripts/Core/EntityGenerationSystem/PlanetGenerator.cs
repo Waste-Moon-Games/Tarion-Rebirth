@@ -3,17 +3,16 @@ using GameEntity.Planet;
 using SO.Containers.Configs;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Core.EntityGenerateSystem
 {
     public class PlanetGenerator
     {
-        private PlanetDescriptionGenerator _planetDescriptionGenerator;
-        private PlanetGenerationConfig _config;
+        private readonly PlanetDescriptionGenerator _planetDescriptionGenerator;
+        private readonly PlanetGenerationConfig _config;
 
-        private HashSet<string> _usedNames = new();
+        private readonly HashSet<string> _usedNames = new();
 
         public PlanetGenerator(PlanetsGenerationConfig config)
         {
@@ -103,7 +102,7 @@ namespace Core.EntityGenerateSystem
                 }
             }
 
-            string fallback = $"Planet_{Guid.NewGuid().ToString("N").Substring(0, 6)}";
+            string fallback = $"Planet_{Guid.NewGuid().ToString("N")[..6]}";
             _usedNames.Add(fallback);
             return fallback;
         }
@@ -119,9 +118,7 @@ namespace Core.EntityGenerateSystem
             for (int i = list.Count - 1; i > 0; i--)
             {
                 int randomIndex = Random.Range(0, i + 1);
-                T temp = list[i];
-                list[i] = list[randomIndex];
-                list[randomIndex] = temp;
+                (list[randomIndex], list[i]) = (list[i], list[randomIndex]);
             }
         }
     }

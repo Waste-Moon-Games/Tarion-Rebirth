@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace UI.PlanetsMap
 {
@@ -10,9 +11,20 @@ namespace UI.PlanetsMap
         [SerializeField] private float _minSpawnDistance;
         [SerializeField] private RectTransform _mapArea;
         [SerializeField] private PlanetMapView _planetMapViewPrefab;
+        [SerializeField] private bool _autoExpand;
 
         private readonly List<PlanetMapView> _spawnedPlanets = new();
         private readonly List<Vector2> _usedPositions = new();
+
+        private ObjectPool<PlanetMapView> _planetsPool;
+
+        public void CreatePlanetsPool(int count)
+        {
+            _planetsPool = new(_planetMapViewPrefab, count, _mapArea)
+            {
+                AutoExpand = _autoExpand
+            };
+        }
 
         public List<PlanetMapView> SpawnPlanets(List<PlanetInstance> planets)
         {
@@ -20,7 +32,7 @@ namespace UI.PlanetsMap
 
             foreach (PlanetInstance planet in planets)
             {
-                PlanetMapView view = Instantiate(_planetMapViewPrefab, _mapArea);
+                PlanetMapView view = _planetsPool.GetFreeElement();
 
                 Vector2 pos = GetUniquePosition(_usedPositions, view.CurrentPosition.sizeDelta);
 
@@ -29,6 +41,7 @@ namespace UI.PlanetsMap
 
                 _spawnedPlanets.Add(view);
             }
+
             return _spawnedPlanets;
         }
 
@@ -39,7 +52,7 @@ namespace UI.PlanetsMap
             if(view != null)
             {
                 _spawnedPlanets.Remove(view);
-                Destroy(view.gameObject);
+                _planetsPool.ReturnToPool(view);
             }
         }
 
@@ -76,7 +89,7 @@ namespace UI.PlanetsMap
         {
             foreach (var planet in _spawnedPlanets)
             {
-                Destroy(planet.gameObject);
+                _planetsPool.ReturnToPool(planet);
             }
             _spawnedPlanets.Clear();
             _usedPositions.Clear();
