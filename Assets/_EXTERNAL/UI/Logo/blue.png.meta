@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 24f040c8c09a18a47bee71fcde032545
+guid: 2e32cc920c487834da2a32d5c8b0ae2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 335055993848126488
-    second: TR_BG_0
+      213: -2615874204119335
+    second: blue_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -98,27 +98,27 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 45
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 10
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TR_BG_0
+      name: blue_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 1024
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81cde25b6ab56a400800000000000000
-      internalID: 335055993848126488
+      spriteID: 9de494350e4b6fff0800000000000000
+      internalID: -2615874204119335
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TR_BG_0: 335055993848126488
+      blue_0: -2615874204119335
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

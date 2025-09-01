@@ -13,6 +13,7 @@ namespace Stages.StageController
 
         public IStageFactory StageFactory { get { return _factory; } }
 
+        public event Action OnMissionStarted;
         public event Action OnResultAccepted;
 
         public GameStageController(IStageFactory factory)
@@ -20,9 +21,10 @@ namespace Stages.StageController
             _factory = factory;
         }
 
-        public void Start()
+        public void StartCycle()
         {
             SetStage(_factory.CreatePlanetSelectionStage(this));
+            _factory.OnMissionExecutionStageCreated += HandleCreatedMissionExecutionStage;
         }
 
         public void SetStage(IStage newStage)
@@ -36,17 +38,32 @@ namespace Stages.StageController
             _currentStage.Enter();
         }
 
-        public void ExitStage()
+        public void EndCycle()
         {
             _currentStage?.Exit();
             (_currentStage as IDisposable)?.Dispose();
+            _currentStage = null;
 
             OnResultAccepted?.Invoke();
+            _factory.OnMissionExecutionStageCreated -= HandleCreatedMissionExecutionStage;
+        }
+
+        public void ForceEnd()
+        {
+            _currentStage?.Exit();
+            (_currentStage as IDisposable)?.Dispose();
+            _currentStage = null;
+            _factory.OnMissionExecutionStageCreated -= HandleCreatedMissionExecutionStage;
         }
 
         public void Update()
         {
             _currentStage?.Tick();
+        }
+
+        private void HandleCreatedMissionExecutionStage()
+        {
+            OnMissionStarted?.Invoke();
         }
     }
 }

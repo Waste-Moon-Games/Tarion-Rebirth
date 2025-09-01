@@ -1,5 +1,6 @@
 ﻿using Mono.StateMachine;
 using Mono.UI.MissionContexUI;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ namespace Entry.Mono.MissionPanel
         private Button _startPrepareMissionButton;
 
         public Button PrepareMissionButton => _startPrepareMissionButton;
+
+        public event Action OnPreparationStarted;
 
         private void OnEnable()
         {
@@ -34,6 +37,8 @@ namespace Entry.Mono.MissionPanel
             _stateMachineMono.Run();
             _missionInfoUI.Initialize(_stateMachineMono.StageDependencies.MissionContex);
             _startPrepareMissionButton.interactable = false;
+
+            OnPreparationStarted?.Invoke();
         }
     }
 }

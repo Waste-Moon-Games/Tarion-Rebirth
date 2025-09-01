@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Debugger
 {
@@ -6,10 +7,27 @@ namespace Debugger
     {
         [SerializeField] private DebugPanelUI _debugPanelUI;
 
+        private InputAction _toggleAction;
+
+        private void Awake()
+        {
+#if UNITY_EDITOR || DEBUG
+            _toggleAction = new(type: InputActionType.Button, binding: "<Keyboard>/f12");
+            _toggleAction.Enable();
+#endif
+        }
+
+        private void OnDestroy()
+        {
+#if UNITY_EDITOR || DEBUG
+            _toggleAction?.Dispose();
+#endif
+        }
+
         private void Update()
         {
 #if UNITY_EDITOR || DEBUG
-            if (Input.GetKeyDown(KeyCode.F12))
+            if (_toggleAction.WasPerformedThisFrame())
             {
                 _debugPanelUI.Toggle();
             }

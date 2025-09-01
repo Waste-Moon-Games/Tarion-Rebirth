@@ -23,6 +23,7 @@ namespace Scripts.GameEntity.DataInstance
 
         public event Action<int> OnLevelUp;
         public event Action<float> OnPowerChanged;
+        public event Action<int> OnExpChanged;
 
         public HeroInstance(HeroDataContainer baseData, RankProgressionConfig config)
         {
@@ -44,6 +45,7 @@ namespace Scripts.GameEntity.DataInstance
 
             _runtimeData.Experience = _growthSystem.CurrentExperience;
             _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
+            OnExpChanged?.Invoke(_runtimeData.Experience);
         }
 
         public float CalculateHeroPower()

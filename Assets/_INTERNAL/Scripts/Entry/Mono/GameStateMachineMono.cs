@@ -22,23 +22,27 @@ namespace Mono.StateMachine
         public GameStageController GameStageController => _gameStageController;
 
         public event Action<GameStageController> OnGameStageControllerInitialized;
+        public event Action OnMissionStarted;
 
         public void Run()
         {
-            _stageDependencies = new StageDependencies(
+            _stageDependencies ??= new StageDependencies(
                     _dataHolder.BootDatas.InstanceHolder,
                     new MissionContex(),
                     _uiDependencies);
 
-            _stageFactory = new(_stageDependencies);
-            _gameStageController = new GameStageController(_stageFactory);
+            _stageFactory ??= new(_stageDependencies);
+            _gameStageController ??= new GameStageController(_stageFactory);
+            RefreshSubscribes();
 
-            _gameStageController.OnResultAccepted -= HandleAcceptedResult;
-            _gameStageController.OnResultAccepted += HandleAcceptedResult;
-
-            _gameStageController.Start();
+            _gameStageController.StartCycle();
 
             OnGameStageControllerInitialized?.Invoke(_gameStageController);
+        }
+
+        public void ForceEnd()
+        {
+            _gameStageController?.ForceEnd();
         }
 
         private void Update()
@@ -46,9 +50,22 @@ namespace Mono.StateMachine
             _gameStageController?.Update();
         }
 
+        private void RefreshSubscribes()
+        {
+            _gameStageController.OnResultAccepted -= HandleAcceptedResult;
+            _gameStageController.OnMissionStarted -= HandleStartedMission;
+            _gameStageController.OnMissionStarted += HandleStartedMission;
+            _gameStageController.OnResultAccepted += HandleAcceptedResult;
+        }
+
         private void HandleAcceptedResult()
         {
             _prepareMissionButton.PrepareMissionButton.interactable = true;
+        }
+
+        private void HandleStartedMission()
+        {
+            OnMissionStarted?.Invoke();
         }
     }
 }

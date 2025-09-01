@@ -29,7 +29,7 @@ namespace Mono.UI.MissionContexUI
         public void Initialize(MissionContex missionContex)
         {
             _missionContex = missionContex;
-            _durationFormatter = new();
+            _durationFormatter ??= new();
 
             SubscribeOnContexEvents();
 
@@ -85,7 +85,24 @@ namespace Mono.UI.MissionContexUI
 
         private void HandleSelectedMissionType(MissionType missionType)
         {
-            _selectedType.text = $"{missionType}";
+            switch (missionType)
+            {
+                case MissionType.Force:
+                    _selectedType.text = "Захват";
+                    break;
+
+                case MissionType.Diplomacy:
+                    _selectedType.text = "Дипломатия";
+                    break;
+
+                case MissionType.Sabotage:
+                    _selectedType.text = "Саботаж";
+                    break;
+
+                case MissionType.Recon:
+                    _selectedType.text = "Разведка";
+                    break;
+            }
         }
 
         private void HandleCalculatedMissionDifficulty(float calculatedDifficulty)

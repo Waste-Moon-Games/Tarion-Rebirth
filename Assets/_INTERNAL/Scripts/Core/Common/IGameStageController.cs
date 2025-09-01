@@ -5,9 +5,10 @@ namespace StateMachine.Base
     public interface IGameStageController
     {
         IStageFactory StageFactory { get; }
-        void Start();
+        void StartCycle();
         void Update();
         void SetStage(IStage newStage);
-        void ExitStage();
+        void EndCycle();
+        void ForceEnd();
     }
 }

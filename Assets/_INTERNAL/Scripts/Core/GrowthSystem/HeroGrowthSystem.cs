@@ -7,7 +7,7 @@ namespace Core.GrowthSystem
 {
     public class HeroGrowthSystem
     {
-        [field: SerializeField] public int MaxLevel { get; private set; } = 50;
+        [field: SerializeField] public int MaxLevel { get; private set; } = 80;
         [field: SerializeField] public int CurrentLevel { get; private set; } = 1;
         [field: SerializeField] public int CurrentExperience { get; private set; } = 0;
         [field: SerializeField] public int CurrentSkillPoints { get; private set; } = 0;

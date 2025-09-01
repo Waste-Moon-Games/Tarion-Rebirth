@@ -47,7 +47,7 @@ namespace StateMachine.Stages
 
         private void HandleAcceptedResult()
         {
-            _controller.ExitStage();
+            _controller.EndCycle();
         }
     }
 }

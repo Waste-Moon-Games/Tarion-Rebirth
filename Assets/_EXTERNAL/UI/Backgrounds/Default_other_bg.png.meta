@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 24f040c8c09a18a47bee71fcde032545
+guid: 79e4ef25372ad274d88ca4927d28ea47
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 335055993848126488
-    second: TR_BG_0
+      213: -6326938527966817317
+    second: Default_other_bg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -98,27 +98,27 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 45
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 10
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TR_BG_0
+      name: Default_other_bg_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 1024
+        width: 360
+        height: 75
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81cde25b6ab56a400800000000000000
-      internalID: 335055993848126488
+      spriteID: bd31ecc2ee23238a0800000000000000
+      internalID: -6326938527966817317
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TR_BG_0: 335055993848126488
+      Default_other_bg_0: -6326938527966817317
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

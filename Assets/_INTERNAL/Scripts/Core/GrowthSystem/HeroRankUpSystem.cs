@@ -25,7 +25,6 @@ namespace Core.GrowthSystem
             if (nextRank.HasValue)
             {
                 _data.Rank = nextRank.Value;
-                Debug.Log($"{_data.Name} is a {_data.Rank}");
                 OnRankLevelUp?.Invoke(nextRank.Value);
             }
         }
