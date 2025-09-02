@@ -1,21 +1,19 @@
 {
-    "name": "Game.UI",
+    "name": "UI.HeroUI",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
         "GUID:d4c4211594eb1b244afa977496643732",
         "GUID:27d466e22e1bb5a47885713bdda9d3a3",
         "GUID:8dd7d41d8daace348bea711251ca1168",
-        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
-        "GUID:ade57361da74e0246ac345f441b938aa",
         "GUID:47e9186edfe05814086da1dfb1d1c97c",
-        "GUID:1ad06e6daf9e0674abdc64df49d583c7",
-        "GUID:97377a84712c86a45bf393dd4293661f",
         "GUID:415d49886ea3bb64d83c7c7d53705a44",
-        "GUID:4c4824e308f6d764fa141c5d939628c1",
-        "GUID:00f85be72c4482f4c97ab69bb843b299",
-        "GUID:62f72973877f8bd4ba600d11aea7c8a9"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:a7de66735a763ec4d9c732db95446355",
+        "GUID:476703a3d2b76944e989019bc7b67f3e",
+        "GUID:7891a5c395c8f2e4e87ee3d3c21d70be",
+        "GUID:89c709e66ab016540985805c7855e31a",
+        "GUID:ade57361da74e0246ac345f441b938aa"
     ],
     "includePlatforms": [
         "Android",

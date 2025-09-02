@@ -65,9 +65,23 @@ namespace UI.HeroDetailInfoUI
             _name.text = $"Имя: {heroData.Name}";
             _description.text = $"{heroData.Description}";
             _power.text = $"Мощь: {_formatter.FormatNumber(heroInstance.HeroPower)}";
-            _rank.text = $"Ранг: {heroData.Rank}";
+            SetupRankText(heroData);
 
             SetupGrowthText(heroInstance, heroData);
+        }
+
+        private void SetupRankText(HeroRuntimeData heroData)
+        {
+            Rank rank = heroData.Rank;
+            _rank.text = rank switch
+            {
+                Rank.Recruit => "Ранг: Рекрут",
+                Rank.Veteran => "Ранг: Закалённый",
+                Rank.Elite => "Ранг: Ветеран",
+                Rank.Champion => "Ранг: Чемпион Тариона",
+                Rank.Guardian => "Ранг: Рыцарь Тариона",
+                _ => "Ранг: нет",
+            };
         }
 
         private void SetupGrowthText(HeroInstance heroInstance, HeroRuntimeData heroData)

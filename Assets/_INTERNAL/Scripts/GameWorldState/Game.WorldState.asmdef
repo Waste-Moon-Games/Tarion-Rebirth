@@ -1,0 +1,23 @@
+{
+    "name": "Game.WorldState",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:89c709e66ab016540985805c7855e31a",
+        "GUID:415d49886ea3bb64d83c7c7d53705a44",
+        "GUID:0b87f65be319326419033a55a097d1df"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

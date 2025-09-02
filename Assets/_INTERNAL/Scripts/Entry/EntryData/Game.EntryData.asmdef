@@ -2,11 +2,18 @@
     "name": "Game.EntryData",
     "rootNamespace": "",
     "references": [
-        "GUID:85483b29e00cc4841bf1dc8fe556417a",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
         "GUID:8dd7d41d8daace348bea711251ca1168",
-        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf"
+        "GUID:a29b2e1350b7c5c49856f11864ef2f9c",
+        "GUID:9b836ec9b0ff4194ab28629544da0a9b",
+        "GUID:84ab4ae29abd5594a927561bf418b6ca",
+        "GUID:ae9a2cf3a55bb2e449e3e42ee2934a59"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

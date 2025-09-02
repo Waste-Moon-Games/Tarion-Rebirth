@@ -83,7 +83,7 @@ namespace Contex.MissionInfo
             SelectedHero.AddExperience(PreparedMission.GainedExp);
             SelectedPlanet.SetPlanetStatus(PreparedMission.MissionSuccessful);
 
-            SelectedPlanet.CalculatePlanetPower();
+            SelectedPlanet.CalculatePower();
         }
     }
 }

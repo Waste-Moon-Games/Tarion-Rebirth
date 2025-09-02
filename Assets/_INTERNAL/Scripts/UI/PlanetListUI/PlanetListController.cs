@@ -13,11 +13,11 @@ namespace Mono.UI.PlanetListUI
 
         private readonly List<PlanetViewItem> _planetItems = new();
 
-        private InstanceHolder _instanceHolder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         public event Action<PlanetInstance> OnPlanetSelected;
 
-        public void Initialize(InstanceHolder instanceHolder)
+        public void Initialize(ImperiumInstancesHolder instanceHolder)
         {
             _instanceHolder = instanceHolder;
 

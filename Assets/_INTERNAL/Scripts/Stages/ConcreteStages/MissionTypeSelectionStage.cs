@@ -14,7 +14,7 @@ namespace StateMachine.Stages
         private IGameStageController _controller;
         private MissionContex _missionContex;
         private MissionTypeListController _missionTypeListController;
-        private InstanceHolder _instanceHolder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         public MissionTypeSelectionStage(IGameStageController controller, StageDependencies dependencies)
         {

@@ -38,18 +38,21 @@ namespace UI.Result
         public void Initialize(MissionContex contex)
         {
             _contex = contex;
-            _gainedExpText.text = $"Опыт: {_contex.PreparedMission.GainedExp}";
-            _selectedHeroText.text = $"Герой: {_contex.SelectedHero.RuntimeData.Name}";
-            _targetPlanetText.text = $"Планета: {_contex.SelectedPlanet.RuntimeData.PlanetName}";
+            SetupText(contex);
             _resultText.text = CheckResultStatus(contex);
+        }
+
+        private void SetupText(MissionContex contex)
+        {
+            _gainedExpText.text = $"Опыт: {contex.PreparedMission.GainedExp}";
+            _selectedHeroText.text = $"Герой: {contex.SelectedHero.RuntimeData.Name}";
+            _targetPlanetText.text = $"Планета: {contex.SelectedPlanet.RuntimeData.PlanetName}";
         }
 
         private string CheckResultStatus(MissionContex contex)
         {
             if (contex.PreparedMission.MissionSuccessful)
-            {
-                return "Успех";
-            }
+                return "Успех!";
 
             return "Провал";
         }

@@ -13,11 +13,11 @@ namespace Mono.UI.MissionContexUI
         [SerializeField] private MissionTypeItemView _missionTypeItemPrefab;
         [SerializeField] private List<MissionTypeItemView> _missionItems = new();
 
-        private InstanceHolder _instanceHolder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         public event Action<MissionType> OnMissionTypeSelected;
 
-        public void Initialize(InstanceHolder instanceHolder)
+        public void Initialize(ImperiumInstancesHolder instanceHolder)
         {
             _instanceHolder = instanceHolder;
             GenerateMissionTypeList();

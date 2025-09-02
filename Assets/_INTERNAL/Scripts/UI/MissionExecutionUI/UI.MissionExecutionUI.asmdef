@@ -1,0 +1,19 @@
+{
+    "name": "UI.MissionExecutionUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a7de66735a763ec4d9c732db95446355",
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
+        "GUID:8dd7d41d8daace348bea711251ca1168"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

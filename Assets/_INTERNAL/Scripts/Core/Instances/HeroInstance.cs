@@ -1,4 +1,5 @@
-﻿using Core.GrowthSystem;
+﻿using Core.Common.Instances;
+using Core.GrowthSystem;
 using GameEntity.ScriptableObjects;
 using GameEntity.Unit.Data;
 using SO.Containers.GameEntity;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Scripts.GameEntity.DataInstance
 {
-    public class HeroInstance
+    public class HeroInstance : IInstance
     {
         [field: SerializeField] public float HeroPower { get; private set; }
 
@@ -32,7 +33,7 @@ namespace Scripts.GameEntity.DataInstance
             _growthSystem = new(_runtimeData.Stats);
             _rankSystem = new(_runtimeData, config);
 
-            HeroPower = CalculateHeroPower();
+            HeroPower = CalculatePower();
             _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
 
             _growthSystem.OnSkillPointsChanged += HandleLevelUp;
@@ -48,7 +49,7 @@ namespace Scripts.GameEntity.DataInstance
             OnExpChanged?.Invoke(_runtimeData.Experience);
         }
 
-        public float CalculateHeroPower()
+        public float CalculatePower()
         {
             return _runtimeData.Stats.CalculatePower(_runtimeData.Level, _runtimeData.Rank);
         }
@@ -66,14 +67,14 @@ namespace Scripts.GameEntity.DataInstance
             _rankSystem.OnHeroLevelChanged(_runtimeData.Level);
             _runtimeData.Rank = _rankSystem.GetCurrentRank();
 
-            HeroPower = CalculateHeroPower();
+            HeroPower = CalculatePower();
 
             OnLevelUp?.Invoke(skillPoints);
         }
 
         private void HandleChangedStats(HeroRuntimeStats stats)
         {
-            HeroPower = CalculateHeroPower();
+            HeroPower = CalculatePower();
             OnPowerChanged?.Invoke(HeroPower);
         }
     }

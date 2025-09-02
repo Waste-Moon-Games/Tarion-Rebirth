@@ -1,9 +1,8 @@
 ﻿using Core.GrowthSystem.HeroStatsUpgradeSystem;
+using Entry.Mono;
 using GameEntity.DataInstance.Main;
-using GameEntity.Unit.Data;
 using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
-using System;
 using UI.Base;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace UI.HeroDetailInfoUI
         [SerializeField] private HeroStatsView _statsView;
 
         private HeroStatsUpgradeController _heroStatsUpgradeController;
-        private InstanceHolder _instanceHolder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         private void OnEnable()
         {
@@ -30,12 +29,8 @@ namespace UI.HeroDetailInfoUI
 
         private void Start()
         {
+            _instanceHolder = GameWorldStateMono.Instance.GameWorldState.ImperiumState.InstanceHolder;
             ForceUpdateHeroList();
-        }
-
-        public void SetInstanceHolder(InstanceHolder instanceHolder)
-        {
-            _instanceHolder = instanceHolder;
         }
 
         public void ForceUpdateHeroList()

@@ -1,0 +1,23 @@
+{
+    "name": "Game.Binders",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:89c709e66ab016540985805c7855e31a",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:4c4824e308f6d764fa141c5d939628c1"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

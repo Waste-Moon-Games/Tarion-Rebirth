@@ -1,3 +1,6 @@
+using GameEntity.ScriptableObjects;
+using SO.Containers.GameEntity;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.GameStates
@@ -6,9 +9,9 @@ namespace Core.GameStates
     {
         [field: SerializeField] public ImperiumState ImperiumState { get; private set; }
 
-        public GameWorldState()
+        public GameWorldState(List<HeroDataContainer> heroDatas, List<PlanetDataContainer> planetDatas, List<MissionDataContainer> missionDatas, RankProgressionConfig progressionConfig)
         {
-            ImperiumState = new ImperiumState();
+            ImperiumState = new ImperiumState(heroDatas, planetDatas, missionDatas, progressionConfig);
         }
     }
 }

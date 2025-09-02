@@ -13,13 +13,6 @@ namespace Mono.InstanceInitialize
         [field: SerializeField] public List<MissionDataContainer> MissionDatas { get; private set; }
         [field: SerializeField] public RankProgressionConfig RankProgressionConfig { get; private set; }
 
-        [field: SerializeField] public InstanceHolder InstanceHolder { get; private set; }
-
-        public void BootGameData()
-        {
-            InstanceHolder = new();
-
-            InstanceHolder.Initialize(HeroDatas, PlanetDatas, MissionDatas, RankProgressionConfig);
-        }
+        [field: SerializeField] public ImperiumInstancesHolder InstanceHolder { get; private set; }
     }
 }

@@ -1,9 +1,9 @@
-using GameEntity.DataInstance;
+using Core.Common.Instances;
 
 namespace Core.Common.Abstractions
 {
     public interface IMapWriteService
     {
-        void RemovePlanet(PlanetInstance planet);
+        void RemovePlanet(IInstance planet);
     }
 }

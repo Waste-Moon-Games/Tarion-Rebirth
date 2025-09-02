@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a715818f094404bab2b2f5aefe80c5, type: 3}
   m_Name: Heros_Scene
   m_EditorClassIdentifier: 
-  <SceneName>k__BackingField: HerosScene
+  <SceneName>k__BackingField: HeroMenuScene

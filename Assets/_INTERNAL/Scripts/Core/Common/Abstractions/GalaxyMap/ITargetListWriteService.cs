@@ -1,9 +1,9 @@
-﻿using GameEntity.DataInstance;
+﻿using Core.Common.Instances;
 
 namespace Core.Common.Abstractions.GalaxyMap
 {
     public interface ITargetListWriteService
     {
-        void AddPlanetToTarget(PlanetInstance planet);
+        void AddPlanetToTarget(IInstance planet);
     }
 }

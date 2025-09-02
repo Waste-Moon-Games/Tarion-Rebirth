@@ -1,10 +1,12 @@
 {
-    "name": "Game.Abstractions",
-    "rootNamespace": "Core.Common.Abstractions",
-    "references": [
-        "GUID:8dd7d41d8daace348bea711251ca1168"
+    "name": "UI.Base",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

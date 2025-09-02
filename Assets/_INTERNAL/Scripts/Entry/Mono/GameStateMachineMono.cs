@@ -1,6 +1,7 @@
 ﻿using Contex.MissionInfo;
 using Core.Factories.Stage_Factory;
 using Entry;
+using Entry.Mono;
 using Entry.Mono.MissionPanel;
 using Stages.StageController;
 using System;
@@ -10,7 +11,6 @@ namespace Mono.StateMachine
 {
     public class GameStateMachineMono : MonoBehaviour
     {
-        [SerializeField] private DataHolder _dataHolder;
         [SerializeField] private StateMachineUIDependencies _uiDependencies;
         [SerializeField] private StartPrepareMission _prepareMissionButton;
 
@@ -26,8 +26,10 @@ namespace Mono.StateMachine
 
         public void Run()
         {
+            var intstanceHolder = GameWorldStateMono.Instance.GameWorldState.ImperiumState.InstanceHolder;
+
             _stageDependencies ??= new StageDependencies(
-                    _dataHolder.BootDatas.InstanceHolder,
+                    intstanceHolder,
                     new MissionContex(),
                     _uiDependencies);
 

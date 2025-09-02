@@ -1,20 +1,24 @@
 ﻿using CommandSystem;
 using Core.CommandSystem;
+using Core.Common;
 using Core.Common.Abstractions;
 using Core.Common.Abstractions.GalaxyMap;
+using Core.Common.Instances;
+using Core.ConcreteBinders;
 using Core.EntityGenerateSystem;
 using Core.Instances.GalaxyMap;
+using Entry.Mono;
 using GameEntity.DataInstance;
 using GameEntity.DataInstance.Main;
 using GameEntity.Planet;
 using SO.Containers.Configs;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Utils;
 
 namespace UI.PlanetsMap
 {
-    public class GalaxyMapController : MonoBehaviour, IMapWriteService, ITargetListWriteService
+    public class GalaxyMapController : MonoBehaviour, IController
     {
         [Header("Map UI")]
         [SerializeField] private GalaxyMapUI _galaxyMapUI;
@@ -25,11 +29,14 @@ namespace UI.PlanetsMap
         [Space(10), Header("Spawner")]
         [SerializeField] private GalaxyMapSpawner _spawner;
 
-        private InstanceHolder _instanceHolder;
+        private ISceneBinder _sceneBinder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         private GalaxyMapInstance _localInstance;
         private PlanetGenerator _generator;
         private CommandProcessor _commandProcessor;
+
+        public event Action<IInstance> OnInstanceSelected;
 
         private void OnEnable()
         {
@@ -48,7 +55,14 @@ namespace UI.PlanetsMap
             _localInstance ??= new();
             _generator ??= new(_config);
             _commandProcessor ??= new();
+
             _spawner.CreatePlanetsPool(_config.PlanetCount);
+            _sceneBinder = new GalaxyMapBinder
+                (
+                this,
+                GameWorldStateMono.Instance.GameWorldState.ImperiumState,
+                _commandProcessor
+                );
         }
 
         private void Update()
@@ -56,19 +70,9 @@ namespace UI.PlanetsMap
             _commandProcessor?.Process();
         }
 
-        public void SetInstanceHolder(InstanceHolder holder)
+        public void RemovePlanet(IInstance planet)
         {
-            _instanceHolder = holder;
-        }
-
-        public void AddPlanetToTarget(PlanetInstance planet)
-        {
-            _instanceHolder?.AddNewPlanet(planet);
-        }
-
-        public void RemovePlanet(PlanetInstance planet)
-        {
-            _spawner.RemovePlanet(planet);
+            _spawner.RemovePlanet(planet as PlanetInstance);
         }
 
         private void HandleRefreshedMap()
@@ -76,18 +80,14 @@ namespace UI.PlanetsMap
             List<PlanetData> newPlanets = _generator.GeneratePlanets(_config.PlanetCount);
 
             _localInstance.GetGeneratedPlanets(newPlanets);
-            _galaxyMapUI.GetNewPlanets(_spawner.SpawnPlanets(_localInstance.Planets));
+            var spawnedPlanets = _spawner.SpawnPlanets(_localInstance.Planets);
+
+            _galaxyMapUI.GetNewPlanets(spawnedPlanets);
         }
 
         private void HandleAddedPlanet(PlanetInstance addedPlanet)
         {
-            var command = new AddPlanetToTargetListCommand(
-                addedPlanet,
-                (IMapWriteService)this,
-                (ITargetListWriteService)this
-            );
-
-            _commandProcessor.AddCommand(command);
+            OnInstanceSelected?.Invoke(addedPlanet);
         }
     }
 }

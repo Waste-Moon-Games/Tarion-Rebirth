@@ -44,7 +44,7 @@ namespace UI.PlanetsMap
             _formatter ??= new();
 
             _selectedPlanet = planet;
-            _selectedPlanet.CalculatePlanetPower();
+            _selectedPlanet.CalculatePower();
 
             SetupText(planet);
             SetupPlanetType(planet);
@@ -61,19 +61,19 @@ namespace UI.PlanetsMap
             switch (planet.RuntimeData.Type)
             {
                 case PlanetType.Capital:
-                    _type.text = "столица";
+                    _type.text = "Тип: столица";
                     break;
                 case PlanetType.Industrial:
-                    _type.text = "промышленная";
+                    _type.text = "Тип: промышленная";
                     break;
                 case PlanetType.Research:
-                    _type.text = "научная";
+                    _type.text = "Тип: научная";
                     break;
                 case PlanetType.Military:
-                    _type.text = "цитадель";
+                    _type.text = "Тип: цитадель";
                     break;
                 case PlanetType.Colony:
-                    _type.text = "колония";
+                    _type.text = "Тип: колония";
                     break;
             }
         }

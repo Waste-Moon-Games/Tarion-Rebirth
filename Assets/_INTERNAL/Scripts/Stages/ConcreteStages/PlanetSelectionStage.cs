@@ -14,7 +14,7 @@ namespace StateMachine.Stages
         private IGameStageController _controller;
         private PlanetListController _planetListController;
         private MissionContex _contex;
-        private InstanceHolder _instanceHolder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         public PlanetSelectionStage(IGameStageController controller, StageDependencies dependencies)
         {

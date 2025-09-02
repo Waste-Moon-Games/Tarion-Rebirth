@@ -11,7 +11,7 @@ namespace Core.Contex.Debug
         [field: SerializeField] public static HeroInstance SelectedHero { get; private set; }
         [field: SerializeField] public static PlanetInstance SelectedPlanet { get; private set; }
         [field: SerializeField] public static IGameStageController StageController { get; private set; }
-        [field: SerializeField] public static InstanceHolder InstanceHolder { get; private set; }
+        [field: SerializeField] public static ImperiumInstancesHolder InstanceHolder { get; private set; }
 
         public static void SetHero(HeroInstance instance) => SelectedHero = instance;
 
@@ -19,6 +19,6 @@ namespace Core.Contex.Debug
 
         public static void SetController(IGameStageController controller) => StageController = controller;
 
-        public static void SetInstanceHolder(InstanceHolder instance) => InstanceHolder = instance;
+        public static void SetInstanceHolder(ImperiumInstancesHolder instance) => InstanceHolder = instance;
     }
 }

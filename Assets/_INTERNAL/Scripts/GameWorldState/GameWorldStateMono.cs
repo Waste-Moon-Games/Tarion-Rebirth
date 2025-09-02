@@ -1,4 +1,5 @@
 ﻿using Core.GameStates;
+using Mono.InstanceInitialize;
 using UnityEngine;
 
 namespace Entry.Mono
@@ -7,11 +8,21 @@ namespace Entry.Mono
     {
         public static GameWorldStateMono Instance;
 
+        [SerializeField] private BootUniqueDatas _bootDatas;
         [field: SerializeField] public GameWorldState GameWorldState { get; private set; }
 
         private void Awake()
         {
-            GameWorldState = new GameWorldState();
+            if (_bootDatas == null)
+                return;
+
+            GameWorldState = new
+                (
+                _bootDatas.HeroDatas,
+                _bootDatas.PlanetDatas,
+                _bootDatas.MissionDatas,
+                _bootDatas.RankProgressionConfig
+                );
 
             if(Instance == null)
                 Instance = this;

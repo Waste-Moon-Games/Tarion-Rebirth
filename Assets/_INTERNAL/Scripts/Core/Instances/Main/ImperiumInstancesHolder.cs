@@ -1,4 +1,6 @@
-﻿using GameEntity.Mission;
+﻿using Core.Common.Abstractions.GalaxyMap;
+using Core.Common.Instances;
+using GameEntity.Mission;
 using GameEntity.ScriptableObjects;
 using Scripts.GameEntity.DataInstance;
 using SO.Containers.GameEntity;
@@ -8,7 +10,7 @@ using UnityEngine;
 
 namespace GameEntity.DataInstance.Main
 {
-    public class InstanceHolder
+    public class ImperiumInstancesHolder : ITargetListWriteService
     {
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
@@ -29,7 +31,6 @@ namespace GameEntity.DataInstance.Main
             if(!Planets.Contains(newPlanet))
                 Planets.Add(newPlanet);
 
-            Debug.Log($"Planet {newPlanet.RuntimeData.PlanetName} added to instance holder!");
             OnPlanetsListUpdated?.Invoke(newPlanet);
         }
 
@@ -61,6 +62,10 @@ namespace GameEntity.DataInstance.Main
             {
                 Missions.Add(data.MissionType);
             }
+        }
+
+        public void AddPlanetToTarget(IInstance planet)
+        {
         }
     }
 }

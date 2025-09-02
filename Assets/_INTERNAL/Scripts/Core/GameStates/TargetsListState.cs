@@ -1,4 +1,5 @@
 ﻿using GameEntity.DataInstance;
+using GameEntity.DataInstance.Main;
 using System;
 using System.Collections.Generic;
 
@@ -6,6 +7,8 @@ namespace Core.GameStates
 {
     public class TargetsListState
     {
+        private readonly ImperiumInstancesHolder _instanceHolder;
+
         private readonly Dictionary<string, PlanetInstance> _planets = new();
         private readonly List<string> _targetPlanetsIds = new();
 
@@ -18,6 +21,11 @@ namespace Core.GameStates
         public void RegisterPlanet(PlanetInstance planet) => _planets[planet.RuntimeData.Id] = planet;
 
         public PlanetInstance GetPlanet(string id) => _planets.TryGetValue(id, out var planet) ? planet : null;
+
+        public TargetsListState(ImperiumInstancesHolder instanceHolder)
+        {
+            _instanceHolder = instanceHolder;
+        }
 
         public bool TryAddTarget(string planetId)
         {

@@ -13,11 +13,11 @@ namespace Mono.UI.HeroListUI
 
         private readonly List<HeroItemView> _heroItems = new();
 
-        private InstanceHolder _instanceHolder;
+        private ImperiumInstancesHolder _instanceHolder;
 
         public event Action<HeroInstance> OnHeroSelected;
 
-        public void Initialize(InstanceHolder instanceHolder)
+        public void Initialize(ImperiumInstancesHolder instanceHolder)
         {
             _instanceHolder = instanceHolder;
 

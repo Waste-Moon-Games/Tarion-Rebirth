@@ -1,10 +1,11 @@
-﻿using GameEntity.Planet;
+﻿using Core.Common.Instances;
+using GameEntity.Planet;
 using GameEntity.ScriptableObjects;
 using UnityEngine;
 
 namespace GameEntity.DataInstance
 {
-    public class PlanetInstance
+    public class PlanetInstance : IInstance
     {
         private readonly PlanetDataContainer _baseData;
         private readonly PlanetData _sourceData;
@@ -32,7 +33,7 @@ namespace GameEntity.DataInstance
             _sourceData = _baseData.PlanetData;
             _runtimeData = new(_sourceData);
 
-            PlanetPower = CalculatePlanetPower();
+            PlanetPower = CalculatePower();
         }
 
         public PlanetInstance(PlanetData generatedSourceData)
@@ -40,10 +41,10 @@ namespace GameEntity.DataInstance
             _sourceData = generatedSourceData;
             _runtimeData = new(_sourceData);
 
-            PlanetPower = CalculatePlanetPower();
+            PlanetPower = CalculatePower();
         }
 
-        public float CalculatePlanetPower()
+        public float CalculatePower()
         {
             float planetResistance = CalculatePlanetResistance();
             float planetTechPower = CalculatePlanetTechPower();

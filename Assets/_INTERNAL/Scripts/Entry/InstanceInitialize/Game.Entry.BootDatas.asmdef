@@ -1,0 +1,21 @@
+{
+    "name": "Game.Entry.BootDatas",
+    "rootNamespace": "",
+    "references": [
+        "GUID:415d49886ea3bb64d83c7c7d53705a44",
+        "GUID:8dd7d41d8daace348bea711251ca1168"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
