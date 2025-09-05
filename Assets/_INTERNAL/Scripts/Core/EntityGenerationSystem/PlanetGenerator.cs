@@ -1,8 +1,10 @@
+using Core.EntityDatas.Planet;
 using Core.EntityGenerationConfigs;
 using GameEntity.Planet;
 using SO.Containers.Configs;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Core.EntityGenerateSystem
@@ -14,16 +16,24 @@ namespace Core.EntityGenerateSystem
 
         private readonly HashSet<string> _usedNames = new();
 
+        private readonly int[] _quotas;
+
         public PlanetGenerator(PlanetsGenerationConfig config)
         {
             _config = config.PlanetsConfig;
             _planetDescriptionGenerator = new(config.PlanetsConfig);
+            _quotas = new int []
+            { 
+                _config.LowLevelPlanetCount,
+                _config.MidLevelPlanetCount,
+                _config.HighLevelPlanetCount
+            };
         }
 
         /// <summary>
-        /// Генерация списка планет.
+        /// Генерация планеты.
         /// </summary>
-        public PlanetData GeneratePlanet()
+        public PlanetData GeneratePlanet(int planetLevel)
         {
             PlanetData data = new()
             {
@@ -37,27 +47,20 @@ namespace Core.EntityGenerateSystem
                 PlanetDescription = _planetDescriptionGenerator.GenerateDescription(),
 
                 //Популяция планеты
-                Population = Random.Range(
-                    _config.MinPopulation,
-                    _config.MaxPopulation),
+                Population = GenerateAttributeFromLevel<int>(planetLevel, _config.PopulationRange),
+
+                //Уровень планеты
+                Level = planetLevel,
 
                 //Сопротивление
-                BaseResistance = Random.Range(
-                    _config.MinBaseResistance,
-                    _config.MaxBaseResistance),
+                BaseResistance = GenerateAttributeFromLevel(planetLevel, _config.BaseResistanceRange),
 
-                ResistanceMultiplier = Random.Range(
-                    _config.MinResistanceMultiplier,
-                    _config.MaxResistanceMultiplier),
+                ResistanceMultiplier = GenerateAttributeFromLevel(planetLevel, _config.ResistanceMultipliersRange),
 
                 //Технологии
-                BaseTechPower = Random.Range(
-                    _config.MinBaseTechPower,
-                    _config.MaxBaseTechPower),
+                BaseTechPower = GenerateAttributeFromLevel(planetLevel, _config.BaseTechPowerRange),
 
-                TechMultiplier = Random.Range(
-                    _config.MinTechMultiplier,
-                    _config.MaxTechMultiplier)
+                TechMultiplier = GenerateAttributeFromLevel(planetLevel, _config.TechPowerMultipliersRange)
             };
 
             return data;
@@ -69,10 +72,13 @@ namespace Core.EntityGenerateSystem
         public List<PlanetData> GeneratePlanets(int count)
         {
             ResetUsedNames();
+
+            List<int> levels = GetRandomLevel();
+
             List<PlanetData> planets = new();
             for (int i = 0; i < count; i++)
             {
-                planets.Add(GeneratePlanet());
+                planets.Add(GeneratePlanet(levels[i]));
             }
             return planets;
         }
@@ -105,6 +111,48 @@ namespace Core.EntityGenerateSystem
             string fallback = $"Planet_{Guid.NewGuid().ToString("N")[..6]}";
             _usedNames.Add(fallback);
             return fallback;
+        }
+
+        private List<int> GetRandomLevel()
+        {
+            var result = new List<int>();
+
+            for (int i = 0; i < _config.LevelRange.Count; i ++)
+            {
+                var range = _config.LevelRange[i];
+
+                for (int j = 0; j < _quotas[i]; j ++)
+                {
+                    int level = Random.Range(range.MinLevel, range.MaxLevel + 1);
+                    result.Add(level);
+                }
+            }
+
+            Shuffle(result);
+
+            return result;
+        }
+
+        private T GenerateAttributeFromLevel<T>(int level, List<PlanetAttributes<T>> attributes) where T : struct
+        {
+            for (int i = 0; i < _config.LevelRange.Count; i++)
+            {
+                if (level >= _config.LevelRange[i].MinLevel && level <= _config.LevelRange[i].MaxLevel)
+                {
+                    var attribute = attributes[i];
+                    if (typeof(T) == typeof(int))
+                    {
+                        int result = Random.Range(Convert.ToInt32(attribute.MinValue), Convert.ToInt32(attribute.MaxValue));
+                        return (T)(object)result;
+                    }
+                    if (typeof(T) == typeof(float))
+                    {
+                        float result = Random.Range(Convert.ToSingle(attribute.MinValue), Convert.ToSingle(attribute.MaxValue));
+                        return (T)(object)result;
+                    }
+                }
+            }
+            return default;
         }
 
         private PlanetType GetRandomPlanetType()

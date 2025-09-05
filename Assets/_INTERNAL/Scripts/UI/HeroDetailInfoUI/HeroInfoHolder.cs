@@ -27,7 +27,7 @@ namespace UI.HeroDetailInfoUI
             _heroListUI.OnHeroSelected -= HandleSelectedHero;
         }
 
-        private void Start()
+        private void Awake()
         {
             _instanceHolder = GameWorldStateMono.Instance.GameWorldState.ImperiumState.InstanceHolder;
             ForceUpdateHeroList();

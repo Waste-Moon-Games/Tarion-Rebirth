@@ -6,6 +6,7 @@ using Scripts.GameEntity.DataInstance;
 using SO.Containers.GameEntity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameEntity.DataInstance.Main
@@ -26,9 +27,10 @@ namespace GameEntity.DataInstance.Main
             InitializeMissions(missionDatas);
         }
 
-        public void AddNewPlanet(PlanetInstance newPlanet)
+        public void AddPlanetToTarget(IInstance planet)
         {
-            if(!Planets.Contains(newPlanet))
+            var newPlanet = planet as PlanetInstance;
+            if (!Planets.Contains(newPlanet))
                 Planets.Add(newPlanet);
 
             OnPlanetsListUpdated?.Invoke(newPlanet);
@@ -62,10 +64,6 @@ namespace GameEntity.DataInstance.Main
             {
                 Missions.Add(data.MissionType);
             }
-        }
-
-        public void AddPlanetToTarget(IInstance planet)
-        {
         }
     }
 }

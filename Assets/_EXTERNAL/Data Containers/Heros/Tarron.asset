@@ -24,8 +24,11 @@ MonoBehaviour:
     Rank: 0
     HeroArt: {fileID: -74668207497188870, guid: 44eacc376da8dc3459d2010a9f649a79, type: 3}
     Stats:
-      BasePower: 100
+      BasePower: 200
       PowerGrowthMultiplier: 2
-      Strenght: 10
-      Dexterity: 10
-      Intelligence: 10
+      Strenght: 1
+      Dexterity: 1
+      Intelligence: 1
+      StrenghtMultiplier: 2
+      DexterityMultiplier: 2
+      IntelligenceMultiplier: 2

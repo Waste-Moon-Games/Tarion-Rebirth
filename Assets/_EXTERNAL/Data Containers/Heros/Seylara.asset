@@ -23,9 +23,13 @@ MonoBehaviour:
     Level: 1
     Experience: 0
     Rank: 0
+    HeroArt: {fileID: 0}
     Stats:
-      BasePower: 100
+      BasePower: 200
       PowerGrowthMultiplier: 0.9
-      Strenght: 5
-      Dexterity: 5
-      Intelligence: 5
+      Strenght: 1
+      Dexterity: 1
+      Intelligence: 1
+      StrenghtMultiplier: 0.7
+      DexterityMultiplier: 1.5
+      IntelligenceMultiplier: 2

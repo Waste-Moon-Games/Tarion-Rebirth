@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Earth
   m_EditorClassIdentifier: 
   <PlanetData>k__BackingField:
+    Id: 
     PlanetName: "\u0417\u0435\u043C\u043B\u044F"
     PlanetDescription: "\u0417\u0435\u043C\u043B\u044F - \u0441\u0442\u043E\u043B\u0438\u0446\u0430
       \u0421\u043E\u043B\u043D\u0435\u0447\u043D\u043E\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u044B,
@@ -28,3 +29,19 @@ MonoBehaviour:
     ResistanceMultiplier: 2
     Type: 3
     IsCaptured: 0
+    Resources:
+    - Name: Dark Energy
+      Id: dark_energy
+      Description: 
+      Amount: 15
+      Type: 2
+    - Name: Void Matter
+      Id: void_matter
+      Description: 
+      Amount: 0
+      Type: 0
+    - Name: Mineral Crystalls
+      Id: mineral_crystalls
+      Description: 
+      Amount: 25
+      Type: 1

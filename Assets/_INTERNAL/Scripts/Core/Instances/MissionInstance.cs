@@ -16,6 +16,9 @@ namespace GameEntity.DataInstance
         private readonly MissionResultCalculator _calculator;
         private MissionResult _result;
 
+        private readonly float _minDifficulty = 1f;
+        private readonly float _maxDifficulty = 10f;
+
         private readonly float _maxSuccessChance = 0.95f;
         private readonly float _minSuccessChance = 0.05f;
 
@@ -35,7 +38,15 @@ namespace GameEntity.DataInstance
             _planetInstance = planetInstance;
             _heroInstance = heroInstance;
 
-            _calculator = new(_minSuccessChance, _maxSuccessChance, _minDuration, _maxDuration);
+            _calculator = new
+                (
+                _minSuccessChance,
+                _maxSuccessChance,
+                _minDuration,
+                _maxDuration,
+                _minDifficulty,
+                _maxDifficulty
+                );
         }
 
         public HeroInstance GetChosenHero()

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Core.EntityDatas.Resource;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameEntity.Planet
 {
@@ -13,6 +15,7 @@ namespace GameEntity.Planet
 
         [Space(5)]
         public int Population;
+        public int Level;
         public float PlanetPower;
 
         [Space(5)]
@@ -30,6 +33,9 @@ namespace GameEntity.Planet
 
         [Space(5)]
         public bool IsCaptured;
+
+        [Space(5)]
+        public List<ResourceData> Resources;
     }
 
     public class PlanetRuntimeData
@@ -40,6 +46,7 @@ namespace GameEntity.Planet
         public string PlanetDescription;
 
         public int Population;
+        public int Level;
         public float PlanetPower;
 
         public float BaseTechPower;
@@ -54,6 +61,8 @@ namespace GameEntity.Planet
 
         public bool IsCaptured;
 
+        public List<ResourceData> Resources;
+
         public PlanetRuntimeData(PlanetData source)
         {
             Id = source.Id;
@@ -62,6 +71,7 @@ namespace GameEntity.Planet
             PlanetDescription = source.PlanetDescription;
 
             Population = source.Population;
+            Level = source.Level;
             PlanetPower = source.PlanetPower;
 
             BaseTechPower = source.BaseTechPower;
@@ -74,6 +84,7 @@ namespace GameEntity.Planet
 
             Type = source.Type;
             IsCaptured = source.IsCaptured;
+            Resources = source.Resources;
         }
     }
 }

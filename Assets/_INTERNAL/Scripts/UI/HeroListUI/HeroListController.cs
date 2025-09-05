@@ -25,7 +25,7 @@ namespace Mono.UI.HeroListUI
             RefreshHeroList();
         }
 
-        private void OnEnable()
+        private void Start()
         {
             RefreshHeroList();
         }

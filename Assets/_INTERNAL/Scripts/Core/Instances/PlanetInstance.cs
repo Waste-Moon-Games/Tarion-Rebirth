@@ -46,9 +46,11 @@ namespace GameEntity.DataInstance
 
         public float CalculatePower()
         {
+            int level = _runtimeData.Level;
             float planetResistance = CalculatePlanetResistance();
             float planetTechPower = CalculatePlanetTechPower();
-            float rawPower = planetTechPower * planetResistance;
+            float rawPower = (planetTechPower + planetResistance) * level
+                + 0.5f * planetTechPower * planetResistance * 0.01f;
 
             return PlanetPower = Mathf.RoundToInt(Mathf.Sqrt(rawPower));
         }

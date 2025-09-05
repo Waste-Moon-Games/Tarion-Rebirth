@@ -29,8 +29,8 @@ namespace UI.PlanetsMap
         [Space(10), Header("Spawner")]
         [SerializeField] private GalaxyMapSpawner _spawner;
 
-        private ISceneBinder _sceneBinder;
-        private ImperiumInstancesHolder _instanceHolder;
+        private ISceneBinder _localBinder;
+        private SceneBinder _sceneBinder;
 
         private GalaxyMapInstance _localInstance;
         private PlanetGenerator _generator;
@@ -52,17 +52,20 @@ namespace UI.PlanetsMap
 
         private void Awake()
         {
+            _spawner.CreatePlanetsPool(_config.PlanetCount);
+
             _localInstance ??= new();
             _generator ??= new(_config);
             _commandProcessor ??= new();
 
-            _spawner.CreatePlanetsPool(_config.PlanetCount);
-            _sceneBinder = new GalaxyMapBinder
+            _sceneBinder ??= new();
+            _localBinder ??= new GalaxyMapBinder
                 (
                 this,
                 GameWorldStateMono.Instance.GameWorldState.ImperiumState,
                 _commandProcessor
                 );
+            _sceneBinder.AddBinder(_localBinder);
         }
 
         private void Update()

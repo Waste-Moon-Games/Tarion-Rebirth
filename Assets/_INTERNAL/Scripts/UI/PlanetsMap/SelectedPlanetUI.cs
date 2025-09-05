@@ -15,6 +15,7 @@ namespace UI.PlanetsMap
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private TextMeshProUGUI _power;
         [SerializeField] private TextMeshProUGUI _type;
+        [SerializeField] private TextMeshProUGUI _level;
 
         [Space(10), Header("Buttons")]
         [SerializeField] private Button _closeButton;
@@ -54,6 +55,7 @@ namespace UI.PlanetsMap
         {
             _name.text = $"{planet.RuntimeData.PlanetName}";
             _power.text = $"{_formatter.FormatNumber(planet.PlanetPower)}";
+            _level.text = $"Уровень: {planet.RuntimeData.Level}";
         }
 
         private void SetupPlanetType(PlanetInstance planet)

@@ -1,3 +1,4 @@
+using Core.EntityDatas.Planet;
 using GameEntity.Planet;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,20 +25,24 @@ namespace Core.EntityGenerationConfigs
         public PlanetType PlanetType;
 
         [Header("Population")]
-        public int MinPopulation;
-        public int MaxPopulation;
+        public List<PlanetAttributes<int>> PopulationRange;
 
         [Header("Tech Power")]
-        public float MinBaseTechPower;
-        public float MaxBaseTechPower;
-        public float MinTechMultiplier;
-        public float MaxTechMultiplier;
+        public List<PlanetAttributes<float>> BaseTechPowerRange;
+        public List<PlanetAttributes<float>> TechPowerMultipliersRange;
 
         [Header("Resistance")]
-        public float MinBaseResistance;
-        public float MaxBaseResistance;
-        public float MinResistanceMultiplier;
-        public float MaxResistanceMultiplier;
+        public List<PlanetAttributes<float>> BaseResistanceRange;
+        public List<PlanetAttributes<float>> ResistanceMultipliersRange;
+
+        [Header("Resources")]
+        public List<PlanetAttributes<int>> ResourcesRange;
+
+        [Header("Planet Level")]
+        public int LowLevelPlanetCount;
+        public int MidLevelPlanetCount;
+        public int HighLevelPlanetCount;
+        public List<PlanetLevelRange> LevelRange;
 
         public void LoadNames()
         {

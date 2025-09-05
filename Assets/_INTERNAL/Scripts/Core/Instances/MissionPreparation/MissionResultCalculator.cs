@@ -6,14 +6,20 @@ namespace Core.Instances.MissionPreparation
 {
     public class MissionResultCalculator
     {
+        private readonly float _minDifficulty;
+        private readonly float _maxDifficulty;
+
         private readonly float _minSuccessChance;
         private readonly float _maxSuccessChance;
 
         private readonly float _minDuration;
         private readonly float _maxDuration;
 
-        public MissionResultCalculator(float minChance, float maxChance, float minDuration, float maxDuration)
+        public MissionResultCalculator(float minChance, float maxChance, float minDuration, float maxDuration, float minDifficulty, float maxDifficulty)
         {
+            _minDifficulty = minDifficulty;
+            _maxDifficulty = maxDifficulty;
+
             _maxSuccessChance = maxChance;
             _minSuccessChance = minChance;
 
@@ -27,7 +33,7 @@ namespace Core.Instances.MissionPreparation
 
             float heroPower = instance.GetHeroPower();
             float planetPower = instance.GetPlanetPower();
-            float difficult = planetPower / heroPower;
+            float difficult = Mathf.Clamp(planetPower / heroPower, _minDifficulty, _maxDifficulty);
 
             //Бросок кубика на успех
             result.IsMissionSuccessful = RollSuccess(heroPower, planetPower, result);

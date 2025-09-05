@@ -56,14 +56,77 @@ MonoBehaviour:
       \u0442\u0438\u043F\u0430 {type}, \u0433\u0434\u0435 \u043C\u043E\u0436\u043D\u043E
       \u0432\u0441\u0442\u0440\u0435\u0442\u0438\u0442\u044C {feature}."
     PlanetType: 0
-    MinPopulation: 1000
-    MaxPopulation: 100000000
-    MinBaseTechPower: 200
-    MaxBaseTechPower: 900
-    MinTechMultiplier: 0.25
-    MaxTechMultiplier: 3
-    MinBaseResistance: 200
-    MaxBaseResistance: 500
-    MinResistanceMultiplier: 0.25
-    MaxResistanceMultiplier: 2.5
-  <PlanetCount>k__BackingField: 5
+    PopulationRange:
+    - Name: Low
+      MinValue: 1000
+      MaxValue: 100000
+    - Name: Mid
+      MinValue: 100000
+      MaxValue: 10000000
+    - Name: High
+      MinValue: 10000000
+      MaxValue: 1000000000
+    BaseTechPowerRange:
+    - Name: Low
+      MinValue: 200
+      MaxValue: 600
+    - Name: Mid
+      MinValue: 600
+      MaxValue: 800
+    - Name: High
+      MinValue: 800
+      MaxValue: 1500
+    TechPowerMultipliersRange:
+    - Name: Low
+      MinValue: 0.5
+      MaxValue: 1.5
+    - Name: Mid
+      MinValue: 1.5
+      MaxValue: 2.5
+    - Name: High
+      MinValue: 2.5
+      MaxValue: 5
+    BaseResistanceRange:
+    - Name: Low
+      MinValue: 200
+      MaxValue: 500
+    - Name: Mid
+      MinValue: 600
+      MaxValue: 1000
+    - Name: High
+      MinValue: 1000
+      MaxValue: 1500
+    ResistanceMultipliersRange:
+    - Name: Low
+      MinValue: 0.5
+      MaxValue: 1
+    - Name: Mid
+      MinValue: 1
+      MaxValue: 2
+    - Name: High
+      MinValue: 2
+      MaxValue: 5
+    ResourcesRange:
+    - Name: Low
+      MinValue: 15
+      MaxValue: 25
+    - Name: Mid
+      MinValue: 25
+      MaxValue: 50
+    - Name: High
+      MinValue: 50
+      MaxValue: 100
+    LowLevelPlanetCount: 3
+    MidLevelPlanetCount: 2
+    HighLevelPlanetCount: 1
+    LevelRange:
+    - ThreatName: Low
+      MinLevel: 1
+      MaxLevel: 10
+    - ThreatName: Medium
+      MinLevel: 11
+      MaxLevel: 20
+    - ThreatName: High
+      MinLevel: 21
+      MaxLevel: 50
+  <PlanetCount>k__BackingField: 6
