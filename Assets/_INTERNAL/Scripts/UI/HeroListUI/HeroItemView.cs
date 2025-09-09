@@ -38,13 +38,16 @@ namespace Mono.UI.HeroListUI
             _heroInstance = heroInstance;
             _heroInstance.OnPowerChanged += HandleChangedPower;
             SetupText(_heroInstance);
+        }
 
+        public void InitializeButton()
+        {
             _selectButton = GetComponent<Button>();
 
             if (_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
 
-            _clickHandler = () => OnHeroSelected?.Invoke(heroInstance);
+            _clickHandler = () => OnHeroSelected?.Invoke(_heroInstance);
             _selectButton.onClick.AddListener(_clickHandler);
         }
 

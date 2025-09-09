@@ -52,17 +52,19 @@ namespace UI.PlanetsMap
 
         private void Awake()
         {
+            var imperiumState = GameWorldStateMono.Instance.GameWorldState.ImperiumState;
+            var imperiumInstancesHolder = imperiumState.InstanceHolder;
             _spawner.CreatePlanetsPool(_config.PlanetCount);
 
             _localInstance ??= new();
-            _generator ??= new(_config);
+            _generator ??= new(_config, imperiumInstancesHolder);
             _commandProcessor ??= new();
 
             _sceneBinder ??= new();
             _localBinder ??= new GalaxyMapBinder
                 (
                 this,
-                GameWorldStateMono.Instance.GameWorldState.ImperiumState,
+                imperiumState,
                 _commandProcessor
                 );
             _sceneBinder.AddBinder(_localBinder);
@@ -76,6 +78,7 @@ namespace UI.PlanetsMap
         public void RemovePlanet(IInstance planet)
         {
             _spawner.RemovePlanet(planet as PlanetInstance);
+            _galaxyMapUI.SelectedPlanetUI.Hide();
         }
 
         private void HandleRefreshedMap()

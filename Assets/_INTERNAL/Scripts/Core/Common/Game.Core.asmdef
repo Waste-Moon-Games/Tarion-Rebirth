@@ -4,7 +4,11 @@
     "references": [
         "GUID:27d466e22e1bb5a47885713bdda9d3a3"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

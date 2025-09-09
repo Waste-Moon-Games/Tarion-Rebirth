@@ -4,6 +4,8 @@ namespace Core.Common.Abstractions.GalaxyMap
 {
     public interface ITargetListWriteService
     {
-        void AddPlanetToTarget(IInstance planet);
+        void AddTarget(IInstance target);
+        void RemoveTarget(IInstance target);
+        void ClearTargets();
     }
 }

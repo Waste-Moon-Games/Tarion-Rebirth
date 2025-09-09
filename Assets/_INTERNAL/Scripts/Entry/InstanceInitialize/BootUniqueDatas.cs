@@ -1,5 +1,5 @@
-﻿using GameEntity.DataInstance.Main;
-using GameEntity.ScriptableObjects;
+﻿using GameEntity.ScriptableObjects;
+using SO.Containers.Configs;
 using SO.Containers.GameEntity;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,6 @@ namespace Mono.InstanceInitialize
         [field: SerializeField] public List<PlanetDataContainer> PlanetDatas { get; private set; }
         [field: SerializeField] public List<MissionDataContainer> MissionDatas { get; private set; }
         [field: SerializeField] public RankProgressionConfig RankProgressionConfig { get; private set; }
-
-        [field: SerializeField] public ImperiumInstancesHolder InstanceHolder { get; private set; }
+        [field: SerializeField] public ImperuimInstancesStartLimitsConfig StartLimitsConfig { get; private set; }
     }
 }

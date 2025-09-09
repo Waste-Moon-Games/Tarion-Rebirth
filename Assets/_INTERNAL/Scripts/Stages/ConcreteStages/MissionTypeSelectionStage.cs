@@ -3,8 +3,11 @@ using Core.Common;
 using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance.Main;
 using GameEntity.Mission;
+using Mono.UI;
+using Mono.UI.HeroListUI;
 using Mono.UI.MissionContexUI;
 using StateMachine.Base;
+using UI.Base;
 using UnityEngine;
 
 namespace StateMachine.Stages
@@ -32,6 +35,14 @@ namespace StateMachine.Stages
             if (!_missionTypeListController.gameObject.activeSelf)
                 _missionTypeListController.Show();
         }
+
+        public void RefreshDeps(IDependence dependence)
+        {
+            StageDependencies currentDeps = dependence as StageDependencies;
+            _missionTypeListController = currentDeps.UIDependencies.SelectionPanel.MissionTypeListController;
+        }
+
+        public void RefreshDeps(SimpleUIItem _) { }
 
         public void Tick() { }
 

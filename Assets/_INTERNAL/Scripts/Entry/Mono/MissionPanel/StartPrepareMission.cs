@@ -8,7 +8,7 @@ namespace Entry.Mono.MissionPanel
 {
     public class StartPrepareMission : MonoBehaviour
     {
-        [SerializeField] private GameStateMachineMono _stateMachineMono;
+        [SerializeField] private GameStateMachineRuntimeSevice _stateMachineMono;
         [SerializeField] private MissionInfoUI _missionInfoUI;
 
         private Button _startPrepareMissionButton;
@@ -19,10 +19,14 @@ namespace Entry.Mono.MissionPanel
 
         private void OnEnable()
         {
-            if(_startPrepareMissionButton == null)
-            {
+            if (_stateMachineMono == null)
+                _stateMachineMono = FindFirstObjectByType<GameStateMachineRuntimeSevice>();
+
+            if (_startPrepareMissionButton == null)
                 _startPrepareMissionButton = GetComponent<Button>();
-            }
+
+            if (_stateMachineMono.IsRunning)
+                _startPrepareMissionButton.interactable = false;
 
             _startPrepareMissionButton.onClick.AddListener(PrepareMission);
         }

@@ -41,7 +41,7 @@ namespace Core.ConcreteBinders
                 (
                 selectedPlanet as PlanetInstance,
                 _controller,
-                _imperiumState.InstanceHolder
+                _imperiumState.TargetsListState
                 );
 
             _processor.AddCommand(command);

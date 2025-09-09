@@ -1,5 +1,6 @@
 ﻿using Core.Contex.Debug;
 using GameEntity.DataInstance;
+using GameEntity.DataInstance.Main;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using System;
@@ -16,6 +17,7 @@ namespace Contex.MissionInfo
         [field: SerializeField] public MissionData CurrentMissionData { get; private set; }
 
         public event Action<PlanetInstance> OnPlanetSelected;
+        public event Action<PlanetInstance> OnPlanetCaprured;
         public event Action<HeroInstance> OnHeroSelected;
         public event Action<MissionType> OnMissionTypeSelected;
         public event Action OnMissionPrepared;
@@ -36,7 +38,7 @@ namespace Contex.MissionInfo
 
             OnPlanetSelected?.Invoke(SelectedPlanet);
 
-            DebugContex.SetPlanet(SelectedPlanet);
+            DebugContex.SetPlanet(selectedPlanet);
         }
 
         public void SetHero(HeroInstance selectedHero)
@@ -71,19 +73,25 @@ namespace Contex.MissionInfo
         public MissionInstance TryCreateMissionInstane()
         {
             if (SelectedPlanet != null && SelectedHero != null)
-            {
                 return new MissionInstance(CurrentMissionData, SelectedPlanet, SelectedHero);
-            }
 
             return null;
         }
 
         public void ApplyMissionResults()
         {
+            if (PreparedMission == null)
+                return;
+
             SelectedHero.AddExperience(PreparedMission.GainedExp);
             SelectedPlanet.SetPlanetStatus(PreparedMission.MissionSuccessful);
 
+            if (PreparedMission.MissionSuccessful)
+                OnPlanetCaprured?.Invoke(SelectedPlanet);
+
             SelectedPlanet.CalculatePower();
+
+            PreparedMission = null;
         }
     }
 }

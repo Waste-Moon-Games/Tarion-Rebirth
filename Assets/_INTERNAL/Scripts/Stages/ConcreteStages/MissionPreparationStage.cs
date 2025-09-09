@@ -2,7 +2,10 @@
 using Core.Common;
 using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance;
+using Mono.UI;
+using Mono.UI.MissionContexUI;
 using StateMachine.Base;
+using UI.Base;
 using UnityEngine;
 
 namespace StateMachine.Stages
@@ -27,6 +30,8 @@ namespace StateMachine.Stages
             mission?.PrepareMission();
             _missionContex.SetPreparedMission(mission);
         }
+
+        public void RefreshDeps(IDependence _) { }
 
         public void Tick() { }
 

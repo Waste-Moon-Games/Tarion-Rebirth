@@ -9,6 +9,7 @@ Library: D:\Unity\Projects\Tarion Rebirth\Temp\BurstOutput\tempburstlibs\arm64-v
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Unity\Projects\Tarion Rebirth\Temp\Burst
+--debug=Full
 --key-folder=D:/Unity/Unity Engine/6000.0.43f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\Unity\Projects\Tarion Rebirth\Library\Burst
 --output=D:\Unity\Projects\Tarion Rebirth\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -35,6 +36,7 @@ Library: D:\Unity\Projects\Tarion Rebirth\Temp\BurstOutput\tempburstlibs\arm64-v
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Unity\Projects\Tarion Rebirth\Temp\Burst
+--debug=Full
 --key-folder=D:/Unity/Unity Engine/6000.0.43f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\Unity\Projects\Tarion Rebirth\Library\Burst
 --output=D:\Unity\Projects\Tarion Rebirth\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -52,6 +54,7 @@ Library: D:\Unity\Projects\Tarion Rebirth\Temp\BurstOutput\tempburstlibs\arm64-v
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Unity\Projects\Tarion Rebirth\Temp\Burst
+--debug=Full
 --key-folder=D:/Unity/Unity Engine/6000.0.43f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\Unity\Projects\Tarion Rebirth\Library\Burst
 --output=D:\Unity\Projects\Tarion Rebirth\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated

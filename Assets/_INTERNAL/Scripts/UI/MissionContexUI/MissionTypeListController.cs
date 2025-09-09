@@ -1,5 +1,4 @@
-﻿using GameEntity.DataInstance;
-using GameEntity.DataInstance.Main;
+﻿using GameEntity.DataInstance.Main;
 using GameEntity.Mission;
 using System;
 using System.Collections.Generic;

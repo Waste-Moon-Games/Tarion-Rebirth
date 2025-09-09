@@ -1,10 +1,13 @@
 ﻿using Contex.MissionInfo;
+using Core.Common;
 using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance.Main;
+using Mono.UI;
 using Mono.UI.HeroListUI;
+using Mono.UI.PlanetListUI;
 using Scripts.GameEntity.DataInstance;
 using StateMachine.Base;
-using Core.Common;
+using UI.Base;
 
 namespace StateMachine.Stages
 {
@@ -32,10 +35,19 @@ namespace StateMachine.Stages
                 _heroListController.Show();
         }
 
+        public void RefreshDeps(IDependence dependence)
+        {
+            StageDependencies currentDeps = dependence as StageDependencies;
+            _heroListController = currentDeps.UIDependencies.SelectionPanel.HeroListController;
+        }
+
+        public void RefreshDeps(SimpleUIItem _) { }
+
         public void Tick() { }
 
         public void Exit()
         {
+            _heroListController.Hide();
             _heroListController.OnHeroSelected -= HandleSelectedHero;
         }
 
@@ -50,9 +62,6 @@ namespace StateMachine.Stages
         private void HandleSelectedHero(HeroInstance selectedHero)
         {
             _missionContex.SetHero(selectedHero);
-
-            _heroListController.Hide();
-
             _controller.SetStage(_controller.StageFactory.CreateMissionTypeSelectionStage(_controller));
         }
     }

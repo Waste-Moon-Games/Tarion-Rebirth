@@ -61,10 +61,10 @@ MonoBehaviour:
       MinValue: 1000
       MaxValue: 100000
     - Name: Mid
-      MinValue: 100000
+      MinValue: 1000000
       MaxValue: 10000000
     - Name: High
-      MinValue: 10000000
+      MinValue: 100000000
       MaxValue: 1000000000
     BaseTechPowerRange:
     - Name: Low
@@ -102,9 +102,9 @@ MonoBehaviour:
       MaxValue: 1
     - Name: Mid
       MinValue: 1
-      MaxValue: 2
+      MaxValue: 3
     - Name: High
-      MinValue: 2
+      MinValue: 3
       MaxValue: 5
     ResourcesRange:
     - Name: Low
@@ -116,9 +116,9 @@ MonoBehaviour:
     - Name: High
       MinValue: 50
       MaxValue: 100
-    LowLevelPlanetCount: 3
-    MidLevelPlanetCount: 2
-    HighLevelPlanetCount: 1
+    LowLevelPlanetCount: 4
+    MidLevelPlanetCount: 3
+    HighLevelPlanetCount: 2
     LevelRange:
     - ThreatName: Low
       MinLevel: 1
@@ -129,4 +129,4 @@ MonoBehaviour:
     - ThreatName: High
       MinLevel: 21
       MaxLevel: 50
-  <PlanetCount>k__BackingField: 6
+  <PlanetCount>k__BackingField: 9

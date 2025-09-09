@@ -1,36 +1,42 @@
 ﻿using Contex.MissionInfo;
 using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance;
-using GameEntity.DataInstance.Main;
 using Mono.UI.PlanetListUI;
 using StateMachine.Base;
 using Core.Common;
 using UnityEngine;
+using Core.GameStates;
 
 namespace StateMachine.Stages
 {
     public class PlanetSelectionStage : IStage, IDisposable
     {
         private IGameStageController _controller;
-        private PlanetListController _planetListController;
+        private TargetPlanetsListController _planetListController;
         private MissionContex _contex;
-        private ImperiumInstancesHolder _instanceHolder;
+        private TargetsListState _targetList;
 
         public PlanetSelectionStage(IGameStageController controller, StageDependencies dependencies)
         {
             _controller = controller;
             _planetListController = dependencies.UIDependencies.SelectionPanel.PlanetListController;
             _contex = dependencies.MissionContex;
-            _instanceHolder = dependencies.InstanceHolder;
+            _targetList = dependencies.TargetsList;
         }
 
         public void Enter()
         {
-            _planetListController.Initialize(_instanceHolder);
+            _planetListController.Initialize(_targetList);
             _planetListController.OnPlanetSelected += HandleSelectedPlanet;
 
             if (!_planetListController.isActiveAndEnabled)
                 _planetListController.Show();
+        }
+
+        public void RefreshDeps(IDependence dependence)
+        {
+            StageDependencies currentDeps = dependence as StageDependencies;
+            _planetListController = currentDeps.UIDependencies.SelectionPanel.PlanetListController;
         }
 
         public void Tick() { }
@@ -46,7 +52,7 @@ namespace StateMachine.Stages
             _contex = null;
             _controller = null;
             _planetListController = null;
-            _instanceHolder = null;
+            _targetList = null;
         }
 
         private void HandleSelectedPlanet(PlanetInstance selectedPlanet)

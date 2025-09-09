@@ -15,6 +15,7 @@ namespace Core.Common.SimpleTimer
         public bool IsRunning => _isRunning;
 
         public event Action OnTimeEnded;
+        public event Action<float> OnProgressUpdated;
 
         public void Initialize(float duration)
         {
@@ -43,6 +44,7 @@ namespace Core.Common.SimpleTimer
             if (!_isRunning) return;
 
             _remainingTime -= Time.deltaTime;
+            OnProgressUpdated?.Invoke(Progress);
 
             if (_remainingTime <= 0f)
             {

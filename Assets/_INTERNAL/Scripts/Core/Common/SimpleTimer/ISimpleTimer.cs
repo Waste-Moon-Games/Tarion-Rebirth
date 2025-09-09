@@ -5,6 +5,7 @@ namespace Core.Common.SimpleTimer
     public interface ISimpleTimer
     {
         event Action OnTimeEnded;
+        event Action<float> OnProgressUpdated;
 
         void Initialize(float startTime);
         void Start();

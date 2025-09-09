@@ -29,20 +29,25 @@ namespace Core.Instances.MissionPreparation
 
         public MissionResult CalculateResult(MissionInstance instance)
         {
-            var result = new MissionResult();
+            MissionResult result = new();
 
             float heroPower = instance.GetHeroPower();
             float planetPower = instance.GetPlanetPower();
-            float difficult = Mathf.Clamp(planetPower / heroPower, _minDifficulty, _maxDifficulty);
+
+            //Расчёт сложности и её нормализация
+            float ratio = planetPower / Mathf.Max(heroPower, 1f);
+            float normalized = ratio / (1f + ratio);
+
+            float difficulty = Mathf.Lerp(_minDifficulty, _maxDifficulty, normalized);
 
             //Бросок кубика на успех
-            result.IsMissionSuccessful = RollSuccess(heroPower, planetPower, result);
+            result.IsMissionSuccessful = RollSuccess(heroPower, difficulty, planetPower, result);
 
             //Опыт герою
-            result.HeroExperience = CalculateExperience(difficult, instance.GetChosenHero().HeroLevel);
+            result.HeroExperience = CalculateExperience(difficulty);
 
             //Сложность миссии
-            result.Difficult = difficult;
+            result.Difficult = difficulty;
 
             //Длительность миссии
             result.Duration = CalculateDuration(heroPower, planetPower);
@@ -61,16 +66,23 @@ namespace Core.Instances.MissionPreparation
 
         private float CalculateDuration(float heroPower, float planetPower)
         {
-            float baseDuration = 60f;
-            float difficultyFactor = planetPower / heroPower;
+            float ratio = planetPower / Mathf.Max(heroPower, 1f);
+            float normalized = ratio / (1f + ratio);
 
-            return Mathf.Clamp(baseDuration * difficultyFactor, _minDuration, _maxDuration);
+            float duration = Mathf.Lerp(_minDuration, _maxDuration, normalized);
+
+            return duration;
         }
 
-        private bool RollSuccess(float heroPower, float planetPower, MissionResult result)
+        private bool RollSuccess(float heroPower, float difficulty, float planetPower, MissionResult result)
         {
             float baseChance = heroPower / (heroPower + planetPower);
-            float successChance = Mathf.Clamp(baseChance, _minSuccessChance, _maxSuccessChance);
+
+            float difficultyNormalized = (difficulty - _minDifficulty) / (_maxDifficulty - _minDifficulty);
+
+            float successChance = Mathf.Lerp(baseChance * 0.5f, baseChance * 1.5f, 1f - difficultyNormalized);
+            successChance = Mathf.Clamp(successChance, _minSuccessChance, _maxSuccessChance);
+
             result.SuccessChance = successChance;
 
             float roll = Random.value;
@@ -83,15 +95,12 @@ namespace Core.Instances.MissionPreparation
             return roll <= successChance;
         }
 
-        private int CalculateExperience(float difficult, int heroLevel)
+        private int CalculateExperience(float difficult)
         {
             float baseExp = 50f;
             float scaling = 1.25f;
-            float heroPenalty = Mathf.Clamp01((difficult - heroLevel) * 0.1f);
 
-            float result = baseExp * Mathf.Pow(difficult, scaling) * (1f + heroPenalty);
-
-            return Mathf.RoundToInt(result);
+            return Mathf.RoundToInt(baseExp * Mathf.Pow(difficult, scaling));
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Contex.MissionInfo;
-using Core.Common.SimpleTimer;
-using System;
+﻿using Core.Common.SimpleTimer;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,41 +7,42 @@ namespace UI.MissionExecutionUI
 {
     public class MissionExecutionTimer : SimpleUIItem
     {
+        [Header("UI")]
         [SerializeField] private Image _missionProgress;
 
         private ISimpleTimer _timer;
 
-        public event Action OnTimeEnded;
+        public bool HasTimer => _timer != null;
+        public bool HasEnabled => gameObject.activeSelf;
 
-        public void Initialize(MissionContex missionContex)
+        private void OnDestroy()
         {
-            _timer = new Timer();
-            _timer.Initialize(missionContex.PreparedMission.Duration);
+            if (_timer != null)
+                _timer.OnProgressUpdated -= UpdateTimer;
         }
 
-        public void StartTimer()
+        public void SetTimer(ISimpleTimer timer)
         {
-            _timer.OnTimeEnded += HandleEndedTime;
-            _timer.Start();
-            _missionProgress.fillAmount = _timer.Progress;
+            _timer = timer;
+            _timer.OnProgressUpdated += UpdateTimer;
         }
 
-        public void UpdateTimer()
+        public void StartTimer(float value)
         {
-            _timer.Tick();
-            _missionProgress.fillAmount = _timer.Progress;
+            _missionProgress.fillAmount = value;
         }
 
-        public void StopTimer()
+        public void UpdateTimer(float value)
         {
-            _timer.OnTimeEnded -= HandleEndedTime;
-            _timer.Stop();
-            _missionProgress.fillAmount = _timer.Progress;
+            if (!_missionProgress)
+                return;
+
+            _missionProgress.fillAmount = value;
         }
 
-        private void HandleEndedTime()
+        public void StopTimer(float value)
         {
-            OnTimeEnded?.Invoke();
+            _missionProgress.fillAmount = value;
         }
     }
 }

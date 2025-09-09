@@ -1,7 +1,10 @@
-﻿using Core.Factories;
+﻿using Core.Common;
+using Core.Factories;
+using Mono.UI;
 using StateMachine.Base;
-using UnityEngine;
 using System;
+using UI.Base;
+using UnityEngine;
 using IDisposable = Core.Common.IDisposable;
 
 namespace Stages.StageController
@@ -59,6 +62,11 @@ namespace Stages.StageController
         public void Update()
         {
             _currentStage?.Tick();
+        }
+
+        public void RefreshDeps(IDependence dependence)
+        {
+            _currentStage?.RefreshDeps(dependence);
         }
 
         private void HandleCreatedMissionExecutionStage()

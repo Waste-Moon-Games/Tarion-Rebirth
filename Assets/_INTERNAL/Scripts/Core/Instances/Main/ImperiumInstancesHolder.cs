@@ -1,39 +1,76 @@
-﻿using Core.Common.Abstractions.GalaxyMap;
-using Core.Common.Instances;
+﻿using Core.Common.Instances;
 using GameEntity.Mission;
 using GameEntity.ScriptableObjects;
 using Scripts.GameEntity.DataInstance;
+using SO.Containers.Configs;
 using SO.Containers.GameEntity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace GameEntity.DataInstance.Main
 {
-    public class ImperiumInstancesHolder : ITargetListWriteService
+    public class ImperiumInstancesHolder
     {
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
         [field: SerializeField] public List<MissionType> Missions { get; private set; } = new();
 
-        public event Action<PlanetInstance> OnPlanetsListUpdated;
+        private int _maxPlanets;
+        private int _maxHeros;
 
-        public void Initialize(List<HeroDataContainer> heroDatas,
-            List<PlanetDataContainer> planetDatas, List<MissionDataContainer> missionDatas, RankProgressionConfig config)
+        public bool HasAvailablePositionInPlanetsList => Planets.Count < _maxPlanets;
+        public int MaxPlanets => _maxPlanets;
+        public int MaxHeros => _maxHeros;
+
+        public event Action<PlanetInstance> OnPlanetAdded;
+        public event Action<int> OnPlanetsCountChanged;
+        public event Action<PlanetInstance> OnPlanetRejected;
+        public event Action<int> OnPlanetsLimitUpgraded;
+
+        public event Action<HeroInstance> OnHerosListUpdated;
+
+        public ImperiumInstancesHolder(ImperuimInstancesStartLimitsConfig limitsConfig)
+        {
+            _maxPlanets = limitsConfig.StartMaxPlanetsLimit;
+            _maxHeros = limitsConfig.StartMaxHerosLimit;
+        }
+
+        public void Initialize
+            (
+            List<HeroDataContainer> heroDatas,
+            List<PlanetDataContainer> planetDatas,
+            List<MissionDataContainer> missionDatas,
+            RankProgressionConfig config
+            )
         {
             InitializeHeros(heroDatas, config);
             InitializePlanets(planetDatas);
-            InitializeMissions(missionDatas);
+            InitializeAvailableTypesOfMissions(missionDatas);
         }
 
-        public void AddPlanetToTarget(IInstance planet)
+        public void AddCapturedPlanet(IInstance planet)
         {
             var newPlanet = planet as PlanetInstance;
-            if (!Planets.Contains(newPlanet))
-                Planets.Add(newPlanet);
 
-            OnPlanetsListUpdated?.Invoke(newPlanet);
+            if(Planets.Count >= _maxPlanets)
+            {
+                OnPlanetRejected?.Invoke(newPlanet);
+                return;
+            }
+
+            if (!Planets.Contains(newPlanet))
+            {
+                Planets.Add(newPlanet);
+                OnPlanetAdded?.Invoke(newPlanet);
+                OnPlanetsCountChanged?.Invoke(Planets.Count);
+            }
+        }
+
+        public void UpgradePlanetsLimit(int amount)
+        {
+            _maxPlanets += amount;
+            OnPlanetsLimitUpgraded?.Invoke(_maxPlanets);
         }
 
         private void InitializeHeros(List<HeroDataContainer> heroDatas, RankProgressionConfig config)
@@ -56,7 +93,7 @@ namespace GameEntity.DataInstance.Main
             }
         }
 
-        private void InitializeMissions(List<MissionDataContainer> missionDatas)
+        private void InitializeAvailableTypesOfMissions(List<MissionDataContainer> missionDatas)
         {
             Missions.Clear();
 

@@ -16,6 +16,8 @@ namespace GameEntity.DataInstance
         private readonly MissionResultCalculator _calculator;
         private MissionResult _result;
 
+        private float _startTime;
+
         private readonly float _minDifficulty = 1f;
         private readonly float _maxDifficulty = 10f;
 
@@ -26,6 +28,7 @@ namespace GameEntity.DataInstance
         private readonly float _maxDuration = 300f;
 
         public bool MissionSuccessful => _result.IsMissionSuccessful;
+        public bool IsCompleted => Time.time >= _startTime + Duration;
         public float SuccessChance => _result.SuccessChance;
         public MissionType Type => _runtimeData.Type;
         public float Difficulty => _runtimeData.Difficulty;
@@ -47,6 +50,11 @@ namespace GameEntity.DataInstance
                 _minDifficulty,
                 _maxDifficulty
                 );
+        }
+
+        public void BeginMission()
+        {
+            _startTime = Time.time;
         }
 
         public HeroInstance GetChosenHero()

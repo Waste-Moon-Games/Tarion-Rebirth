@@ -1,4 +1,5 @@
 using Core.Contex.Debug;
+using Entry.Mono;
 using Mono.StateMachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ namespace Debugger
 {
     public class DebugPanelUI : MonoBehaviour
     {
-        [SerializeField] private GameStateMachineMono _stateMachineMono;
+        [SerializeField] private GameStateMachineRuntimeSevice _stateMachineMono;
 
         [SerializeField] private GameObject _panelRoot;
         [SerializeField] private Button _addExpButton;
@@ -16,6 +17,7 @@ namespace Debugger
         private void Awake()
         {
 #if UNITY_EDITOR || DEBUG
+            _stateMachineMono = FindFirstObjectByType<GameStateMachineRuntimeSevice>();
             _panelRoot.SetActive(false);
             _addExpButton.onClick.AddListener(()=> DebugActions.AddExpToCurrentHero(100));
             _completeMissionButton.onClick.AddListener(()=> DebugActions.ForceCompleteMission());

@@ -16,7 +16,7 @@ namespace Utils
             {
                 if (existing != null)
                 {
-                    Destroy(existing);
+                    Destroy(gameObject);
                     return;
                 }
             }

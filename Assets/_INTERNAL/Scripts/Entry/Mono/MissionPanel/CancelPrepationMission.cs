@@ -6,14 +6,17 @@ namespace Entry.Mono.MissionPanel
 {
     public class CancelPrepationMission : MonoBehaviour
     {
-        [SerializeField] private GameStateMachineMono _gameStateMachine;
         [SerializeField] private StartPrepareMission _startMissionButton;
 
+        private GameStateMachineRuntimeSevice _gameStateMachine;
         private Button _cancelButton;
 
         private void OnEnable()
         {
-            if(_cancelButton == null)
+            if(_gameStateMachine == null)
+                _gameStateMachine = FindFirstObjectByType<GameStateMachineRuntimeSevice>();
+
+            if (_cancelButton == null)
                 _cancelButton = GetComponent<Button>();
 
             _cancelButton.onClick.AddListener(CancelPreparateMission);
@@ -27,6 +30,12 @@ namespace Entry.Mono.MissionPanel
             _cancelButton.onClick.RemoveListener(CancelPreparateMission);
 
             _gameStateMachine.OnMissionStarted -= HandleStartedMission;
+        }
+
+        private void OnDestroy()
+        {
+            if(!_gameStateMachine.IsRunning)
+                _gameStateMachine.ForceEnd();
         }
 
         private void CancelPreparateMission()

@@ -22,7 +22,7 @@ namespace CommandSystem
         public void Execute()
         {
             _map.RemovePlanet(_planet);
-            _targetList.AddPlanetToTarget(_planet);
+            _targetList.AddTarget(_planet);
         }
 
         public void Undo() { }

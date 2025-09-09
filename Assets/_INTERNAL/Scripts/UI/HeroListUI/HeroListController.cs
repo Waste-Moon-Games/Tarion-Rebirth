@@ -1,4 +1,5 @@
-﻿using GameEntity.DataInstance.Main;
+﻿using GameEntity.DataInstance;
+using GameEntity.DataInstance.Main;
 using Scripts.GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
@@ -22,23 +23,22 @@ namespace Mono.UI.HeroListUI
             _instanceHolder = instanceHolder;
 
             CreateHeroList();
-            RefreshHeroList();
+            SubscribeOnItemsEvent();
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            RefreshHeroList();
+            SubscribeOnItemsEvent();
+            RefreshItemList();
+
+            _instanceHolder.OnHerosListUpdated += AddNewItemToList;
         }
 
         private void OnDisable()
         {
-            if (_heroItems.Count == _instanceHolder.Heros.Count)
-            {
-                foreach (HeroItemView heroItem in _heroItems)
-                {
-                    heroItem.OnHeroSelected -= HandleSelectedHero;
-                }
-            }
+            UnsubscribeFromItemsEvent();
+
+            _instanceHolder.OnHerosListUpdated -= AddNewItemToList;
         }
 
         private void CreateHeroList()
@@ -56,17 +56,46 @@ namespace Mono.UI.HeroListUI
                 var itemGO = Instantiate(_heroItemPrefab, _contentParent);
                 var item = itemGO.GetComponent<HeroItemView>();
 
+                item.Setup(_instanceHolder.Heros[i]);
+                item.InitializeButton();
+
                 _heroItems.Add(item);
             }
         }
 
-        private void RefreshHeroList()
+        private void SubscribeOnItemsEvent()
+        {
+            foreach (HeroItemView item in _heroItems)
+            {
+                item.OnHeroSelected += HandleSelectedHero;
+                item.InitializeButton();
+            }
+        }
+
+        private void UnsubscribeFromItemsEvent()
+        {
+            foreach (HeroItemView hero in _heroItems)
+            {
+                hero.OnHeroSelected -= HandleSelectedHero;
+            }
+        }
+
+        private void RefreshItemList()
         {
             for (int i = 0; i < _instanceHolder.Heros.Count; i++)
             {
                 _heroItems[i].Setup(_instanceHolder.Heros[i]);
-                _heroItems[i].OnHeroSelected += HandleSelectedHero;
             }
+        }
+
+        private void AddNewItemToList(HeroInstance newHero)
+        {
+            HeroItemView item = Instantiate(_heroItemPrefab, _contentParent);
+
+            item.Setup(newHero);
+            item.OnHeroSelected += HandleSelectedHero;
+
+            _heroItems.Add(item);
         }
 
         private void HandleSelectedHero(HeroInstance selectedHero)

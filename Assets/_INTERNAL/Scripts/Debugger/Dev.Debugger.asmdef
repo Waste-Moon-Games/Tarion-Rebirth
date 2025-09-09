@@ -11,7 +11,11 @@
         "GUID:b82ec909a2546084f8f1ac7081e0631f",
         "GUID:6374a29456f859348a2fc4834e829bc8"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

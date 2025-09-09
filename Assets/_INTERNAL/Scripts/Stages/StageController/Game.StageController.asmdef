@@ -3,9 +3,14 @@
     "rootNamespace": "",
     "references": [
         "GUID:d4c4211594eb1b244afa977496643732",
-        "GUID:a3d74a47ca3ec974fa30b0784d04e905"
+        "GUID:a3d74a47ca3ec974fa30b0784d04e905",
+        "GUID:a7de66735a763ec4d9c732db95446355"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

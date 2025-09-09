@@ -1,6 +1,8 @@
 ﻿using Contex.MissionInfo;
 using Core.Common;
 using Core.Factories.Stage_Factory;
+using GameEntity.DataInstance;
+using GameEntity.DataInstance.Main;
 using StateMachine.Base;
 using UI.Result;
 
@@ -8,6 +10,7 @@ namespace StateMachine.Stages
 {
     public class MissionResultStage : IStage, IDisposable
     {
+        private ImperiumInstancesHolder _instancesHolder;
         private IGameStageController _controller;
         private MissionContex _missionContex;
         private ResultPanel _panelHolder;
@@ -16,6 +19,7 @@ namespace StateMachine.Stages
         {
             _controller = controller;
             _missionContex = dependencies.MissionContex;
+            _instancesHolder = dependencies.InstanceHolder;
             _panelHolder = dependencies.UIDependencies.ResultPanelHolder;
         }
 
@@ -30,6 +34,12 @@ namespace StateMachine.Stages
             _missionContex.ApplyMissionResults();
         }
 
+        public void RefreshDeps(IDependence dependence)
+        {
+            StageDependencies currentDeps = dependence as StageDependencies;
+            _panelHolder = currentDeps.UIDependencies.ResultPanelHolder;
+        }
+
         public void Tick() { }
 
         public void Exit()
@@ -41,6 +51,7 @@ namespace StateMachine.Stages
         public void Dispose()
         {
             _controller = null;
+            _instancesHolder = null;
             _missionContex = null;
             _panelHolder = null;
         }

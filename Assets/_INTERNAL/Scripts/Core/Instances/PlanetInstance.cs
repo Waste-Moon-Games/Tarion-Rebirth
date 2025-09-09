@@ -1,6 +1,7 @@
 ﻿using Core.Common.Instances;
 using GameEntity.Planet;
 using GameEntity.ScriptableObjects;
+using System;
 using UnityEngine;
 
 namespace GameEntity.DataInstance
@@ -27,6 +28,8 @@ namespace GameEntity.DataInstance
             }
         }
 
+        public event Action<float> OnPowerChanged;
+
         public PlanetInstance(PlanetDataContainer container)
         {
             _baseData = container;
@@ -52,7 +55,10 @@ namespace GameEntity.DataInstance
             float rawPower = (planetTechPower + planetResistance) * level
                 + 0.5f * planetTechPower * planetResistance * 0.01f;
 
-            return PlanetPower = Mathf.RoundToInt(Mathf.Sqrt(rawPower));
+            float result = PlanetPower = Mathf.RoundToInt(Mathf.Sqrt(rawPower));
+
+            OnPowerChanged?.Invoke(result);
+            return result;
         }
 
         public void SetPlanetStatus(bool status)

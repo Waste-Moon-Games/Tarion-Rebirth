@@ -1,9 +1,11 @@
 using Core.EntityDatas.Planet;
 using Core.EntityGenerationConfigs;
+using GameEntity.DataInstance.Main;
 using GameEntity.Planet;
 using SO.Containers.Configs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,13 +15,15 @@ namespace Core.EntityGenerateSystem
     {
         private readonly PlanetDescriptionGenerator _planetDescriptionGenerator;
         private readonly PlanetGenerationConfig _config;
+        private readonly ImperiumInstancesHolder _instancesHolder;
 
         private readonly HashSet<string> _usedNames = new();
 
         private readonly int[] _quotas;
 
-        public PlanetGenerator(PlanetsGenerationConfig config)
+        public PlanetGenerator(PlanetsGenerationConfig config, ImperiumInstancesHolder instancesHolder)
         {
+            _instancesHolder = instancesHolder;
             _config = config.PlanetsConfig;
             _planetDescriptionGenerator = new(config.PlanetsConfig);
             _quotas = new int []
@@ -96,20 +100,46 @@ namespace Core.EntityGenerateSystem
             if (_config.NameTemplates.Count == 0)
                 return "Unnamed Planet";
 
-            List<string> shuffled = new(_config.NameTemplates);
-            Shuffle(shuffled);
+            HashSet<string> existingNames = _instancesHolder.Planets
+                .Select(p => p?.RuntimeData.PlanetName ?? string.Empty)
+                .Where(name => !string.IsNullOrEmpty(name))
+                .ToHashSet();
 
-            foreach (var candidate in shuffled)
+            int attempts = 0;
+            int maxAttempts = _config.NameTemplates.Count * 2;
+
+            string candidate = null;
+            while (attempts < maxAttempts)
             {
-                if (!_usedNames.Contains(candidate))
+                int index = Random.Range(0, _config.NameTemplates.Count);
+                string name = _config.NameTemplates[index];
+
+                if (!_usedNames.Contains(name) && !existingNames.Contains(name))
                 {
-                    _usedNames.Add(candidate);
-                    return candidate;
+                    candidate = name;
+                    break;
                 }
+
+                attempts++;
             }
 
-            string fallback = $"Planet_{Guid.NewGuid().ToString("N")[..6]}";
+            if (candidate != null)
+            {
+                _usedNames.Add(candidate);
+                return candidate;
+            }
+
+            string fallback;
+            do
+            {
+                int index = Random.Range(0, _config.NameTemplates.Count);
+                string randomSuffix = $"{(char)Random.Range('A', 'Z' + 1)}{Random.Range(100, 1000)}-{(char)Random.Range('A', 'Z' + 1)}";
+                fallback = $"{_config.NameTemplates[index]} {randomSuffix}";
+            }
+            while (existingNames.Contains(fallback));
+
             _usedNames.Add(fallback);
+
             return fallback;
         }
 

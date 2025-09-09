@@ -17,6 +17,8 @@ namespace UI.PlanetsMap
         [Space(10), Header("Selected planet UI")]
         [SerializeField] private SelectedPlanetUI _selectedPlanetUI;
 
+        public SelectedPlanetUI SelectedPlanetUI => _selectedPlanetUI;
+
         public event Action OnMapRefreshed;
         public event Action<PlanetInstance> OnPlanetAdded;
 

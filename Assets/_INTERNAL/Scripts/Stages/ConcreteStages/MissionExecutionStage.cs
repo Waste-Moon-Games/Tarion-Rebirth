@@ -1,7 +1,11 @@
 ﻿using Contex.MissionInfo;
 using Core.Common;
+using Core.Common.SimpleTimer;
 using Core.Factories.Stage_Factory;
+using Mono.UI;
+using Mono.UI.MissionContexUI;
 using StateMachine.Base;
+using UI.Base;
 using UI.MissionExecutionUI;
 using UnityEngine;
 
@@ -9,6 +13,7 @@ namespace StateMachine.Stages
 {
     public class MissionExecutionStage : IStage, IDisposable
     {
+        private ISimpleTimer _timer;
         private IGameStageController _controller;
 
         private MissionContex _missionContex;
@@ -19,32 +24,51 @@ namespace StateMachine.Stages
             _controller = controller;
             _missionContex = dependencies.MissionContex;
             _uiController = dependencies.UIDependencies.MissionExecutionUI;
+
+            _timer = new Timer();
         }
 
         public void Enter()
         {
-            _uiController.Initialize(_missionContex);
-            _uiController.OnTimeEnded += HandleEndedTime;
+            _timer.Initialize(_missionContex.PreparedMission.Duration);
+            _timer.OnTimeEnded += HandleEndedTime;
 
             if (!_uiController.gameObject.activeSelf)
                 _uiController.Show();
 
-            _uiController.StartTimer();
+            _timer.Start();
+            _uiController.SetTimer(_timer);
+            _uiController.StartTimer(_timer.Progress);
+        }
+
+        public void RefreshDeps(IDependence dependence)
+        {
+            StageDependencies currentDeps = dependence as StageDependencies;
+            _uiController = currentDeps.UIDependencies.MissionExecutionUI;
         }
 
         public void Tick()
         {
-            _uiController.UpdateTimer();
+            if(!_uiController.HasTimer && !_uiController.HasEnabled)
+            {
+                _uiController.SetTimer(_timer);
+                _uiController.Show();
+            }
+
+            _timer?.Tick();
         }
 
         public void Exit()
         {
-            _uiController.OnTimeEnded -= HandleEndedTime;
+            _timer.OnTimeEnded -= HandleEndedTime;
             _uiController.Hide();
         }
 
         public void Dispose()
         {
+            _timer.OnTimeEnded -= HandleEndedTime;
+
+            _timer = null;
             _controller = null;
             _missionContex = null;
             _uiController = null;
@@ -52,6 +76,8 @@ namespace StateMachine.Stages
 
         private void HandleEndedTime()
         {
+            _timer.Stop();
+            _uiController.StopTimer(_timer.Progress);
             _controller.SetStage(_controller.StageFactory.CreateMissionResultStage(_controller));
         }
     }

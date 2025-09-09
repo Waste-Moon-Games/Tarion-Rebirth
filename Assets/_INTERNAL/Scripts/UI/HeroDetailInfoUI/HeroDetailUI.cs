@@ -111,6 +111,10 @@ namespace UI.HeroDetailInfoUI
                 .FormatNumber(_selectedHero.GetExperienceToNextLevel());
 
             _expInfo.text = $"{formatedCurrentExp}/{formatedNextLevelExp}";
+
+            if (!_levelProgression)
+                return;
+
             _levelProgression.fillAmount = _selectedHero.GetExperienceProgress();
         }
     }

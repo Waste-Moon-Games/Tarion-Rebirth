@@ -27,6 +27,8 @@ namespace Mono.UI.PlanetListUI
         {
             if (_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
+
+            _planetInstance.OnPowerChanged -= HandleChangedPower;
         }
 
         public void Setup(PlanetInstance planetInstance)
@@ -34,7 +36,13 @@ namespace Mono.UI.PlanetListUI
             _formatter ??= new();
 
             _planetInstance = planetInstance;
+            _planetInstance.OnPowerChanged += HandleChangedPower;
 
+            SetupText();
+        }
+
+        private void SetupText()
+        {
             _planetNameText.text = _planetInstance.RuntimeData.PlanetName;
             _planetPopulation.text = $"Популяция:{_formatter.FormatNumber(_planetInstance.RuntimeData.Population)}";
             _planetPower.text = $"Мощь: {_formatter.FormatNumber(_planetInstance.PlanetPower)}";
@@ -51,6 +59,11 @@ namespace Mono.UI.PlanetListUI
             _clickHandler = () => OnPlanetSelected?.Invoke(_planetInstance);
 
             _selectButton.onClick.AddListener(_clickHandler);
+        }
+
+        private void HandleChangedPower(float power)
+        {
+            _planetPower.text = $"Мощь: {_formatter.FormatNumber(power)}";
         }
     }
 }

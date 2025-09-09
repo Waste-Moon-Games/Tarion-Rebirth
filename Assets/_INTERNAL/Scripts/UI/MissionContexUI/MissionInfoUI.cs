@@ -3,6 +3,7 @@ using GameEntity.DataInstance;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using TMPro;
+using UI.GameUIBridges;
 using UI.MissionContexUI;
 using UnityEngine;
 using Utils.Formatter;
@@ -11,7 +12,10 @@ namespace Mono.UI.MissionContexUI
 {
     public class MissionInfoUI : MonoBehaviour
     {
-        [Header("Mission Info")]
+        [Header("Bridge")]
+        [SerializeField] private MissionUIBridge _bridge;
+
+        [Space(10), Header("Mission Info")]
         [SerializeField] private TextMeshProUGUI _selectedPlanetText;
         [SerializeField] private TextMeshProUGUI _selectedHeroText;
         [SerializeField] private TextMeshProUGUI _selectedType;
@@ -21,9 +25,10 @@ namespace Mono.UI.MissionContexUI
         private MissionContex _missionContex;
         private DurationFormatter _durationFormatter;
 
-        private void OnDisable()
+        private void Start()
         {
-            UnsubscribeFromContexEvents();
+            if(_bridge.HasCurrentContex)
+                Initialize(_bridge.CurrentContex);
         }
 
         public void Initialize(MissionContex missionContex)
@@ -31,6 +36,7 @@ namespace Mono.UI.MissionContexUI
             _missionContex = missionContex;
             _durationFormatter ??= new();
 
+            UnsubscribeFromContexEvents();
             SubscribeOnContexEvents();
 
             Refresh();
@@ -60,7 +66,6 @@ namespace Mono.UI.MissionContexUI
                 _missionContex.OnMissionDurationCalculated -= HandleCalculatedMissionDuration;
                 _missionContex.OnMissionSuccessChanceCalculated -= HandlePreparedMission;
             }
-            
         }
 
         private void HandleSelectedHero(HeroInstance selectedHero)
@@ -118,13 +123,20 @@ namespace Mono.UI.MissionContexUI
 
         private void HandlePreparedMission(float chance)
         {
-            _successChanceText.text = $"Шанс на успех: {(chance * 100f):F1}%";
+            _successChanceText.text = $"Шанс успеха: {chance * 100f:F1}%";
         }
 
         private void Refresh()
         {
-            HandleSelectedHero(_missionContex.SelectedHero);
+            if (_missionContex.PreparedMission == null)
+                return;
+
             HandleSelectedPlanet(_missionContex.SelectedPlanet);
+            HandleSelectedHero(_missionContex.SelectedHero);
+            HandleSelectedMissionType(_missionContex.SelectedMissionType);
+            HandleCalculatedMissionDifficulty(_missionContex.PreparedMission.Difficulty);
+            HandleCalculatedMissionDuration(_missionContex.PreparedMission.Duration);
+            HandlePreparedMission(_missionContex.PreparedMission.SuccessChance);
         }
     }
 }

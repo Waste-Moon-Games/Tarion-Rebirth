@@ -1,6 +1,7 @@
 ﻿using GameEntity.DataInstance;
 using GameEntity.Planet;
 using System;
+using System.Numerics;
 using TMPro;
 using UI.Base;
 using UnityEngine;
@@ -38,6 +39,7 @@ namespace UI.PlanetsMap
         {
             _closeButton.onClick.RemoveListener(Hide);
             _addToTargetListButton.onClick.RemoveListener(HandleAddedPlanet);
+            ClearPanel();
         }
 
         public void Setup(PlanetInstance planet)
@@ -54,8 +56,15 @@ namespace UI.PlanetsMap
         private void SetupText(PlanetInstance planet)
         {
             _name.text = $"{planet.RuntimeData.PlanetName}";
-            _power.text = $"{_formatter.FormatNumber(planet.PlanetPower)}";
+            _power.text = $"Мощь: {_formatter.FormatNumber(planet.PlanetPower)}";
             _level.text = $"Уровень: {planet.RuntimeData.Level}";
+        }
+
+        private void ClearPanel()
+        {
+            _name.text = $"None";
+            _power.text = $"Мощь: None";
+            _level.text = $"Уровень: None";
         }
 
         private void SetupPlanetType(PlanetInstance planet)
