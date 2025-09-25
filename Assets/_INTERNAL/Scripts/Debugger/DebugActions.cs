@@ -16,10 +16,10 @@ namespace Debugger
 
         public static void ForceCompleteMission()
         {
-            GameStageController controller = DebugContex.StageController as GameStageController;
-            var stage = controller.StageFactory.CreateMissionResultStage(controller);
+            //GameStageController controller = DebugContex.StageControllers as GameStageController;
+            //var stage = controller.StageFactory.CreateMissionResultStage(controller);
 
-            controller.SetStage(stage);
+            //controller.SetStage(stage);
             Debug.Log($"[DEBUG] Миссия принудительно завершена");
         }
     }

@@ -21,6 +21,9 @@ namespace Mono.UI.HeroListUI
 
         private UnityAction _clickHandler;
 
+        public HeroInstance Hero => _heroInstance;
+        public Button SelectButton => _selectButton;
+
         public event Action<HeroInstance> OnHeroSelected;
 
         private void OnDisable()
@@ -28,7 +31,8 @@ namespace Mono.UI.HeroListUI
             if(_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
 
-            _heroInstance.OnPowerChanged -= HandleChangedPower;
+            if(_heroInstance != null)
+                _heroInstance.OnPowerChanged -= HandleChangedPower;
         }
 
         public void Setup(HeroInstance heroInstance)
@@ -42,13 +46,23 @@ namespace Mono.UI.HeroListUI
 
         public void InitializeButton()
         {
-            _selectButton = GetComponent<Button>();
+            if(_selectButton == null)
+                _selectButton = GetComponent<Button>();
 
             if (_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
 
             _clickHandler = () => OnHeroSelected?.Invoke(_heroInstance);
             _selectButton.onClick.AddListener(_clickHandler);
+        }
+
+        public void Clear()
+        {
+            _heroInstance = null;
+            _heroName.text = string.Empty;
+            _heroPower.text = string.Empty;
+            _heroLevel.text = string.Empty;
+            gameObject.SetActive(false);
         }
 
         private void SetupText(HeroInstance hero)

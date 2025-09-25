@@ -9,10 +9,10 @@ namespace CommandSystem
     public class AddPlanetToTargetListCommand : ICommand
     {
         private readonly PlanetInstance _planet;
-        private readonly IMapWriteService _map;
+        private readonly IInstanceWriteService _map;
         private readonly ITargetListWriteService _targetList;
 
-        public AddPlanetToTargetListCommand(PlanetInstance planet, IMapWriteService map, ITargetListWriteService targetList)
+        public AddPlanetToTargetListCommand(PlanetInstance planet, IInstanceWriteService map, ITargetListWriteService targetList)
         {
             _planet = planet ?? throw new ArgumentNullException(nameof(planet));
             _map = map ?? throw new ArgumentNullException(nameof(map));
@@ -21,7 +21,7 @@ namespace CommandSystem
 
         public void Execute()
         {
-            _map.RemovePlanet(_planet);
+            _map.RemoveInstance(_planet);
             _targetList.AddTarget(_planet);
         }
 

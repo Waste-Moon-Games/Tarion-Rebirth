@@ -1,12 +1,14 @@
 using Core.EntityDatas.Planet;
+using Core.EntityDatas.Resource;
 using Core.EntityGenerationConfigs;
+using Core.GameStates;
 using GameEntity.DataInstance.Main;
 using GameEntity.Planet;
 using SO.Containers.Configs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Utils.EnumUtils;
 using Random = UnityEngine.Random;
 
 namespace Core.EntityGenerateSystem
@@ -16,14 +18,16 @@ namespace Core.EntityGenerateSystem
         private readonly PlanetDescriptionGenerator _planetDescriptionGenerator;
         private readonly PlanetGenerationConfig _config;
         private readonly ImperiumInstancesHolder _instancesHolder;
+        private readonly TargetsListState _targetsListState;
 
         private readonly HashSet<string> _usedNames = new();
 
         private readonly int[] _quotas;
 
-        public PlanetGenerator(PlanetsGenerationConfig config, ImperiumInstancesHolder instancesHolder)
+        public PlanetGenerator(PlanetsGenerationConfig config, ImperiumInstancesHolder instancesHolder, TargetsListState targetsList)
         {
             _instancesHolder = instancesHolder;
+            _targetsListState = targetsList;
             _config = config.PlanetsConfig;
             _planetDescriptionGenerator = new(config.PlanetsConfig);
             _quotas = new int []
@@ -51,7 +55,7 @@ namespace Core.EntityGenerateSystem
                 PlanetDescription = _planetDescriptionGenerator.GenerateDescription(),
 
                 //Популяция планеты
-                Population = GenerateAttributeFromLevel<int>(planetLevel, _config.PopulationRange),
+                Population = GenerateAttributeFromLevel(planetLevel, _config.PopulationRange),
 
                 //Уровень планеты
                 Level = planetLevel,
@@ -64,7 +68,10 @@ namespace Core.EntityGenerateSystem
                 //Технологии
                 BaseTechPower = GenerateAttributeFromLevel(planetLevel, _config.BaseTechPowerRange),
 
-                TechMultiplier = GenerateAttributeFromLevel(planetLevel, _config.TechPowerMultipliersRange)
+                TechMultiplier = GenerateAttributeFromLevel(planetLevel, _config.TechPowerMultipliersRange),
+
+                //Ресурсы
+                Resources = GenerateResources(planetLevel)
             };
 
             return data;
@@ -104,6 +111,10 @@ namespace Core.EntityGenerateSystem
                 .Select(p => p?.RuntimeData.PlanetName ?? string.Empty)
                 .Where(name => !string.IsNullOrEmpty(name))
                 .ToHashSet();
+            HashSet<string> targetsNames = _targetsListState.Targets
+                .Select(t => t?.RuntimeData.PlanetName ?? string.Empty)
+                .Where(name => !string.IsNullOrEmpty(name))
+                .ToHashSet();
 
             int attempts = 0;
             int maxAttempts = _config.NameTemplates.Count * 2;
@@ -114,7 +125,7 @@ namespace Core.EntityGenerateSystem
                 int index = Random.Range(0, _config.NameTemplates.Count);
                 string name = _config.NameTemplates[index];
 
-                if (!_usedNames.Contains(name) && !existingNames.Contains(name))
+                if (!_usedNames.Contains(name) && !existingNames.Contains(name) && !targetsNames.Contains(name))
                 {
                     candidate = name;
                     break;
@@ -183,6 +194,25 @@ namespace Core.EntityGenerateSystem
                 }
             }
             return default;
+        }
+
+        private List<ResourceData> GenerateResources(int level)
+        {
+            var result = new List<ResourceData>();
+
+            foreach (var currentResource in _config.ResourceTypes)
+            {
+                var resource = new ResourceData
+                {
+                    Name = currentResource.GetDescription(),
+                    Type = currentResource,
+                    BaseExtaction = GenerateAttributeFromLevel(level, _config.ResourcesRange)
+                };
+
+                result.Add(resource);
+            }
+
+            return result;
         }
 
         private PlanetType GetRandomPlanetType()

@@ -1,4 +1,3 @@
-using Contex.MissionInfo;
 using GameEntity.ScriptableObjects;
 using SO.Containers.Configs;
 using SO.Containers.GameEntity;
@@ -17,16 +16,10 @@ namespace Core.GameStates
             List<PlanetDataContainer> planetDatas,
             List<MissionDataContainer> missionDatas,
             RankProgressionConfig progressionConfig,
-            ImperuimInstancesStartLimitsConfig limitsConfig)
+            ImperiumConfig limitsConfig)
         {
-            ImperiumState = new ImperiumState
-                (
-                heroDatas,
-                planetDatas,
-                missionDatas,
-                progressionConfig,
-                limitsConfig
-                );
+            ImperiumState = new(heroDatas,planetDatas,missionDatas,progressionConfig,limitsConfig);
+
             ImperiumStateController = new(ImperiumState);
         }
     }

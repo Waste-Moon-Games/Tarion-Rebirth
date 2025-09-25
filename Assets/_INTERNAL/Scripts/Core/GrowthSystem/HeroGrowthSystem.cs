@@ -32,18 +32,26 @@ namespace Core.GrowthSystem
             if (CurrentSkillPoints <= 0)
                 return;
 
-            switch (statType)
+            //switch (statType)
+            //{
+            //    case HeroStatType.Strength:
+            //        _heroStats.Strength += 1;
+            //        break;
+            //    case HeroStatType.Dexterity:
+            //        _heroStats.Dexterity += 1;
+            //        break;
+            //    case HeroStatType.Intelligence:
+            //        _heroStats.Intelligence += 1;
+            //        break;
+            //}
+
+            _ = statType switch
             {
-                case HeroStatType.Strength:
-                    _heroStats.Strenght += 1;
-                    break;
-                case HeroStatType.Dexterity:
-                    _heroStats.Dexterity += 1;
-                    break;
-                case HeroStatType.Intelligence:
-                    _heroStats.Intelligence += 1;
-                    break;
-            }
+                HeroStatType.Strength => _heroStats.Strength++,
+                HeroStatType.Dexterity => _heroStats.Dexterity++,
+                HeroStatType.Intelligence => _heroStats.Intelligence++,
+                _ => 0
+            };
 
             CurrentSkillPoints--;
             OnStatChanged?.Invoke(_heroStats);

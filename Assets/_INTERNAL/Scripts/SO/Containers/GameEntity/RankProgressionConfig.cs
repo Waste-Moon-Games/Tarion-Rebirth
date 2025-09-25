@@ -12,7 +12,7 @@ namespace SO.Containers.GameEntity
         public int RequiredLevel;
     }
 
-    [CreateAssetMenu(menuName = "Config containers/Rank config", fileName = "Rank cofig")]
+    [CreateAssetMenu(menuName = "Config containers/HeroRank config", fileName = "HeroRank cofig")]
     public class RankProgressionConfig : ScriptableObject
     {
         [SerializeField] private List<RankProgressionEntry> _entries;

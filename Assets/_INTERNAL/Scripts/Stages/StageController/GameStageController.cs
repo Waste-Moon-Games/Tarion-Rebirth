@@ -1,9 +1,7 @@
 ﻿using Core.Common;
 using Core.Factories;
-using Mono.UI;
 using StateMachine.Base;
 using System;
-using UI.Base;
 using UnityEngine;
 using IDisposable = Core.Common.IDisposable;
 
@@ -12,20 +10,26 @@ namespace Stages.StageController
     public class GameStageController : IGameStageController
     {
         private readonly IStageFactory _factory;
+        private readonly int _controllerId;
         private IStage _currentStage;
+        private bool _isRunning = false;
 
         public IStageFactory StageFactory { get { return _factory; } }
+        public bool HasInactive => _isRunning != true;
+        public int ControllerId => _controllerId;
 
         public event Action OnMissionStarted;
         public event Action OnResultAccepted;
 
-        public GameStageController(IStageFactory factory)
+        public GameStageController(IStageFactory factory, int controllerId)
         {
             _factory = factory;
+            _controllerId = controllerId;
         }
 
         public void StartCycle()
         {
+            _isRunning = true;
             SetStage(_factory.CreatePlanetSelectionStage(this));
             _factory.OnMissionExecutionStageCreated += HandleCreatedMissionExecutionStage;
         }
@@ -43,6 +47,7 @@ namespace Stages.StageController
 
         public void EndCycle()
         {
+            _isRunning = false;
             _currentStage?.Exit();
             (_currentStage as IDisposable)?.Dispose();
             _currentStage = null;
@@ -53,6 +58,7 @@ namespace Stages.StageController
 
         public void ForceEnd()
         {
+            _isRunning = false;
             _currentStage?.Exit();
             (_currentStage as IDisposable)?.Dispose();
             _currentStage = null;

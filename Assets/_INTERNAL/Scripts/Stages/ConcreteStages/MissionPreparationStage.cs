@@ -46,8 +46,10 @@ namespace StateMachine.Stages
             _missionContex = null;
         }
 
-        private void HandlePreparedMission()
+        private void HandlePreparedMission(MissionInstance _)
         {
+            _missionContex?.SelectedHero?.SetBusyStatus(true);
+            _missionContex?.SelectedPlanet?.SetBusyStatus(true);
             _controller.SetStage(_controller.StageFactory.CreateMissionExecutionStage(_controller));
         }
     }

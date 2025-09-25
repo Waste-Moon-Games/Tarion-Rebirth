@@ -35,18 +35,6 @@ namespace UI.HeroDetailInfoUI
         public event Action OnDexterityClicked;
         public event Action OnIntelligenceClicked;
 
-        //private void OnEnable()
-        //{
-        //    SubscribeOnButtonEvents();
-        //}
-
-        //private void OnDisable()
-        //{
-        //    UnsubscribeFromButtonEvents();
-
-        //    Cleanup();
-        //}
-
         public void SubscribeOnButtonEvents()
         {
             _onStrengthButtonClick = () => OnStrengthClicked?.Invoke();
@@ -83,7 +71,7 @@ namespace UI.HeroDetailInfoUI
             UnsubscribeFromButtonEvents();
             SubscribeOnButtonEvents();
 
-            _strenght.text = $"STR: {selectedHero.RuntimeData.Stats.Strenght}";
+            _strenght.text = $"STR: {selectedHero.RuntimeData.Stats.Strength}";
             _dexterity.text = $"DEX: {selectedHero.RuntimeData.Stats.Dexterity}";
             _intelligence.text = $"INT: {selectedHero.RuntimeData.Stats.Intelligence}";
             _avaliablePointsText.text = $"{selectedHero.GetCurrentSkillPoints()}";
@@ -96,7 +84,7 @@ namespace UI.HeroDetailInfoUI
 
         public void SetStats(HeroRuntimeStats stats)
         {
-            _strenght.text = $"STR: {stats.Strenght}";
+            _strenght.text = $"STR: {stats.Strength}";
             _dexterity.text = $"DEX: {stats.Dexterity}";
             _intelligence.text = $"INT: {stats.Intelligence}";
         }

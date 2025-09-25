@@ -22,5 +22,11 @@ namespace UI.Result
         {
             ResultUI.OnResultAccepted -= _onResultAccepted;
         }
+
+        private void OnDestroy()
+        {
+            _onResultAccepted?.Invoke();
+            ResultUI.OnResultAccepted -= _onResultAccepted;
+        }
     }
 }

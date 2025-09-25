@@ -12,6 +12,6 @@ namespace Mono.InstanceInitialize
         [field: SerializeField] public List<PlanetDataContainer> PlanetDatas { get; private set; }
         [field: SerializeField] public List<MissionDataContainer> MissionDatas { get; private set; }
         [field: SerializeField] public RankProgressionConfig RankProgressionConfig { get; private set; }
-        [field: SerializeField] public ImperuimInstancesStartLimitsConfig StartLimitsConfig { get; private set; }
+        [field: SerializeField] public ImperiumConfig ImperiumConfig { get; private set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UI.MissionContexUI;
+﻿using System.Collections.Generic;
+using UI.MissionContexUI;
 using UI.MissionExecutionUI;
 using UI.Result;
 using UI.SelectionPanel;
@@ -10,7 +11,7 @@ namespace Mono.StateMachine
     {
         [field: SerializeField] public SelectionPanel SelectionPanel {  get; private set; }
         [field: SerializeField] public MissionPreparationUI MissionPreparationUI { get; private set; }
-        [field: SerializeField] public MissionExecutionTimer MissionExecutionUI { get; private set; }
+        [field: SerializeField] public List<MissionExecutionTimer> MissionExecutionUI { get; private set; } = new();
         [field: SerializeField] public ResultPanel ResultPanelHolder { get; private set; }
     }
 }

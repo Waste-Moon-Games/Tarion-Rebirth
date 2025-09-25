@@ -135,7 +135,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &65658463
 MonoBehaviour:
@@ -196,7 +196,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &296389919
 Transform:
@@ -334,7 +334,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &432294220
 MonoBehaviour:
@@ -641,7 +641,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f9524b7ac06b01d47b48ad6a21f97940, type: 2}
   - {fileID: 11400000, guid: 80b2bc0a1699ee04a89354e63497279d, type: 2}
   <RankProgressionConfig>k__BackingField: {fileID: 11400000, guid: b6e6ddbafb9b86c47a57e120d73b6edb, type: 2}
-  <StartLimitsConfig>k__BackingField: {fileID: 11400000, guid: 3419975622565dc48b26c5dfe2e2134d, type: 2}
+  <ImperiumConfig>k__BackingField: {fileID: 11400000, guid: 3b6a6283a19b5dc42abab7f98c26c273, type: 2}
 --- !u!4 &1534684571
 Transform:
   m_ObjectHideFlags: 0
@@ -875,7 +875,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1807817604
 Transform:
@@ -923,7 +923,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1841967262
 MonoBehaviour:
@@ -1001,7 +1001,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1932028895
 Transform:

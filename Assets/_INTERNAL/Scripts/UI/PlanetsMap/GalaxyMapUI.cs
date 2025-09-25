@@ -44,7 +44,7 @@ namespace UI.PlanetsMap
                 OnMapRefreshed?.Invoke();
         }
 
-        public void GetNewPlanets(List<PlanetMapView> planets)
+        public void SetNewPlanets(List<PlanetMapView> planets)
         {
             _generatedPlanets.Clear();
 

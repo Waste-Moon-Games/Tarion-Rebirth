@@ -1,0 +1,25 @@
+{
+    "name": "UI.MissionSlotsUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a7de66735a763ec4d9c732db95446355",
+        "GUID:a4af56c3c386f5f419e90e5aee85343d",
+        "GUID:84ab4ae29abd5594a927561bf418b6ca",
+        "GUID:cb77ea5d8c9f0fc4ebd10564408fdfcf",
+        "GUID:e1b95945d93a77142be855e972906bb3",
+        "GUID:6374a29456f859348a2fc4834e829bc8"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

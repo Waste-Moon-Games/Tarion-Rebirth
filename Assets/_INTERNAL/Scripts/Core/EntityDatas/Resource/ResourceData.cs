@@ -12,7 +12,7 @@ namespace Core.EntityDatas.Resource
         [TextArea]
         public string Description;
 
-        public int Amount;
+        public int BaseExtaction;
 
         public ResourceType Type;
     }

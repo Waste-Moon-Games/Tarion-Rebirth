@@ -34,8 +34,8 @@ namespace Entry.Mono.MissionPanel
 
         private void OnDestroy()
         {
-            if(!_gameStateMachine.IsRunning)
-                _gameStateMachine.ForceEnd();
+            if (_gameStateMachine.IsPreparationRunning)
+                CancelPreparateMission();
         }
 
         private void CancelPreparateMission()

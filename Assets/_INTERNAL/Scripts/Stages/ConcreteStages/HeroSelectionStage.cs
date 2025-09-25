@@ -2,9 +2,7 @@
 using Core.Common;
 using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance.Main;
-using Mono.UI;
 using Mono.UI.HeroListUI;
-using Mono.UI.PlanetListUI;
 using Scripts.GameEntity.DataInstance;
 using StateMachine.Base;
 using UI.Base;
@@ -15,7 +13,7 @@ namespace StateMachine.Stages
     {
         private IGameStageController _controller;
         private MissionContex _missionContex;
-        private HeroListController _heroListController;
+        private OwnedHeroListController _heroListController;
         private ImperiumInstancesHolder _instanceHolder;
 
         public HeroSelectionStage(IGameStageController controller, StageDependencies dependencies)
@@ -47,8 +45,8 @@ namespace StateMachine.Stages
 
         public void Exit()
         {
-            _heroListController.Hide();
             _heroListController.OnHeroSelected -= HandleSelectedHero;
+            _heroListController.Hide();
         }
 
         public void Dispose()

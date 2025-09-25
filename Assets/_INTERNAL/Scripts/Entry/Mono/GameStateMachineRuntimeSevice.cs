@@ -1,8 +1,8 @@
 ﻿using Contex.MissionInfo;
 using Core.Factories.Stage_Factory;
+using Core.MissionSlots;
 using Entry.Mono;
-using Entry.Mono.MissionPanel;
-using Stages.StageController;
+using SO.Containers.Configs;
 using System;
 using UnityEngine;
 
@@ -10,20 +10,16 @@ namespace Mono.StateMachine
 {
     public class GameStateMachineRuntimeSevice : MonoBehaviour
     {
+        [SerializeField] private ImperiumConfig _config;
         [SerializeField] private StateMachineUIDependencies _uiDependencies;
-        [SerializeField] private StartPrepareMission _prepareMissionButton;
         [SerializeField] private MissionRuntimeService _missionRuntimeService;
 
-        private GameStageController _gameStageController;
-        private StageDependencies _stageDependencies;
-        private StageFactory _stageFactory;
+        private MissionSlotsController _slotsController;
 
-        private bool _isRunning = false;
+        public MissionSlotsController SlotsController => _slotsController;
+        public MissionContex LastCreatedContex { get; private set; }
+        public bool IsPreparationRunning { get; private set; }
 
-        public StageDependencies StageDependencies => _stageDependencies;
-        public bool IsRunning => _isRunning;
-
-        public event Action<GameStageController> OnGameStageControllerInitialized;
         public event Action OnMissionStarted;
 
         private void OnEnable()
@@ -34,38 +30,35 @@ namespace Mono.StateMachine
 
             if (MonoStageMachineDependencies.Current != null)
                 HandleMonoStageDeps(MonoStageMachineDependencies.Current);
+
+            _slotsController ??= new(_config.MissionSlots);
+            SlotControllerEventSubscribe();
         }
 
         private void OnDisable()
         {
             MonoStageMachineDependencies.OnSceneDependenciesReady -= HandleMonoStageDeps;
+            SlotControllerEventUnsubscribe();
         }
 
         public void Run()
         {
-            InitCore();
-
-            RefreshSubscribes();
-
-            _gameStageController.StartCycle();
-            _missionRuntimeService.SubscribeOnMissionContexEvents();
-
-            OnGameStageControllerInitialized?.Invoke(_gameStageController);
+            var deps = CreateStageDeps();
+            _slotsController.StartPreparateMission(deps);
         }
 
         public void ForceEnd()
         {
-            _missionRuntimeService.Dispose();
-            _gameStageController?.ForceEnd();
-            _isRunning = false;
+            IsPreparationRunning = false;
+            _slotsController?.ForceEnd();
         }
 
         private void Update()
         {
-            _gameStageController?.Update();
+            _slotsController?.Update();
         }
 
-        private void InitCore()
+        private StageDependencies CreateStageDeps()
         {
             var intstanceHolder = GameWorldStateMono
                 .Instance
@@ -80,7 +73,7 @@ namespace Mono.StateMachine
 
             var contex = new MissionContex();
 
-            _stageDependencies = new StageDependencies
+            var deps = new StageDependencies
                 (
                     intstanceHolder,
                     contex,
@@ -88,46 +81,47 @@ namespace Mono.StateMachine
                     targetList
                 );
 
-            _stageFactory = new(_stageDependencies);
-            _gameStageController = new GameStageController(_stageFactory);
-            _missionRuntimeService.SetMissionContex(contex);
+            LastCreatedContex = contex;
+
+            return deps;
         }
 
-        private void RefreshSubscribes()
+        private void SlotControllerEventSubscribe()
         {
-            _gameStageController.OnResultAccepted -= HandleAcceptedResult;
-            _gameStageController.OnMissionStarted -= HandleStartedMission;
-            _gameStageController.OnMissionStarted += HandleStartedMission;
-            _gameStageController.OnResultAccepted += HandleAcceptedResult;
+            _slotsController.OnMissionFinished += HandleFinishedMission;
+            _slotsController.OnMissionPreparationStarted += HandleStartedPreparationMission;
+            _slotsController.OnMissionStarted += HandleStartedMission;
         }
 
-        private void HandleAcceptedResult()
+        private void SlotControllerEventUnsubscribe()
         {
-            _stageDependencies = null;
-            _stageFactory = null;
-            _gameStageController = null;
-
-            _missionRuntimeService.Dispose();
-            _isRunning = false;
-            _prepareMissionButton.PrepareMissionButton.interactable = true;
+            _slotsController.OnMissionFinished -= HandleFinishedMission;
+            _slotsController.OnMissionPreparationStarted -= HandleStartedPreparationMission;
+            _slotsController.OnMissionStarted -= HandleStartedMission;
         }
 
-        private void HandleStartedMission()
+        private void HandleStartedPreparationMission(MissionContex contex)
         {
-            _isRunning = true;
+            IsPreparationRunning = true;
+        }
+
+        private void HandleStartedMission(MissionContex contex)
+        {
+            IsPreparationRunning = false;
+            _missionRuntimeService.AddActiveMission(contex);
             OnMissionStarted?.Invoke();
+        }
+
+        private void HandleFinishedMission(int arg1, MissionContex contex)
+        {
+            _missionRuntimeService.RemoveFinishedMission(contex);
         }
 
         private void HandleMonoStageDeps(MonoStageMachineDependencies deps)
         {
             _uiDependencies = deps.StateMachineUIDependencies;
-            _prepareMissionButton = deps.StartPrepareMission;
 
-            if (_uiDependencies == null)
-                return;
-
-            _stageDependencies?.RefreshUIDependencies(_uiDependencies);
-            _gameStageController?.RefreshDeps(_stageDependencies);
+            _slotsController?.RefreshDeps(_uiDependencies);
         }
     }
 }

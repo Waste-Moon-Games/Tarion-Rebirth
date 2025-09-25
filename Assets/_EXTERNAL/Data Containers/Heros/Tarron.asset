@@ -19,16 +19,19 @@ MonoBehaviour:
       \u0421\u0438\u043B\u044C\u043D\u0435\u0439\u0448\u0438\u0439 \u0438\u0437 \u043D\u044B\u043D\u0435
       \u0436\u0438\u0432\u0443\u0449\u0438\u0445 \u0442\u0430\u0440\u0438\u043E\u043D\u0446\u0435\u0432."
     BaseHealth: 100
-    Level: 1
+    Level: 10
     Experience: 0
-    Rank: 0
+    HeroRank: 4
     HeroArt: {fileID: -74668207497188870, guid: 44eacc376da8dc3459d2010a9f649a79, type: 3}
     Stats:
       BasePower: 200
       PowerGrowthMultiplier: 2
-      Strenght: 1
-      Dexterity: 1
-      Intelligence: 1
-      StrenghtMultiplier: 2
+      Strength: 10
+      Dexterity: 10
+      Intelligence: 10
+      StrengthMultiplier: 2
       DexterityMultiplier: 2
       IntelligenceMultiplier: 2
+    IsUnique: 1
+    HeroGender: 0
+    HeroQuality: 4

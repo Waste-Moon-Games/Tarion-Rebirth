@@ -8,7 +8,7 @@ namespace Utils
         [Tooltip("Уникальный ID для идентификации объекта")]
         [SerializeField] private string _uniqID = "Default";
 
-        private static Dictionary<string, DontDestroyOnLoad> _instances = new();
+        private readonly static Dictionary<string, DontDestroyOnLoad> _instances = new();
 
         private void Awake()
         {

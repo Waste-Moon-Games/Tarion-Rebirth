@@ -18,7 +18,6 @@ namespace UI.Result
         [SerializeField] private TextMeshProUGUI _targetPlanetText;
         [SerializeField] private TextMeshProUGUI _resultText;
 
-        private MissionContex _contex;
         private UnityAction _clickHandler;
 
         public event Action OnResultAccepted;
@@ -35,9 +34,13 @@ namespace UI.Result
             _acceptButton.onClick.RemoveListener(_clickHandler);
         }
 
+        private void OnDestroy()
+        {
+            _clickHandler?.Invoke();
+        }
+
         public void Initialize(MissionContex contex)
         {
-            _contex = contex;
             SetupText(contex);
             _resultText.text = CheckResultStatus(contex);
         }

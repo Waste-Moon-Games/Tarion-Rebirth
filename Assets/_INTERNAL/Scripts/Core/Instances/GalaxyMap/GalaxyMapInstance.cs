@@ -9,7 +9,7 @@ namespace Core.Instances.GalaxyMap
     {
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
 
-        public void GetGeneratedPlanets(List<PlanetData> planetsData)
+        public void SetGeneratedPlanets(List<PlanetData> planetsData)
         {
             Planets.Clear();
 

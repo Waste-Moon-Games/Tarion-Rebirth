@@ -44,6 +44,9 @@ namespace StateMachine.Stages
 
         public void Exit()
         {
+            _missionContex.SelectedHero.SetBusyStatus(false);
+            _missionContex.SelectedPlanet.SetBusyStatus(false);
+
             _panelHolder.Hide();
             _panelHolder.OnResultAccepted -= HandleAcceptedResult;
         }

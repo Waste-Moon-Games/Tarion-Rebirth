@@ -21,7 +21,7 @@ namespace Debugger
             _panelRoot.SetActive(false);
             _addExpButton.onClick.AddListener(()=> DebugActions.AddExpToCurrentHero(100));
             _completeMissionButton.onClick.AddListener(()=> DebugActions.ForceCompleteMission());
-            _stateMachineMono.OnGameStageControllerInitialized += HandleInitializedStageController;
+            //_stateMachineMono.OnGameStageControllerInitialized += HandleInitializedStageController;
 #else
             Destroy(gameObject);
 #endif

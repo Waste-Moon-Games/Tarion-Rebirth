@@ -4,6 +4,7 @@ namespace StateMachine.Base
 {
     public interface IGameStageController
     {
+        int ControllerId { get; }
         IStageFactory StageFactory { get; }
         void StartCycle();
         void Update();

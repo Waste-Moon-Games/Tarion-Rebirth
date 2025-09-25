@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 namespace Utils
@@ -37,9 +39,22 @@ namespace Utils
             }
 
             if (AutoExpand)
-                return CreateObject();
+                return CreateObject(_pool);
 
             throw new System.Exception($"No free elements in pool ot type {typeof(T)}");
+        }
+
+        public List<T> GetFreeElements()
+        {
+            return _pool.Where(x => x != null && x.gameObject.activeSelf).ToList();
+        }
+
+        public T AddItemToPool()
+        {
+            var newElement = CreateObject(_pool);
+            newElement.gameObject.SetActive(true);
+            Debug.Log($"Object created: {newElement.GetType()}");
+            return newElement;
         }
 
         public void ReturnToPool(T obj)
@@ -63,15 +78,15 @@ namespace Utils
 
             for (int i = 0; i < count; i++)
             {
-                CreateObject();
+                CreateObject(_pool);
             }
         }
 
-        private T CreateObject()
+        private T CreateObject(List<T> pool)
         {
             T newObject = Object.Instantiate(Prefab, Container);
             newObject.gameObject.SetActive(false);
-            _pool.Add(newObject);
+            pool.Add(newObject);
 
             return newObject;
         }
@@ -80,7 +95,7 @@ namespace Utils
         {
             foreach (var mono in _pool)
             {
-                if (!mono.gameObject.activeInHierarchy)
+                if (!mono.gameObject.activeSelf)
                 {
                     element = mono;
                     return true;

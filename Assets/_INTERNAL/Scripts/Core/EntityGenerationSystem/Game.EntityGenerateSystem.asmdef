@@ -5,7 +5,9 @@
         "GUID:97377a84712c86a45bf393dd4293661f",
         "GUID:27d466e22e1bb5a47885713bdda9d3a3",
         "GUID:415d49886ea3bb64d83c7c7d53705a44",
-        "GUID:8dd7d41d8daace348bea711251ca1168"
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:89c709e66ab016540985805c7855e31a",
+        "GUID:ade57361da74e0246ac345f441b938aa"
     ],
     "includePlatforms": [
         "Android",

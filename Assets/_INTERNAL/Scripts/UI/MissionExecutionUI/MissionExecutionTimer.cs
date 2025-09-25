@@ -44,5 +44,10 @@ namespace UI.MissionExecutionUI
         {
             _missionProgress.fillAmount = value;
         }
+
+        public void ResetTimer()
+        {
+            _missionProgress.fillAmount = 1f;
+        }
     }
 }

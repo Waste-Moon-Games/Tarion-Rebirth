@@ -1,46 +1,41 @@
 ﻿using Contex.MissionInfo;
+using GameEntity.DataInstance;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Entry.Mono
 {
     public class MissionRuntimeService : MonoBehaviour
     {
-        private MissionContex _activeMission;
+        private readonly List<MissionContex> _activeMissions = new();
 
-        public MissionContex ActiveMission => _activeMission;
-        public bool HasActiveMission => _activeMission != null;
+        public List<MissionContex> ActiveMissions => _activeMissions;
+        public bool HasActiveMissions => _activeMissions.Count != 0;
 
         public event Action<MissionContex> OnActiveMissionSetted;
 
-        public void SetMissionContex(MissionContex contex)
+        public void AddActiveMission(MissionContex contex)
         {
-            if (HasActiveMission)
-            {
-                Debug.LogWarning("Mission is already coming");
-                return;
-            }
-
-            _activeMission = contex;
+            contex.OnMissionPrepared += HandlePrerapedMission;
+            _activeMissions.Add(contex);
             OnActiveMissionSetted?.Invoke(contex);
         }
 
-        public void SubscribeOnMissionContexEvents()
+        public void RemoveFinishedMission(MissionContex contex)
         {
-            _activeMission.OnMissionPrepared += HandlePrerapedMission;
+            contex.OnMissionPrepared -= HandlePrerapedMission;
+            _activeMissions.Remove(contex);
         }
 
-        public void Dispose()
+        private void HandlePrerapedMission(MissionInstance mission)
         {
-            if (_activeMission != null)
-                _activeMission.OnMissionPrepared -= HandlePrerapedMission;
+            var instance = _activeMissions.FirstOrDefault(i => i.PreparedMission == mission);
+            if (instance == null)
+                return;
 
-            _activeMission = null;
-        }
-
-        private void HandlePrerapedMission()
-        {
-            _activeMission.PreparedMission.BeginMission();
+            instance.PreparedMission.BeginMission();
         }
     }
 }

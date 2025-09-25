@@ -1,5 +1,4 @@
-﻿using Contex.MissionInfo;
-using Core.GameStates;
+﻿using Core.GameStates;
 using Mono.InstanceInitialize;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ namespace Entry.Mono
                 _bootDatas.PlanetDatas,
                 _bootDatas.MissionDatas,
                 _bootDatas.RankProgressionConfig,
-                _bootDatas.StartLimitsConfig
+                _bootDatas.ImperiumConfig
                 );
 
             if(Instance == null)
@@ -34,9 +33,16 @@ namespace Entry.Mono
             MissionRuntimeService.OnActiveMissionSetted += GameWorldState.ImperiumStateController.SetActiveContex;
         }
 
+        private void Start()
+        {
+            GameWorldState.ImperiumState.ResourceService.StartExtraction();
+        }
+
         private void OnDestroy()
         {
             MissionRuntimeService.OnActiveMissionSetted -= GameWorldState.ImperiumStateController.SetActiveContex;
+
+            GameWorldState.ImperiumState.ResourceService.StopExtaction();
         }
     }
 }

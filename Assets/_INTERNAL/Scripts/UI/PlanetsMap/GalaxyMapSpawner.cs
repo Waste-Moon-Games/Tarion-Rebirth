@@ -13,7 +13,6 @@ namespace UI.PlanetsMap
         [SerializeField] private PlanetMapView _planetMapViewPrefab;
         [SerializeField] private bool _autoExpand;
 
-        private readonly List<PlanetMapView> _spawnedPlanets = new();
         private readonly List<Vector2> _usedPositions = new();
 
         private ObjectPool<PlanetMapView> _planetsPool;
@@ -38,22 +37,17 @@ namespace UI.PlanetsMap
 
                 view.SetupView(planet);
                 view.SetupPosition(pos);
-
-                _spawnedPlanets.Add(view);
             }
 
-            return _spawnedPlanets;
+            return _planetsPool.GetFreeElements();
         }
 
         public void RemovePlanet(PlanetInstance planet)
         {
-            PlanetMapView view = _spawnedPlanets.FirstOrDefault(p => p.Planet == planet);
+            PlanetMapView view = _planetsPool.FirstOrDefault(p => p.Planet == planet);
 
             if(view != null)
-            {
-                _spawnedPlanets.Remove(view);
                 _planetsPool.ReturnToPool(view);
-            }
         }
 
         private Vector2 GetRandomPositionInside(RectTransform area, Vector2 planetSize)
@@ -87,11 +81,10 @@ namespace UI.PlanetsMap
 
         private void ClearMap()
         {
-            foreach (var planet in _spawnedPlanets)
+            foreach (var planet in _planetsPool)
             {
                 _planetsPool.ReturnToPool(planet);
             }
-            _spawnedPlanets.Clear();
             _usedPositions.Clear();
         }
     }

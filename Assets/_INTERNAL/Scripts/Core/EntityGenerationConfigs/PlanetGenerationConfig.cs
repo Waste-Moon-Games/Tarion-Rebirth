@@ -1,4 +1,5 @@
 using Core.EntityDatas.Planet;
+using Core.EntityDatas.Resource;
 using GameEntity.Planet;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,7 @@ namespace Core.EntityGenerationConfigs
 
         [Header("Resources")]
         public List<PlanetAttributes<int>> ResourcesRange;
+        public List<ResourceType> ResourceTypes;
 
         [Header("Planet Level")]
         public int LowLevelPlanetCount;

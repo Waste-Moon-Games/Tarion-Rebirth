@@ -8,11 +8,11 @@ namespace GameEntity.Unit.Data
         public float BasePower;
         public float PowerGrowthMultiplier;
 
-        public int Strenght;
+        public int Strength;
         public int Dexterity;
         public int Intelligence;
 
-        public float StrenghtMultiplier;
+        public float StrengthMultiplier;
         public float DexterityMultiplier;
         public float IntelligenceMultiplier;
     }
@@ -22,15 +22,15 @@ namespace GameEntity.Unit.Data
         public float BasePower;
         public float PowerGrowthMultiplier;
 
-        public int Strenght;
+        public int Strength;
         public int Dexterity;
         public int Intelligence;
 
-        public float StrenghtMultiplier;
+        public float StrengthMultiplier;
         public float DexterityMultiplier;
         public float IntelligenceMultiplier;
 
-        private float _strenghtMultiplier;
+        private float _strengthMultiplier;
         private float _dexterityMultiplier;
         private float _intelligenceMultiplier;
 
@@ -39,11 +39,11 @@ namespace GameEntity.Unit.Data
             BasePower = source.BasePower;
             PowerGrowthMultiplier = source.PowerGrowthMultiplier;
 
-            Strenght = source.Strenght;
+            Strength = source.Strength;
             Dexterity = source.Dexterity;
             Intelligence = source.Intelligence;
 
-            StrenghtMultiplier = source.StrenghtMultiplier;
+            StrengthMultiplier = source.StrengthMultiplier;
             DexterityMultiplier = source.DexterityMultiplier;
             IntelligenceMultiplier = source.IntelligenceMultiplier;
         }
@@ -52,7 +52,7 @@ namespace GameEntity.Unit.Data
         {
             SetupMultipliers(rank);
 
-            float scaledStr = (Strenght * level) * _strenghtMultiplier;
+            float scaledStr = (Strength * level) * _strengthMultiplier;
             float scaledAgi = (Dexterity * level) * _dexterityMultiplier;
             float scaledInt = (Intelligence * level) * _intelligenceMultiplier;
 
@@ -73,7 +73,7 @@ namespace GameEntity.Unit.Data
                 _ => 0.5f
             };
 
-            _strenghtMultiplier = value * StrenghtMultiplier;
+            _strengthMultiplier = value * StrengthMultiplier;
             _dexterityMultiplier = value * DexterityMultiplier;
             _intelligenceMultiplier = value * IntelligenceMultiplier;
         }

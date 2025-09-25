@@ -1,12 +1,13 @@
 ﻿using Contex.MissionInfo;
 using GameEntity.DataInstance;
+using System.Collections.Generic;
 
 namespace Core.GameStates
 {
     public class ImperiumStateController
     {
         private readonly ImperiumState _state;
-        private MissionContex _activeContex;
+        private readonly List<MissionContex> _activeContexes = new();
 
         public ImperiumStateController(ImperiumState state)
         {
@@ -15,17 +16,17 @@ namespace Core.GameStates
 
         public void SetActiveContex(MissionContex activeContex)
         {
-            Dispose();
-            _activeContex = activeContex;
-            _activeContex.OnPlanetCaprured += HandleCapturedPlanet;
+            Dispose(activeContex);
+            _activeContexes.Add(activeContex);
+            activeContex.OnPlanetCaprured += HandleCapturedPlanet;
         }
 
-        private void Dispose()
+        private void Dispose(MissionContex activeContex)
         {
-            if(_activeContex != null)
-                _activeContex.OnPlanetCaprured -= HandleCapturedPlanet;
+            if(activeContex != null)
+                activeContex.OnPlanetCaprured -= HandleCapturedPlanet;
 
-            _activeContex = null;
+            _activeContexes.Remove(activeContex);
         }
 
         private void HandleCapturedPlanet(PlanetInstance capturedPlanet)
@@ -34,6 +35,7 @@ namespace Core.GameStates
             {
                 _state.TargetsListState.RemoveTarget(capturedPlanet);
                 _state.InstanceHolder.AddCapturedPlanet(capturedPlanet);
+                _state.GetCapturedResources(capturedPlanet);
             }
         }
     }

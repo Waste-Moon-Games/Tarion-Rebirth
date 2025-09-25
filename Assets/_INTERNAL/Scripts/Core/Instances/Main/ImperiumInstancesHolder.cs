@@ -1,4 +1,5 @@
-﻿using Core.Common.Instances;
+﻿using Core.Common.Abstractions.RecruitSystem;
+using Core.Common.Instances;
 using GameEntity.Mission;
 using GameEntity.ScriptableObjects;
 using Scripts.GameEntity.DataInstance;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace GameEntity.DataInstance.Main
 {
-    public class ImperiumInstancesHolder
+    public class ImperiumInstancesHolder : IInstanceHolderWriteService
     {
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
@@ -28,9 +29,11 @@ namespace GameEntity.DataInstance.Main
         public event Action<PlanetInstance> OnPlanetRejected;
         public event Action<int> OnPlanetsLimitUpgraded;
 
+        public event Action<HeroInstance> OnHeroRejected;
+        public event Action<int> OnHerosCountChanged;
         public event Action<HeroInstance> OnHerosListUpdated;
 
-        public ImperiumInstancesHolder(ImperuimInstancesStartLimitsConfig limitsConfig)
+        public ImperiumInstancesHolder(ImperiumConfig limitsConfig)
         {
             _maxPlanets = limitsConfig.StartMaxPlanetsLimit;
             _maxHeros = limitsConfig.StartMaxHerosLimit;
@@ -64,6 +67,24 @@ namespace GameEntity.DataInstance.Main
                 Planets.Add(newPlanet);
                 OnPlanetAdded?.Invoke(newPlanet);
                 OnPlanetsCountChanged?.Invoke(Planets.Count);
+            }
+        }
+
+        public void AddNewInstance(IInstance hero)
+        {
+            var newHero = hero as HeroInstance;
+
+            if (Heros.Count >= _maxHeros)
+            {
+                OnHeroRejected?.Invoke(newHero);
+                return;
+            }
+
+            if (!Heros.Contains(newHero))
+            {
+                Heros.Add(newHero);
+                OnHerosListUpdated?.Invoke(newHero);
+                OnHerosCountChanged?.Invoke(Heros.Count);
             }
         }
 

@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3275924928d924c8c79e3f3b67a5b7, type: 3}
+  m_Name: HerosGenerationConfig
+  m_EditorClassIdentifier: 
+  <Config>k__BackingField:
+    MaleNamesFile: {fileID: 4900000, guid: 38cb6ff16f2c6c04bb717360517ed21c, type: 3}
+    FemaleNamesFile: {fileID: 4900000, guid: 21a104c4fbc012348a0f3573c02ed943, type: 3}
+    TemplatesFile: {fileID: 0}
+    FromHeroFile: {fileID: 0}
+    GenderHeroFile: {fileID: 0}
+    MaleNameTemplates:
+    - "\u042D\u0440\u043D\u0433\u0440\u0443\u043D\u0434"
+    - "\u0412\u0438\u043D\u0432\u0430\u043B\u044C\u0434"
+    - "\u041D\u043E\u043B\u043B\u043E\u043D"
+    - "\u0414\u0438\u0437\u0437\u0435\u0440"
+    - "\u041A\u0430\u0440\u043D'\u041E \u041F\u043B\u0430\u0430\u0433"
+    FemaleNameTemplates:
+    - "\u0425\u044D\u0439\u043E\u043B\u0430"
+    - "\u041B\u0443\u043D\u0432\u0438\u043B\u044C"
+    - "\u041C\u0430'\u0410\u0440"
+    - "\u0410\u0430\u0440\u043E\u043D\u0430"
+    - "\u041B\u0430\u0439\u0442"
+    Templates: []
+    FromHeroNameTemplates: []
+    GenderHeroTemplates: []
+    HeroArt: {fileID: 664451953973931779, guid: c9ee9ebf770f1834fbe87da4877b123e, type: 3}
+    HeroAttributes:
+    - Quality: 0
+      DropChance: 0.325
+      MinValue: 3
+      MaxValue: 6
+    - Quality: 1
+      DropChance: 0.3
+      MinValue: 7
+      MaxValue: 10
+    - Quality: 2
+      DropChance: 0.25
+      MinValue: 11
+      MaxValue: 14
+    - Quality: 3
+      DropChance: 0.075
+      MinValue: 15
+      MaxValue: 18
+    - Quality: 4
+      DropChance: 0.05
+      MinValue: 16
+      MaxValue: 19
+    AttributesMultipliers:
+    - Quality: 0
+      DropChance: 0.325
+      MinValue: 0.5
+      MaxValue: 1.2
+    - Quality: 1
+      DropChance: 0.3
+      MinValue: 1.35
+      MaxValue: 1.55
+    - Quality: 2
+      DropChance: 0.25
+      MinValue: 1.65
+      MaxValue: 1.85
+    - Quality: 3
+      DropChance: 0.075
+      MinValue: 2
+      MaxValue: 2.25
+    - Quality: 4
+      DropChance: 0.05
+      MinValue: 2.5
+      MaxValue: 5
+    HeroBasePower:
+    - Quality: 0
+      DropChance: 0.325
+      MinValue: 150
+      MaxValue: 300
+    - Quality: 1
+      DropChance: 0.3
+      MinValue: 300
+      MaxValue: 450
+    - Quality: 2
+      DropChance: 0.25
+      MinValue: 500
+      MaxValue: 650
+    - Quality: 3
+      DropChance: 0.075
+      MinValue: 700
+      MaxValue: 850
+    - Quality: 4
+      DropChance: 0.05
+      MinValue: 900
+      MaxValue: 1050
+    HeroPowerGrowthMultiplier:
+    - Quality: 0
+      DropChance: 0.325
+      MinValue: 0.8
+      MaxValue: 1.2
+    - Quality: 1
+      DropChance: 0.3
+      MinValue: 1.25
+      MaxValue: 1.5
+    - Quality: 2
+      DropChance: 0.25
+      MinValue: 1.75
+      MaxValue: 2
+    - Quality: 3
+      DropChance: 0.075
+      MinValue: 2.25
+      MaxValue: 2.5
+    - Quality: 4
+      DropChance: 0
+      MinValue: 3
+      MaxValue: 3.75
+  <Count>k__BackingField: 5

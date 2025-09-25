@@ -1,15 +1,11 @@
-﻿using CommandSystem;
-using Core.CommandSystem;
+﻿using Core.CommandSystem;
 using Core.Common;
-using Core.Common.Abstractions;
-using Core.Common.Abstractions.GalaxyMap;
 using Core.Common.Instances;
 using Core.ConcreteBinders;
 using Core.EntityGenerateSystem;
 using Core.Instances.GalaxyMap;
 using Entry.Mono;
 using GameEntity.DataInstance;
-using GameEntity.DataInstance.Main;
 using GameEntity.Planet;
 using SO.Containers.Configs;
 using System;
@@ -54,10 +50,11 @@ namespace UI.PlanetsMap
         {
             var imperiumState = GameWorldStateMono.Instance.GameWorldState.ImperiumState;
             var imperiumInstancesHolder = imperiumState.InstanceHolder;
+            var targetList = imperiumState.TargetsListState;
             _spawner.CreatePlanetsPool(_config.PlanetCount);
 
             _localInstance ??= new();
-            _generator ??= new(_config, imperiumInstancesHolder);
+            _generator ??= new(_config, imperiumInstancesHolder, targetList);
             _commandProcessor ??= new();
 
             _sceneBinder ??= new();
@@ -70,12 +67,17 @@ namespace UI.PlanetsMap
             _sceneBinder.AddBinder(_localBinder);
         }
 
+        private void Start()
+        {
+            HandleRefreshedMap();
+        }
+
         private void Update()
         {
             _commandProcessor?.Process();
         }
 
-        public void RemovePlanet(IInstance planet)
+        public void RemoveInstance(IInstance planet)
         {
             _spawner.RemovePlanet(planet as PlanetInstance);
             _galaxyMapUI.SelectedPlanetUI.Hide();
@@ -85,10 +87,10 @@ namespace UI.PlanetsMap
         {
             List<PlanetData> newPlanets = _generator.GeneratePlanets(_config.PlanetCount);
 
-            _localInstance.GetGeneratedPlanets(newPlanets);
-            var spawnedPlanets = _spawner.SpawnPlanets(_localInstance.Planets);
+            _localInstance.SetGeneratedPlanets(newPlanets);
+            List<PlanetMapView> spawnedPlanets = _spawner.SpawnPlanets(_localInstance.Planets);
 
-            _galaxyMapUI.GetNewPlanets(spawnedPlanets);
+            _galaxyMapUI.SetNewPlanets(spawnedPlanets);
         }
 
         private void HandleAddedPlanet(PlanetInstance addedPlanet)

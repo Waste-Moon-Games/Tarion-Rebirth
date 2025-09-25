@@ -1,8 +1,11 @@
 ﻿using Core.Common.Instances;
+using Core.EntityDatas.Resource;
 using GameEntity.Planet;
 using GameEntity.ScriptableObjects;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameEntity.DataInstance
 {
@@ -11,8 +14,13 @@ namespace GameEntity.DataInstance
         private readonly PlanetDataContainer _baseData;
         private readonly PlanetData _sourceData;
         private readonly PlanetRuntimeData _runtimeData;
+        private readonly List<ResourceExtractor> _extractors = new();
+
+        private bool _isBusy = false;
 
         public PlanetRuntimeData RuntimeData => _runtimeData;
+        public ResourceData DomimanteResource { get; private set; }
+        public bool IsBusy => _isBusy;
         public float PlanetPower
         {
             get
@@ -36,6 +44,8 @@ namespace GameEntity.DataInstance
             _sourceData = _baseData.PlanetData;
             _runtimeData = new(_sourceData);
 
+            InitResourceExtractors(_runtimeData.Resources);
+            ChooseDominantResource();
             PlanetPower = CalculatePower();
         }
 
@@ -44,6 +54,8 @@ namespace GameEntity.DataInstance
             _sourceData = generatedSourceData;
             _runtimeData = new(_sourceData);
 
+            InitResourceExtractors(_runtimeData.Resources);
+            ChooseDominantResource();
             PlanetPower = CalculatePower();
         }
 
@@ -65,7 +77,38 @@ namespace GameEntity.DataInstance
         {
             _runtimeData.IsCaptured = status;
             if (!status)
-                _runtimeData.ResistanceMultiplier *= 1.2f;
+                _runtimeData.ResistanceMultiplier *= 1.05f;
+        }
+
+        public void SetBusyStatus(bool value)
+        {
+            _isBusy = value;
+        }
+
+        public IEnumerable<ResourceExtractor> GetExtractors() => _extractors;
+
+        private void InitResourceExtractors(List<ResourceData> resources)
+        {
+            foreach (ResourceData resource in resources)
+            {
+                _extractors.Add(new(resource));
+            }
+        }
+
+        private void ChooseDominantResource()
+        {
+            if (_runtimeData.Resources == null || _runtimeData.Resources.Count == 0)
+                return;
+
+            int dominaIndex = Random.Range(0, _runtimeData.Resources.Count);
+
+            DomimanteResource = _runtimeData.Resources[dominaIndex];
+
+            for (int i = 0; i < _runtimeData.Resources.Count; i++)
+            {
+                if (i != dominaIndex)
+                    Mathf.RoundToInt(_runtimeData.Resources[i].BaseExtaction * 0.8f);
+            }
         }
 
         private float CalculatePlanetTechPower()

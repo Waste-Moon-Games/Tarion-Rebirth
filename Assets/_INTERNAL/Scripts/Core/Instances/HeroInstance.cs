@@ -18,9 +18,12 @@ namespace Scripts.GameEntity.DataInstance
         private readonly HeroGrowthSystem _growthSystem;
         private readonly HeroRankUpSystem _rankSystem;
 
+        private bool _isBusy = false;
+
         public HeroRuntimeData RuntimeData => _runtimeData;
         public HeroGrowthSystem GrowthSystem => _growthSystem;
         public int HeroLevel => _runtimeData.Level;
+        public bool IsBusy => _isBusy;
 
         public event Action<int> OnLevelUp;
         public event Action<float> OnPowerChanged;
@@ -40,6 +43,20 @@ namespace Scripts.GameEntity.DataInstance
             _growthSystem.OnStatChanged += HandleChangedStats;
         }
 
+        public HeroInstance(HeroData sourceData, RankProgressionConfig config)
+        {
+            _sourceData = sourceData;
+            _runtimeData = new(_sourceData);
+            _growthSystem = new(_runtimeData.Stats);
+            _rankSystem = new(_runtimeData, config);
+
+            HeroPower = CalculatePower();
+            _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
+
+            _growthSystem.OnSkillPointsChanged += HandleLevelUp;
+            _growthSystem.OnStatChanged += HandleChangedStats;
+        }
+
         public void AddExperience(int exp)
         {
             _growthSystem.AddExperience(exp);
@@ -47,6 +64,11 @@ namespace Scripts.GameEntity.DataInstance
             _runtimeData.Experience = _growthSystem.CurrentExperience;
             _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
             OnExpChanged?.Invoke(_runtimeData.Experience);
+        }
+
+        public void SetBusyStatus(bool value)
+        {
+            _isBusy = value;
         }
 
         public float CalculatePower()

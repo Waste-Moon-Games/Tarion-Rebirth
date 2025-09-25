@@ -1,5 +1,6 @@
 ﻿using GameEntity.Unit.Data;
 using Scripts.GameEntity.DataInstance;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,8 +25,13 @@ namespace UI.HeroDetailInfoUI
         [SerializeField] private Image _art;
         [SerializeField] private GameObject _heroArtPanel;
 
+        [Space(10), Header("Buttons")]
+        [SerializeField] private Button _recruitHeroButton;
+
         private HeroInstance _selectedHero;
         private NumberFormatter _formatter;
+
+        public event Action<HeroInstance> OnHeroRecuired;
 
         private void OnDisable()
         {
@@ -35,7 +41,10 @@ namespace UI.HeroDetailInfoUI
                 _selectedHero.OnExpChanged -= HandleChangedExp;
             }
 
-            _heroArtPanel.SetActive(true);
+            if (_recruitHeroButton != null)
+                _recruitHeroButton.onClick.RemoveListener(RecruitHero);
+
+            _heroArtPanel.SetActive(false);
         }
 
         public void Setup(HeroInstance heroInstance)
@@ -58,6 +67,29 @@ namespace UI.HeroDetailInfoUI
                 _art.enabled = false;
 
             _heroArtPanel.SetActive(true);
+
+            InitializeButton();
+        }
+
+        public void Clear()
+        {
+            _selectedHero = null;
+
+            _name.text = "Имя:";
+            _description.text = "Описание";
+            _power.text = "Мощь:";
+            _rank.text = "Ранг:";
+            _level.text = "Уровень:";
+
+            _heroArtPanel.SetActive(false);
+        }
+
+        private void InitializeButton()
+        {
+            if (_recruitHeroButton == null)
+                return;
+
+            _recruitHeroButton.onClick.AddListener(RecruitHero);
         }
 
         private void SetupMainText(HeroInstance heroInstance, HeroRuntimeData heroData)
@@ -105,6 +137,9 @@ namespace UI.HeroDetailInfoUI
 
         private void HandleChangedExp(int exp)
         {
+            if (_selectedHero == null)
+                return;
+
             string formatedCurrentExp = _formatter
                 .FormatNumber(_selectedHero.RuntimeData.Experience);
             string formatedNextLevelExp = _formatter
@@ -116,6 +151,11 @@ namespace UI.HeroDetailInfoUI
                 return;
 
             _levelProgression.fillAmount = _selectedHero.GetExperienceProgress();
+        }
+
+        private void RecruitHero()
+        {
+            OnHeroRecuired?.Invoke(_selectedHero);
         }
     }
 }

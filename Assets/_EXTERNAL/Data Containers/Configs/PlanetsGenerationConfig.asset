@@ -114,19 +114,20 @@ MonoBehaviour:
       MinValue: 25
       MaxValue: 50
     - Name: High
-      MinValue: 50
+      MinValue: 60
       MaxValue: 100
+    ResourceTypes: 000000000100000002000000
     LowLevelPlanetCount: 4
     MidLevelPlanetCount: 3
     HighLevelPlanetCount: 2
     LevelRange:
     - ThreatName: Low
-      MinLevel: 1
-      MaxLevel: 10
-    - ThreatName: Medium
-      MinLevel: 11
+      MinLevel: 5
       MaxLevel: 20
-    - ThreatName: High
+    - ThreatName: Medium
       MinLevel: 21
       MaxLevel: 50
+    - ThreatName: High
+      MinLevel: 50
+      MaxLevel: 80
   <PlanetCount>k__BackingField: 9

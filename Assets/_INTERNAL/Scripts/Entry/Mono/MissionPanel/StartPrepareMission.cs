@@ -25,8 +25,10 @@ namespace Entry.Mono.MissionPanel
             if (_startPrepareMissionButton == null)
                 _startPrepareMissionButton = GetComponent<Button>();
 
-            if (_stateMachineMono.IsRunning)
+            if (!_stateMachineMono.SlotsController.HasFreeSlots)
                 _startPrepareMissionButton.interactable = false;
+            else
+                _startPrepareMissionButton.interactable = true;
 
             _startPrepareMissionButton.onClick.AddListener(PrepareMission);
         }
@@ -38,9 +40,11 @@ namespace Entry.Mono.MissionPanel
 
         private void PrepareMission()
         {
+            if (!_stateMachineMono.SlotsController.HasFreeSlots)
+                return;
+
             _stateMachineMono.Run();
-            _missionInfoUI.Initialize(_stateMachineMono.StageDependencies.MissionContex);
-            _startPrepareMissionButton.interactable = false;
+            _missionInfoUI.Initialize(_stateMachineMono.LastCreatedContex);
 
             OnPreparationStarted?.Invoke();
         }

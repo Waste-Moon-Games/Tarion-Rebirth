@@ -4,7 +4,7 @@ using System;
 
 namespace Core.Common
 {
-    public interface IController : IMapWriteService
+    public interface IController : IInstanceWriteService
     {
         event Action<IInstance> OnInstanceSelected;
     }

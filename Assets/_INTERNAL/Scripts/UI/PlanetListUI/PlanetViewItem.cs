@@ -21,6 +21,8 @@ namespace Mono.UI.PlanetListUI
 
         private UnityAction _clickHandler;
 
+        public Button SelectButton => _selectButton;
+
         public event Action<PlanetInstance> OnPlanetSelected;
 
         private void OnDisable()

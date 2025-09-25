@@ -58,9 +58,6 @@ namespace Core.Instances.MissionPreparation
             //Захват планеты
             result.PlanetStatus = result.IsMissionSuccessful && instance.Type == GameEntity.Mission.MissionType.Force;
 
-            //Награды
-            //result.SetRewards(GenerateRewards(instance, result.IsMissionSuccessful));
-
             return result;
         }
 

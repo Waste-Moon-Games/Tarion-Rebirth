@@ -3,32 +3,38 @@ using GameEntity.DataInstance;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using TMPro;
-using UI.GameUIBridges;
+using UI.Base;
 using UI.MissionContexUI;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils.Formatter;
 
 namespace Mono.UI.MissionContexUI
 {
-    public class MissionInfoUI : MonoBehaviour
+    public class MissionInfoUI : SimpleUIItem
     {
-        [Header("Bridge")]
-        [SerializeField] private MissionUIBridge _bridge;
-
-        [Space(10), Header("Mission Info")]
+        [Header("Mission Info")]
         [SerializeField] private TextMeshProUGUI _selectedPlanetText;
         [SerializeField] private TextMeshProUGUI _selectedHeroText;
         [SerializeField] private TextMeshProUGUI _selectedType;
         [SerializeField] private TextMeshProUGUI _successChanceText;
         [SerializeField] private MissionPreparationUI _missionPrepareUI;
 
+        [Space(10), Header("Close Button")]
+        [SerializeField] private Button _closeButton;
+
         private MissionContex _missionContex;
         private DurationFormatter _durationFormatter;
 
-        private void Start()
+        private void OnEnable()
         {
-            if(_bridge.HasCurrentContex)
-                Initialize(_bridge.CurrentContex);
+            _closeButton.onClick.AddListener(Hide);
+        }
+
+        private void OnDisable()
+        {
+            _closeButton.onClick.RemoveListener(Hide);
+            Clear();
         }
 
         public void Initialize(MissionContex missionContex)
@@ -90,24 +96,14 @@ namespace Mono.UI.MissionContexUI
 
         private void HandleSelectedMissionType(MissionType missionType)
         {
-            switch (missionType)
+            _selectedType.text = missionType switch
             {
-                case MissionType.Force:
-                    _selectedType.text = "Захват";
-                    break;
-
-                case MissionType.Diplomacy:
-                    _selectedType.text = "Дипломатия";
-                    break;
-
-                case MissionType.Sabotage:
-                    _selectedType.text = "Саботаж";
-                    break;
-
-                case MissionType.Recon:
-                    _selectedType.text = "Разведка";
-                    break;
-            }
+                MissionType.Force => "Захват",
+                MissionType.Diplomacy => "Дипломатия",
+                MissionType.Sabotage => "Саботаж",
+                MissionType.Recon => "Развездка",
+                _ => "None"
+            };
         }
 
         private void HandleCalculatedMissionDifficulty(float calculatedDifficulty)
@@ -126,9 +122,21 @@ namespace Mono.UI.MissionContexUI
             _successChanceText.text = $"Шанс успеха: {chance * 100f:F1}%";
         }
 
+        private void Clear()
+        {
+            _missionContex = null;
+
+            _selectedPlanetText.text = "None";
+            _selectedHeroText.text = "None";
+            _selectedType.text = "None";
+            _successChanceText.text = "0%";
+            _missionPrepareUI.DifficultyText.text = "None";
+            _missionPrepareUI.DurationText.text = "None";
+        }
+
         private void Refresh()
         {
-            if (_missionContex.PreparedMission == null)
+            if (_missionContex == null || _missionContex.PreparedMission == null)
                 return;
 
             HandleSelectedPlanet(_missionContex.SelectedPlanet);

@@ -20,7 +20,7 @@ namespace Contex.MissionInfo
         public event Action<PlanetInstance> OnPlanetCaprured;
         public event Action<HeroInstance> OnHeroSelected;
         public event Action<MissionType> OnMissionTypeSelected;
-        public event Action OnMissionPrepared;
+        public event Action<MissionInstance> OnMissionPrepared;
 
         public event Action<float> OnMissionDifficultCalculated;
         public event Action<float> OnMissionDurationCalculated;
@@ -67,7 +67,7 @@ namespace Contex.MissionInfo
             OnMissionDurationCalculated?.Invoke(missionInstance.Duration);
             OnMissionSuccessChanceCalculated?.Invoke(missionInstance.SuccessChance);
 
-            OnMissionPrepared?.Invoke();
+            OnMissionPrepared?.Invoke(PreparedMission);
         }
 
         public MissionInstance TryCreateMissionInstane()

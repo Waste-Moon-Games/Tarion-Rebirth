@@ -3,6 +3,7 @@ using GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Mono.UI.PlanetListUI
 {
@@ -10,17 +11,24 @@ namespace Mono.UI.PlanetListUI
     {
         [SerializeField] private Transform _contentParent;
         [SerializeField] private PlanetViewItem _planetItemPrefab;
+        [SerializeField] private bool _autoExpand;
 
         private readonly List<PlanetViewItem> _planetItems = new();
         private readonly Dictionary<PlanetInstance, PlanetViewItem> _planetItemsDict = new();
 
         private TargetsListState _targetList;
+        private ObjectPool<PlanetViewItem> _planetsPool;
 
         public event Action<PlanetInstance> OnPlanetSelected;
 
         public void Initialize(TargetsListState targetList)
         {
             _targetList = targetList;
+
+            _planetsPool ??= new(_planetItemPrefab, _targetList.Targets.Count, _contentParent)
+            {
+                AutoExpand = _autoExpand
+            };
 
             CreatePlanetList();
             SubscribeOnItemsEvent();
@@ -48,15 +56,14 @@ namespace Mono.UI.PlanetListUI
             if (_planetItems.Count == _targetList.Targets.Count)
                 return;
 
-            foreach (Transform child in _contentParent)
-                Destroy(child.gameObject);
-
             _planetItems.Clear();
 
             for (int i = 0; i < _targetList.Targets.Count; i++)
             {
-                var itemGO = Instantiate(_planetItemPrefab, _contentParent);
-                var item = itemGO.GetComponent<PlanetViewItem>();
+                if (_targetList.Targets[i].IsBusy)
+                    continue;
+;
+                PlanetViewItem item = _planetsPool?.GetFreeElement();
 
                 item.Setup(_targetList.Targets[i]);
                 item.InitializeButton();
@@ -85,15 +92,26 @@ namespace Mono.UI.PlanetListUI
 
         private void RefreshItemList()
         {
-            for (int i = 0; i < _targetList.Targets.Count; i++)
+            foreach (var planet in _targetList.Targets)
             {
-                _planetItems[i].Setup(_targetList.Targets[i]);
+                if (_planetItemsDict.TryGetValue(planet, out PlanetViewItem item))
+                {
+                    if (planet.IsBusy)
+                    {
+                        item.SelectButton.interactable = false;
+                        continue;
+                    }
+                    else
+                    {
+                        item.SelectButton.interactable = true;
+                    }
+                }
             }
         }
 
         private void AddNewItemToList(PlanetInstance newPlanet)
         {
-            PlanetViewItem item = Instantiate(_planetItemPrefab, _contentParent);
+            PlanetViewItem item = _planetsPool?.AddItemToPool();
 
             item.Setup(newPlanet);
             item.OnPlanetSelected += HandleSelectedPlanet;
@@ -108,7 +126,7 @@ namespace Mono.UI.PlanetListUI
             {
                 _planetItems.Remove(item);
                 _planetItemsDict.Remove(capturedPlanet);
-                Destroy(item.gameObject);
+                _planetsPool.ReturnToPool(item);
             }
         }
 
