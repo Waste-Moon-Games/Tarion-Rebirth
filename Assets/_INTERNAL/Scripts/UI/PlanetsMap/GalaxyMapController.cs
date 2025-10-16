@@ -4,7 +4,6 @@ using Core.Common.Instances;
 using Core.ConcreteBinders;
 using Core.EntityGenerateSystem;
 using Core.Instances.GalaxyMap;
-using Entry.Mono;
 using GameEntity.DataInstance;
 using GameEntity.Planet;
 using SO.Containers.Configs;
@@ -48,23 +47,23 @@ namespace UI.PlanetsMap
 
         private void Awake()
         {
-            var imperiumState = GameWorldStateMono.Instance.GameWorldState.ImperiumState;
-            var imperiumInstancesHolder = imperiumState.InstanceHolder;
-            var targetList = imperiumState.TargetsListState;
-            _spawner.CreatePlanetsPool(_config.PlanetCount);
+            //var imperiumState = GameWorldStateMono.Instance.GameWorldState.ImperiumState;
+            //var imperiumInstancesHolder = imperiumState.InstanceHolder;
+            //var targetList = imperiumState.TargetsListState;
+            //_spawner.CreatePlanetsPool(_config.PlanetCount);
 
-            _localInstance ??= new();
-            _generator ??= new(_config, imperiumInstancesHolder, targetList);
-            _commandProcessor ??= new();
+            //_localInstance ??= new();
+            //_generator ??= new(_config, imperiumInstancesHolder, targetList);
+            //_commandProcessor ??= new();
 
-            _sceneBinder ??= new();
-            _localBinder ??= new GalaxyMapBinder
-                (
-                this,
-                imperiumState,
-                _commandProcessor
-                );
-            _sceneBinder.AddBinder(_localBinder);
+            //_sceneBinder ??= new();
+            //_localBinder ??= new GalaxyMapBinder
+            //    (
+            //    this,
+            //    imperiumState,
+            //    _commandProcessor
+            //    );
+            //_sceneBinder.AddBinder(_localBinder);
         }
 
         private void Start()

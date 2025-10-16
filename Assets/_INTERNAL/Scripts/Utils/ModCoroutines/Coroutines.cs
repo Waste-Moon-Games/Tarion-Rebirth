@@ -12,12 +12,6 @@ namespace Utils.ModCoroutines
         {
             get
             {
-                if (_instance == null && Application.isPlaying)
-                {
-                    _object = new GameObject("[COROUTINE MANAGER]");
-                    _instance = _object.AddComponent<Coroutines>();
-                    DontDestroyOnLoad(_object);
-                }
                 return _instance;
             }
         }
@@ -38,6 +32,12 @@ namespace Utils.ModCoroutines
         }
 #endif
 
+        public void Awake()
+        {
+            if(_instance == null)
+                _instance = this;
+        }
+
         private void OnApplicationQuit()
         {
             if (_instance == this)
@@ -48,7 +48,7 @@ namespace Utils.ModCoroutines
             }
         }
 
-        public static Coroutine StartRoutine(IEnumerator enumerator)
+        public Coroutine StartRoutine(IEnumerator enumerator)
         {
             if (Instance != null)
             {
@@ -57,7 +57,7 @@ namespace Utils.ModCoroutines
             return null;
         }
 
-        public static void StopRoutine(Coroutine routine)
+        public void StopRoutine(Coroutine routine)
         {
             if (routine != null && Instance != null && Instance.gameObject != null)
             {

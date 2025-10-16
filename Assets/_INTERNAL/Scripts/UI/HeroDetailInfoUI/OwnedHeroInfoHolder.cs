@@ -1,5 +1,4 @@
 ﻿using Core.GrowthSystem.HeroStatsUpgradeSystem;
-using Entry.Mono;
 using GameEntity.DataInstance.Main;
 using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
@@ -19,19 +18,14 @@ namespace UI.HeroDetailInfoUI
 
         private void OnEnable()
         {
-            _instanceHolder = GameWorldStateMono.Instance.GameWorldState.ImperiumState.InstanceHolder;
             ForceUpdateHeroList();
             _heroListUI.OnHeroSelected += HandleSelectedHero;
+            _statsView.Clear();
         }
 
         private void OnDisable()
         {
             _heroListUI.OnHeroSelected -= HandleSelectedHero;
-        }
-
-        private void Awake()
-        {
-            
         }
 
         public void ForceUpdateHeroList()

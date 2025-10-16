@@ -7,9 +7,9 @@
         "GUID:8dd7d41d8daace348bea711251ca1168",
         "GUID:89c709e66ab016540985805c7855e31a",
         "GUID:a29b2e1350b7c5c49856f11864ef2f9c",
-        "GUID:9b836ec9b0ff4194ab28629544da0a9b",
         "GUID:84ab4ae29abd5594a927561bf418b6ca",
-        "GUID:ae9a2cf3a55bb2e449e3e42ee2934a59"
+        "GUID:ae9a2cf3a55bb2e449e3e42ee2934a59",
+        "GUID:5bb2324bb3260624793a78150b047466"
     ],
     "includePlatforms": [
         "Android",

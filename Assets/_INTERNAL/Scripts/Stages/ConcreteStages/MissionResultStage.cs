@@ -1,7 +1,6 @@
 ﻿using Contex.MissionInfo;
 using Core.Common;
 using Core.Factories.Stage_Factory;
-using GameEntity.DataInstance;
 using GameEntity.DataInstance.Main;
 using StateMachine.Base;
 using UI.Result;
@@ -25,12 +24,14 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            _panelHolder.OnResultAccepted += HandleAcceptedResult;
-            _panelHolder.ResultUI.Initialize(_missionContex);
+            if(_panelHolder != null)
+            {
+                _panelHolder.OnResultAccepted += HandleAcceptedResult;
+                _panelHolder.ResultUI.Initialize(_missionContex);
 
-            if (!_panelHolder.gameObject.activeSelf)
-                _panelHolder.Show();
-
+                if (!_panelHolder.gameObject.activeSelf)
+                    _panelHolder.Show();
+            }
             _missionContex.ApplyMissionResults();
         }
 
@@ -47,8 +48,11 @@ namespace StateMachine.Stages
             _missionContex.SelectedHero.SetBusyStatus(false);
             _missionContex.SelectedPlanet.SetBusyStatus(false);
 
-            _panelHolder.Hide();
-            _panelHolder.OnResultAccepted -= HandleAcceptedResult;
+            if(_panelHolder != null)
+            {
+                _panelHolder.Hide();
+                _panelHolder.OnResultAccepted -= HandleAcceptedResult;
+            }
         }
 
         public void Dispose()

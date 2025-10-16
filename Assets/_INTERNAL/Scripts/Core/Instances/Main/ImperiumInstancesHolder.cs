@@ -32,6 +32,7 @@ namespace GameEntity.DataInstance.Main
         public event Action<HeroInstance> OnHeroRejected;
         public event Action<int> OnHerosCountChanged;
         public event Action<HeroInstance> OnHerosListUpdated;
+        public event Action<int> OnHerosLimitUpgraded;
 
         public ImperiumInstancesHolder(ImperiumConfig limitsConfig)
         {
@@ -92,6 +93,12 @@ namespace GameEntity.DataInstance.Main
         {
             _maxPlanets += amount;
             OnPlanetsLimitUpgraded?.Invoke(_maxPlanets);
+        }
+
+        public void UpgradeHerosLimit(int amount)
+        {
+            _maxHeros += amount;
+            OnHerosLimitUpgraded?.Invoke(_maxHeros);
         }
 
         private void InitializeHeros(List<HeroDataContainer> heroDatas, RankProgressionConfig config)

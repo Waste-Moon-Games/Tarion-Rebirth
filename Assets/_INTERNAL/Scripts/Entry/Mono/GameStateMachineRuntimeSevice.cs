@@ -12,7 +12,6 @@ namespace Mono.StateMachine
     {
         [SerializeField] private ImperiumConfig _config;
         [SerializeField] private StateMachineUIDependencies _uiDependencies;
-        [SerializeField] private MissionRuntimeService _missionRuntimeService;
 
         private MissionSlotsController _slotsController;
 
@@ -24,7 +23,7 @@ namespace Mono.StateMachine
 
         private void OnEnable()
         {
-            _missionRuntimeService = GameWorldStateMono.Instance.MissionRuntimeService;
+            //_missionRuntimeService = GameWorldStateMono.Instance.MissionRuntimeService;
 
             MonoStageMachineDependencies.OnSceneDependenciesReady += HandleMonoStageDeps;
 
@@ -60,30 +59,30 @@ namespace Mono.StateMachine
 
         private StageDependencies CreateStageDeps()
         {
-            var intstanceHolder = GameWorldStateMono
-                .Instance
-                .GameWorldState
-                .ImperiumState
-                .InstanceHolder;
-            var targetList = GameWorldStateMono
-                .Instance
-                .GameWorldState
-                .ImperiumState
-                .TargetsListState;
+            //var intstanceHolder = GameWorldStateMono
+            //    .Instance
+            //    .GameWorldState
+            //    .ImperiumState
+            //    .InstanceHolder;
+            //var targetList = GameWorldStateMono
+            //    .Instance
+            //    .GameWorldState
+            //    .ImperiumState
+            //    .TargetsListState;
 
-            var contex = new MissionContex();
+            //var contex = new MissionContex();
 
-            var deps = new StageDependencies
-                (
-                    intstanceHolder,
-                    contex,
-                    _uiDependencies,
-                    targetList
-                );
+            //var deps = new StageDependencies
+            //    (
+            //        intstanceHolder,
+            //        contex,
+            //        _uiDependencies,
+            //        targetList
+            //    );
 
-            LastCreatedContex = contex;
+            //LastCreatedContex = contex;
 
-            return deps;
+            return null;
         }
 
         private void SlotControllerEventSubscribe()
@@ -108,13 +107,13 @@ namespace Mono.StateMachine
         private void HandleStartedMission(MissionContex contex)
         {
             IsPreparationRunning = false;
-            _missionRuntimeService.AddActiveMission(contex);
+            //_missionRuntimeService.AddActiveMission(contex);
             OnMissionStarted?.Invoke();
         }
 
         private void HandleFinishedMission(int arg1, MissionContex contex)
         {
-            _missionRuntimeService.RemoveFinishedMission(contex);
+            //_missionRuntimeService.RemoveFinishedMission(contex);
         }
 
         private void HandleMonoStageDeps(MonoStageMachineDependencies deps)

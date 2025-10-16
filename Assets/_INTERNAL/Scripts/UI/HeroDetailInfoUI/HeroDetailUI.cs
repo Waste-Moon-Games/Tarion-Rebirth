@@ -31,7 +31,12 @@ namespace UI.HeroDetailInfoUI
         private HeroInstance _selectedHero;
         private NumberFormatter _formatter;
 
-        public event Action<HeroInstance> OnHeroRecuired;
+        public event Action<HeroInstance> OnHireButtonClicked;
+
+        private void OnEnable()
+        {
+            Clear();
+        }
 
         private void OnDisable()
         {
@@ -94,7 +99,7 @@ namespace UI.HeroDetailInfoUI
 
         private void SetupMainText(HeroInstance heroInstance, HeroRuntimeData heroData)
         {
-            _name.text = $"Имя: {heroData.Name}";
+            _name.text = $"{heroData.Name}";
             _description.text = $"{heroData.Description}";
             _power.text = $"Мощь: {_formatter.FormatNumber(heroInstance.HeroPower)}";
             SetupRankText(heroData);
@@ -107,11 +112,11 @@ namespace UI.HeroDetailInfoUI
             Rank rank = heroData.Rank;
             _rank.text = rank switch
             {
-                Rank.Recruit => "Ранг: Рекрут",
-                Rank.Veteran => "Ранг: Закалённый",
-                Rank.Elite => "Ранг: Ветеран",
-                Rank.Champion => "Ранг: Чемпион Тариона",
-                Rank.Guardian => "Ранг: Рыцарь Тариона",
+                Rank.Recruit => "Рекрут",
+                Rank.Veteran => "Закалённый",
+                Rank.Elite => "Ветеран",
+                Rank.Champion => "Чемпион Тариона",
+                Rank.Guardian => "Рыцарь Тариона",
                 _ => "Ранг: нет",
             };
         }
@@ -155,7 +160,7 @@ namespace UI.HeroDetailInfoUI
 
         private void RecruitHero()
         {
-            OnHeroRecuired?.Invoke(_selectedHero);
+            OnHireButtonClicked?.Invoke(_selectedHero);
         }
     }
 }

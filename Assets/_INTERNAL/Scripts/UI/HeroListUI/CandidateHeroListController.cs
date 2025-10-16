@@ -11,7 +11,6 @@ namespace UI.HeroListUI
     public class CandidateHeroListController : UIListBase
     {
         [SerializeField] private Transform _contentParent;
-        [SerializeField] private HeroItemView _heroItemPrefab;
         [SerializeField] private bool _autoExpand;
 
         private readonly List<HeroItemView> _heroItems = new();

@@ -28,6 +28,18 @@ namespace Core.GameStates
             OnResourceChanged?.Invoke(id, Get(id));
         }
 
+        public void Spend(ResourceType id, int amount)
+        {
+            if (!_resources.ContainsKey(id))
+                return;
+
+            if (_resources[id] < amount)
+                return;
+
+            _resources[id] -= amount;
+            OnResourceChanged?.Invoke(id, Get(id));
+        }
+
         public int Get(ResourceType type) => _resources.TryGetValue(type, out int value) ? value : 0;
     }
 }

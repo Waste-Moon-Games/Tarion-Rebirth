@@ -10,9 +10,13 @@ namespace Mono.UI.HeroListUI
 {
     public class HeroItemView : MonoBehaviour
     {
+        [Header("Text")]
         [SerializeField] private TextMeshProUGUI _heroName;
         [SerializeField] private TextMeshProUGUI _heroPower;
         [SerializeField] private TextMeshProUGUI _heroLevel;
+
+        [Space(10), Header("Sprite")]
+        [SerializeField] private Image _heroArt;
 
         private Button _selectButton;
 
@@ -42,6 +46,12 @@ namespace Mono.UI.HeroListUI
             _heroInstance = heroInstance;
             _heroInstance.OnPowerChanged += HandleChangedPower;
             SetupText(_heroInstance);
+
+            if (_heroArt == null)
+                return;
+
+            if(heroInstance.RuntimeData.HeroArt != null)
+                _heroArt.sprite = heroInstance.RuntimeData.HeroArt;
         }
 
         public void InitializeButton()
@@ -69,7 +79,7 @@ namespace Mono.UI.HeroListUI
         {
             _heroName.text = hero.RuntimeData.Name;
             _heroPower.text = $"Мощь: {_formatter.FormatNumber(hero.HeroPower)}";
-            _heroLevel.text = $"Уровень: {hero.HeroLevel}";
+            _heroLevel.text = $"LVL: {hero.HeroLevel}";
         }
 
         private void HandleChangedPower(float currentPower)

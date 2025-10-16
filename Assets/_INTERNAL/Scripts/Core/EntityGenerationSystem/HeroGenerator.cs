@@ -18,7 +18,6 @@ namespace Core.EntityGenerationSystem
         private readonly ImperiumInstancesHolder _instancesHolder;
 
         private readonly HashSet<string> _usedNames = new();
-        private readonly int[] _quotas;
 
         public HeroGenerator(HerosGenerationConfig config, ImperiumInstancesHolder instancesHolder)
         {
@@ -34,7 +33,7 @@ namespace Core.EntityGenerationSystem
             HeroData data = new()
             {
                 BaseHealth = 100,
-                Level = 1,
+                Level = Random.Range(1, 50), // временная проверка
                 Experience = 0,
                 HeroRank = Rank.Recruit,
                 HeroGender = GenerateRandomGender(),
@@ -52,6 +51,7 @@ namespace Core.EntityGenerationSystem
                 data.HeroGender
                 );
             data.HeroArt = _config.HeroArt;
+            data.HeroCost = GenerateCost();
 
             return data;
         }
@@ -156,6 +156,15 @@ namespace Core.EntityGenerationSystem
                 IntelligenceMultiplier = GenerateRandomAttribute(_config.AttributesMultipliers, quality)
             };
             return stats;
+        }
+
+        private HeroCost GenerateCost()
+        {
+            HeroCost cost = new()
+            {
+                BaseCost = 500f
+            };
+            return cost;
         }
 
         private T GenerateRandomAttribute<T>(List<HeroAttributes<T>> attributes, HeroQuality heroQuality) where T : struct

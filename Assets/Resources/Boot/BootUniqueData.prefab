@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &342167192176813368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537069080500950083}
+  - component: {fileID: 5414702759545441025}
+  m_Layer: 0
+  m_Name: BootUniqueData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537069080500950083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342167192176813368}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5414702759545441025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342167192176813368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fda4a71a516b16479ace22ebd68a200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <HeroDatas>k__BackingField:
+  - {fileID: 11400000, guid: 4ed0b5e85d83a734fb17fdef5b089671, type: 2}
+  - {fileID: 11400000, guid: 738bf291192f4e3428e4506807f7e540, type: 2}
+  - {fileID: 11400000, guid: 273211d1a613c8144912d7a77baa6948, type: 2}
+  <PlanetDatas>k__BackingField: []
+  <MissionDatas>k__BackingField:
+  - {fileID: 11400000, guid: d201256792264b34faf58c955c57fa16, type: 2}
+  - {fileID: 11400000, guid: 53f648ead40cad243b15c8087ab12864, type: 2}
+  - {fileID: 11400000, guid: f9524b7ac06b01d47b48ad6a21f97940, type: 2}
+  - {fileID: 11400000, guid: 80b2bc0a1699ee04a89354e63497279d, type: 2}
+  <RankProgressionConfig>k__BackingField: {fileID: 11400000, guid: b6e6ddbafb9b86c47a57e120d73b6edb, type: 2}
+  <ImperiumConfig>k__BackingField: {fileID: 11400000, guid: 3b6a6283a19b5dc42abab7f98c26c273, type: 2}

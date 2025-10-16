@@ -118,4 +118,4 @@ MonoBehaviour:
       DropChance: 0
       MinValue: 3
       MaxValue: 3.75
-  <Count>k__BackingField: 5
+  <Count>k__BackingField: 10

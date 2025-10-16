@@ -21,6 +21,7 @@ namespace Mono.UI.PlanetListUI
 
         private UnityAction _clickHandler;
 
+        public PlanetInstance Planet => _planetInstance;
         public Button SelectButton => _selectButton;
 
         public event Action<PlanetInstance> OnPlanetSelected;
@@ -41,6 +42,13 @@ namespace Mono.UI.PlanetListUI
             _planetInstance.OnPowerChanged += HandleChangedPower;
 
             SetupText();
+        }
+
+        public void Clear()
+        {
+            _planetNameText.text = $"Name";
+            _planetPopulation.text = $"Population";
+            _planetPower.text = $"Power";
         }
 
         private void SetupText()

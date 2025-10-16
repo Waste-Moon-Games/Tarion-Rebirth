@@ -1,4 +1,5 @@
 ﻿using Core.Common.Instances;
+using Core.EntityDatas.Unit.Data;
 using Core.GrowthSystem;
 using GameEntity.ScriptableObjects;
 using GameEntity.Unit.Data;
@@ -36,6 +37,8 @@ namespace Scripts.GameEntity.DataInstance
             _growthSystem = new(_runtimeData.Stats);
             _rankSystem = new(_runtimeData, config);
 
+            CalculateCost(_runtimeData);
+
             HeroPower = CalculatePower();
             _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
 
@@ -49,6 +52,8 @@ namespace Scripts.GameEntity.DataInstance
             _runtimeData = new(_sourceData);
             _growthSystem = new(_runtimeData.Stats);
             _rankSystem = new(_runtimeData, config);
+
+            CalculateCost(_runtimeData);
 
             HeroPower = CalculatePower();
             _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
@@ -81,6 +86,11 @@ namespace Scripts.GameEntity.DataInstance
         public int GetExperienceToNextLevel() => _growthSystem.GetRequiredExperienceForNextLevel();
 
         public int GetCurrentSkillPoints() => _growthSystem.CurrentSkillPoints;
+
+        private void CalculateCost(HeroRuntimeData data)
+        {
+            data.RecruitmentCost = data.Cost.CalculateCost(data.Level, data.Quality);
+        }
 
         private void HandleLevelUp(int skillPoints)
         {

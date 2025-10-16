@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Android.Gradle;
 using UnityEngine;
 
 namespace Utils
@@ -53,7 +52,6 @@ namespace Utils
         {
             var newElement = CreateObject(_pool);
             newElement.gameObject.SetActive(true);
-            Debug.Log($"Object created: {newElement.GetType()}");
             return newElement;
         }
 

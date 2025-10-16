@@ -89,7 +89,7 @@ namespace UI.PlanetsMap
                 var type = resource.Type;
                 if (_resourcesText.TryGetValue(type, out var textField))
                 {
-                    textField.text = $"{resource.Name}: {resource.BaseExtaction}";
+                    textField.text = $"{resource.BaseExtaction}";
                 }
             }
         }

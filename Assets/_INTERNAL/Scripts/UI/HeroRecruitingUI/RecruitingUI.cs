@@ -16,12 +16,13 @@ namespace UI.HeroRecruitingUI
         [SerializeField] private CandidateHeroListController _herosList;
         [SerializeField] private HeroDetailUI _heroDetailUI;
         [SerializeField] private HeroStatsView _heroStatsView;
+        [SerializeField] private HeroCost _cost;
 
         [Space(10), Header("Buttons")]
         [SerializeField] private Button _refreshButton;
 
         public event Action OnListRefreshed;
-        public event Action<HeroInstance> OnHeroRecruited;
+        public event Action<HeroInstance> OnHireButtonClicked;
 
         private void Awake()
         {
@@ -34,7 +35,7 @@ namespace UI.HeroRecruitingUI
             if(_refreshButton != null)
                 _refreshButton.onClick.AddListener(RefreshList);
 
-            _heroDetailUI.OnHeroRecuired += HandleAddedHero;
+            _heroDetailUI.OnHireButtonClicked += HandleHireButtonClick;
         }
 
         private void OnDisable()
@@ -42,7 +43,7 @@ namespace UI.HeroRecruitingUI
             if (_refreshButton != null)
                 _refreshButton.onClick.RemoveListener(RefreshList);
 
-            _heroDetailUI.OnHeroRecuired -= HandleAddedHero;
+            _heroDetailUI.OnHireButtonClicked -= HandleHireButtonClick;
         }
 
         public void SetNewCandidates(List<HeroItemView> newHeros, RecruitSystemInstance instanceHolder)
@@ -64,11 +65,15 @@ namespace UI.HeroRecruitingUI
         public void RemoveCandidate(HeroInstance candidate)
         {
             _herosList.RemoveItemFromList(candidate);
+            _heroDetailUI.Clear();
+            _heroStatsView.Clear();
+            _cost.Clear();
         }
 
         private void RefreshList()
         {
             _heroDetailUI.Clear();
+            _heroStatsView.Clear();
             OnListRefreshed?.Invoke();
         }
 
@@ -76,11 +81,12 @@ namespace UI.HeroRecruitingUI
         {
             _heroDetailUI.Setup(selectedHero);
             _heroStatsView.Setup(selectedHero);
+            _cost.Setup(selectedHero);
         }
 
-        private void HandleAddedHero(HeroInstance newHero)
+        private void HandleHireButtonClick(HeroInstance newHero)
         {
-            OnHeroRecruited?.Invoke(newHero);
+            OnHireButtonClicked?.Invoke(newHero);
         }
     }
 }

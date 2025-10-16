@@ -18,7 +18,7 @@ namespace Entry.Mono
         public StateMachineUIDependencies StateMachineUIDependencies => _uiDependencies;
         public StartPrepareMission StartPrepareMission => _startPrepareMission;
 
-        private void Awake()
+        public void Init()
         {
             _current = this;
             OnSceneDependenciesReady?.Invoke(this);

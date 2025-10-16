@@ -1,0 +1,21 @@
+{
+    "name": "Game.ConcreteSceneParams",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:fbed6fb9404a9af498712c5ba7bddaf1"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

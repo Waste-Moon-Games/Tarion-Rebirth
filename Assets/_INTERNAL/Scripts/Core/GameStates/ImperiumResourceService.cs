@@ -13,22 +13,29 @@ namespace Core.GameStates
 
         private readonly float _extractionTime;
         private readonly float _capturedResourcesMuiltiplier;
+        private Coroutines _coroutines;
         private Coroutine _resourceRoutine;
 
-        public ImperiumResourceService(ImperiumInstancesHolder instanceHolder, ImperiumResourceState resources, float extractionTime, float capturedResourcesMuiltiplier)
+        public ImperiumResourceService(
+            ImperiumInstancesHolder instanceHolder,
+            ImperiumResourceState resources,
+            float extractionTime,
+            float capturedResourcesMuiltiplier,
+            Coroutines coroutine)
         {
             _instanceHolder = instanceHolder;
             _resources = resources;
             _extractionTime = extractionTime;
             _capturedResourcesMuiltiplier = capturedResourcesMuiltiplier;
+            _coroutines = coroutine;
         }
 
         public void StartExtraction()
         {
             if (_resourceRoutine != null)
-                Coroutines.StopRoutine(_resourceRoutine);
+                _coroutines.StopRoutine(_resourceRoutine);
 
-            _resourceRoutine = Coroutines.StartRoutine(Extract());
+            _resourceRoutine = _coroutines.StartRoutine(Extract());
         }
 
         public void GetCapturedResources(PlanetInstance capturedPlanet)
@@ -61,7 +68,7 @@ namespace Core.GameStates
         {
             if(_resourceRoutine != null)
             {
-                Coroutines.StopRoutine(_resourceRoutine);
+                _coroutines.StopRoutine(_resourceRoutine);
                 _resourceRoutine = null;
             }
         }

@@ -4,6 +4,7 @@ using GameEntity.Unit.Data;
 using Scripts.GameEntity.DataInstance;
 using System;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -34,6 +35,11 @@ namespace UI.HeroDetailInfoUI
         public event Action OnStrengthClicked;
         public event Action OnDexterityClicked;
         public event Action OnIntelligenceClicked;
+
+        private void OnEnable()
+        {
+            Clear();
+        }
 
         public void SubscribeOnButtonEvents()
         {
@@ -87,6 +93,13 @@ namespace UI.HeroDetailInfoUI
             _strenght.text = $"STR: {stats.Strength}";
             _dexterity.text = $"DEX: {stats.Dexterity}";
             _intelligence.text = $"INT: {stats.Intelligence}";
+        }
+
+        public void Clear()
+        {
+            _strenght.text = $"STR: {0}";
+            _dexterity.text = $"DEX: {0}";
+            _intelligence.text = $"INT: {0}";
         }
 
         private void Cleanup()

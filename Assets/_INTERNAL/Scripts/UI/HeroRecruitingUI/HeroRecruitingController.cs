@@ -3,8 +3,8 @@ using Core.Common;
 using Core.Common.Instances;
 using Core.ConcreteBinders;
 using Core.EntityGenerationSystem;
+using Core.GameStates;
 using Core.Instances.RecruitSystem;
-using Entry.Mono;
 using GameEntity.Unit.Data;
 using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
@@ -31,6 +31,8 @@ namespace UI.HeroRecruitingUI
         private ISceneBinder _localBinder;
         private SceneBinder _sceneBinder;
 
+        private ImperiumResourceState _imperiumResources;
+
         private RecruitSystemInstance _localInsntace;
         private HeroGenerator _generator;
         private CommandProcessor _processor;
@@ -39,39 +41,44 @@ namespace UI.HeroRecruitingUI
 
         private void Awake()
         {
-            var instanceHolder = GameWorldStateMono
-                .Instance
-                .GameWorldState
-                .ImperiumState
-                .InstanceHolder;
+            //var instanceHolder = GameWorldStateMono
+            //    .Instance
+            //    .GameWorldState
+            //    .ImperiumState
+            //    .InstanceHolder;
+            //_imperiumResources = GameWorldStateMono
+            //    .Instance
+            //    .GameWorldState
+            //    .ImperiumState
+            //    .ImperiumResource;
 
-            _spawner.CreatePool(_config.Count);
+            //_spawner.CreatePool(_config.Count);
 
-            _generator = new(_config, instanceHolder);
-            _localInsntace = new();
+            //_generator = new(_config, instanceHolder);
+            //_localInsntace = new();
 
-            _processor = new();
+            //_processor = new();
 
-            _sceneBinder = new();
-            _localBinder = new RecruitHeroSystemBinder
-                (
-                this,
-                instanceHolder,
-                _processor
-                );
-            _sceneBinder.AddBinder(_localBinder);
+            //_sceneBinder = new();
+            //_localBinder = new RecruitHeroSystemBinder
+            //    (
+            //    this,
+            //    instanceHolder,
+            //    _processor
+            //    );
+            //_sceneBinder.AddBinder(_localBinder);
         }
 
         private void OnEnable()
         {
             _recruitingUI.OnListRefreshed += HandleRefreshedList;
-            _recruitingUI.OnHeroRecruited += HandleAddedHero;
+            _recruitingUI.OnHireButtonClicked += HandleAddedHero;
         }
 
         private void OnDisable()
         {
             _recruitingUI.OnListRefreshed -= HandleRefreshedList;
-            _recruitingUI.OnHeroRecruited -= HandleAddedHero;
+            _recruitingUI.OnHireButtonClicked -= HandleAddedHero;
         }
 
         private void Start()
@@ -101,6 +108,12 @@ namespace UI.HeroRecruitingUI
 
         private void HandleAddedHero(HeroInstance addedHero)
         {
+            // to do списать ресы за найм героя
+            int cost = Mathf.RoundToInt(addedHero.RuntimeData.RecruitmentCost);
+            if (cost < addedHero.RuntimeData.RecruitmentCost)
+                return;
+
+            _imperiumResources.Spend(Core.EntityDatas.Resource.ResourceType.Void_Matter, cost);
             OnInstanceSelected?.Invoke(addedHero);
         }
     }

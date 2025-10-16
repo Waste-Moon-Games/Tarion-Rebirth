@@ -23,6 +23,7 @@ MonoBehaviour:
     Experience: 0
     HeroRank: 4
     HeroArt: {fileID: -74668207497188870, guid: 44eacc376da8dc3459d2010a9f649a79, type: 3}
+    RecruitmentCost: 0
     Stats:
       BasePower: 200
       PowerGrowthMultiplier: 2
@@ -35,3 +36,6 @@ MonoBehaviour:
     IsUnique: 1
     HeroGender: 0
     HeroQuality: 4
+    HeroCost:
+      BaseCost: 250
+      LevelMultiplier: 0.01

@@ -2,6 +2,7 @@
 using GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 
@@ -46,6 +47,7 @@ namespace Mono.UI.PlanetListUI
         private void OnDisable()
         {
             UnsubscribeFromItemsEvent();
+            Clear();
 
             _targetList.OnTargetAdded -= AddNewItemToList;
             _targetList.OnTargetRemoved -= RemoveItemFromList;
@@ -53,23 +55,22 @@ namespace Mono.UI.PlanetListUI
 
         private void CreatePlanetList()
         {
-            if (_planetItems.Count == _targetList.Targets.Count)
-                return;
+            Clear();
 
-            _planetItems.Clear();
+            IEnumerable<PlanetInstance> freeTargets = _targetList.Targets.Where(t => !t.IsBusy);
 
-            for (int i = 0; i < _targetList.Targets.Count; i++)
+            foreach (PlanetInstance target in freeTargets)
             {
-                if (_targetList.Targets[i].IsBusy)
-                    continue;
-;
                 PlanetViewItem item = _planetsPool?.GetFreeElement();
 
-                item.Setup(_targetList.Targets[i]);
+                item.Setup(target);
                 item.InitializeButton();
 
-                _planetItems.Add(item);
-                _planetItemsDict[_targetList.Targets[i]] = item;
+                if (!_planetItems.Contains(item) && !_planetItemsDict.ContainsKey(item.Planet))
+                {
+                    _planetItems.Add(item);
+                    _planetItemsDict[item.Planet] = item;
+                }
             }
         }
 
@@ -128,6 +129,21 @@ namespace Mono.UI.PlanetListUI
                 _planetItemsDict.Remove(capturedPlanet);
                 _planetsPool.ReturnToPool(item);
             }
+        }
+
+        private void Clear()
+        {
+            foreach (PlanetViewItem item in _planetItems)
+            {
+                if (item != null)
+                {
+                    item.Clear();
+                    _planetsPool?.ReturnToPool(item);
+                }
+            }
+
+            _planetItems.Clear();
+            _planetItemsDict.Clear();
         }
 
         private void HandleSelectedPlanet(PlanetInstance planetInstance)

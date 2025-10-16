@@ -2,6 +2,7 @@
 using Scripts.GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 
@@ -26,7 +27,7 @@ namespace Mono.UI.HeroListUI
         {
             _instanceHolder = instanceHolder;
 
-            _herosPool = new(_heroItemPrefab, instanceHolder.Heros.Count, _contentParent)
+            _herosPool ??= new(_heroItemPrefab, instanceHolder.Heros.Count, _contentParent)
             {
                 AutoExpand = _autoExpand
             };
@@ -61,8 +62,6 @@ namespace Mono.UI.HeroListUI
 
             _heroItems.Add(item);
             _heroItemsDict[newHero] = item;
-
-            Debug.Log($"Hero added: {newHero.RuntimeData.Name}");
         }
 
         public void RemoveItemFromList(HeroInstance hero)
@@ -77,23 +76,21 @@ namespace Mono.UI.HeroListUI
 
         private void CreateHeroList(ImperiumInstancesHolder holder)
         {
-            if (_heroItems.Count == holder.Heros.Count)
-                return;
+            Clear();
 
-            _heroItems.Clear();
-
-            for (int i = 0; i < holder.Heros.Count; i++)
+            IEnumerable<HeroInstance> freeHeros = _instanceHolder.Heros.Where(h => !h.IsBusy);
+            foreach (HeroInstance hero in freeHeros)
             {
-                if (holder.Heros[i].IsBusy)
-                    continue;
-
                 HeroItemView item = _herosPool?.GetFreeElement();
 
-                item.Setup(holder.Heros[i]);
+                item.Setup(hero);
                 item.InitializeButton();
 
-                _heroItems.Add(item);
-                _heroItemsDict[holder.Heros[i]] = item;
+                if (!_heroItems.Contains(item) && !_heroItemsDict.ContainsKey(item.Hero))
+                {
+                    _heroItems.Add(item);
+                    _heroItemsDict[item.Hero] = item;
+                }
             }
         }
 
@@ -116,10 +113,17 @@ namespace Mono.UI.HeroListUI
 
         private void Clear()
         {
-            foreach (var item in _herosPool)
+            foreach (HeroItemView item in _heroItems)
             {
-                _herosPool.ReturnToPool(item);
+                if (item != null)
+                {
+                    item.Clear();
+                    _herosPool?.ReturnToPool(item);
+                }
             }
+
+            _heroItems.Clear();
+            _heroItemsDict.Clear();
         }
 
         private void RefreshItemList()
@@ -128,15 +132,7 @@ namespace Mono.UI.HeroListUI
             {
                 if (_heroItemsDict.TryGetValue(hero, out HeroItemView item))
                 {
-                    if (hero.IsBusy)
-                    {
-                        item.SelectButton.interactable = false;
-                        continue;
-                    }
-                    else
-                    {
-                        item.SelectButton.interactable = true;
-                    }
+                    item.SelectButton.interactable = !hero.IsBusy;
                 }
             }
         }

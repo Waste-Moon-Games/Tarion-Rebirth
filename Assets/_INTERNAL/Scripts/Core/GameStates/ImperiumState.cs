@@ -3,10 +3,9 @@ using GameEntity.DataInstance.Main;
 using GameEntity.ScriptableObjects;
 using SO.Containers.Configs;
 using SO.Containers.GameEntity;
-using System;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
+using Utils.ModCoroutines;
 
 namespace Core.GameStates
 {
@@ -23,7 +22,13 @@ namespace Core.GameStates
 
         public ImperiumResourceService ResourceService => _resourceService;
 
-        public ImperiumState(List<HeroDataContainer> heroDatas, List<PlanetDataContainer> planetDatas, List<MissionDataContainer> missionDatas, RankProgressionConfig progressionConfig, ImperiumConfig imperiumConfig)
+        public ImperiumState(
+            List<HeroDataContainer> heroDatas,
+            List<PlanetDataContainer> planetDatas,
+            List<MissionDataContainer> missionDatas,
+            RankProgressionConfig progressionConfig,
+            ImperiumConfig imperiumConfig,
+            Coroutines coroutines)
         {
             InstanceHolder = new(imperiumConfig);
             InstanceHolder.Initialize(heroDatas, planetDatas, missionDatas, progressionConfig);
@@ -39,13 +44,14 @@ namespace Core.GameStates
                 InstanceHolder,
                 ImperiumResource,
                 _extractionTime,
-                _capturedResourcesMuiltiplier
+                _capturedResourcesMuiltiplier,
+                coroutines
                 );
         }
 
         public void GetCapturedResources(PlanetInstance capturedPlanet)
         {
-            _resourceService.GetCapturedResources(capturedPlanet);
+            _resourceService?.GetCapturedResources(capturedPlanet);
         }
     }
 }

@@ -1,7 +1,6 @@
 using Core.MissionSlots;
 using Mono.StateMachine;
 using Mono.UI.MissionContexUI;
-using UI.GameUIBridges;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +8,7 @@ namespace UI.MissionSlotsUI
 {
     public class MissionSlotUI : MonoBehaviour
     {
-        [Header("Brigde")]
-        [SerializeField] private MissionUIBridge _bridge;
-
-        [Space(10), Header("Mission info UI")]
+        [Header("Mission info UI")]
         [SerializeField] private MissionInfoUI _missionUI;
 
         [Space(10), Header("Slot ID")]
@@ -20,7 +16,7 @@ namespace UI.MissionSlotsUI
 
         private Button _openMissionUIButton;
 
-        [SerializeField] private GameStateMachineRuntimeSevice _stateMachineMono;
+        private GameStateMachineRuntimeSevice _stateMachineMono;
         private MissionSlot _slot;
 
         private void OnDestroy()
@@ -41,12 +37,15 @@ namespace UI.MissionSlotsUI
 
             _openMissionUIButton.onClick.AddListener(OpenMissionInfoUI);
 
-            if (_slot.IsRunning)
+            if (_slot.IsRunning && _missionUI != null)
                 _missionUI.Initialize(_slot.Contex);
         }
 
         private void OpenMissionInfoUI()
         {
+            if (_missionUI == null)
+                return;
+
             _missionUI.Show();
 
             if (_slot.IsRunning)

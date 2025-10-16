@@ -1,6 +1,5 @@
 ﻿using Core.Contex.Debug;
 using GameEntity.DataInstance;
-using GameEntity.DataInstance.Main;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
 using System;

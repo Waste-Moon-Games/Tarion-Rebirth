@@ -26,7 +26,7 @@ namespace HeroDetailInfoUI
 
         private void OpenMapScene()
         {
-            SceneLoaderMono.Instance.OpenScene(_sceneToUnload.SceneName, _sceneToLoad.SceneName);
+            //SceneLoaderService.Instance.OpenScene(_sceneToUnload.SceneName, _sceneToLoad.SceneName);
         }
     }
 }
