@@ -1,7 +1,7 @@
 ﻿using Contex.MissionInfo;
 using Core.Common;
 using Core.Common.SimpleTimer;
-using Core.Factories.Stage_Factory;
+using Entry.EntryData;
 using StateMachine.Base;
 using UI.MainMenu.MissionExecutionUI;
 using UnityEngine;

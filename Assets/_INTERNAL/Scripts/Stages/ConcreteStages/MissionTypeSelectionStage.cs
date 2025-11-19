@@ -1,14 +1,11 @@
 ﻿using Contex.MissionInfo;
 using Core.Common;
-using Core.Factories.Stage_Factory;
+using Entry.EntryData;
 using GameEntity.DataInstance.Main;
 using GameEntity.Mission;
-using Mono.UI;
-using Mono.UI.HeroListUI;
 using Mono.UI.MissionContexUI;
 using StateMachine.Base;
 using UI.Base;
-using UnityEngine;
 
 namespace StateMachine.Stages
 {

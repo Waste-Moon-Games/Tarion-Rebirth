@@ -5,7 +5,7 @@ using GameEntity.DataInstance.Main;
 using Mono.StateMachine;
 using UnityEngine;
 
-namespace Core.Factories.Stage_Factory
+namespace Entry.EntryData
 {
     public class StageDependencies : IDependence
     {

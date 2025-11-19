@@ -9,9 +9,10 @@ namespace UI.PlanetsMap
     public class GalaxyMapSpawner : MonoBehaviour
     {
         [SerializeField] private float _minSpawnDistance;
-        [SerializeField] private RectTransform _mapArea;
         [SerializeField] private PlanetMapView _planetMapViewPrefab;
         [SerializeField] private bool _autoExpand;
+
+        private RectTransform _spawnArea;
 
         private readonly List<Vector2> _usedPositions = new();
 
@@ -19,10 +20,18 @@ namespace UI.PlanetsMap
 
         public void CreatePlanetsPool(int count)
         {
-            _planetsPool = new(_planetMapViewPrefab, count, _mapArea)
+            _planetsPool = new(_planetMapViewPrefab, count, _spawnArea)
             {
                 AutoExpand = _autoExpand
             };
+        }
+
+        public void SetSpawnArea(RectTransform spawnArea)
+        {
+            if (spawnArea == null)
+                Debug.Log("Spawn area is empty!");
+
+            _spawnArea = spawnArea;
         }
 
         public List<PlanetMapView> SpawnPlanets(List<PlanetInstance> planets)
@@ -67,7 +76,7 @@ namespace UI.PlanetsMap
         {
             while (true)
             {
-                Vector2 pos = GetRandomPositionInside(_mapArea, planetSize);
+                Vector2 pos = GetRandomPositionInside(_spawnArea, planetSize);
 
                 bool occupied = usedPositions.Any(u => Vector2.Distance(pos, u) < _minSpawnDistance);
 
@@ -81,6 +90,9 @@ namespace UI.PlanetsMap
 
         private void ClearMap()
         {
+            if (_planetsPool == null)
+                Debug.Log("Spawner's pool is null!");
+
             foreach (var planet in _planetsPool)
             {
                 _planetsPool.ReturnToPool(planet);

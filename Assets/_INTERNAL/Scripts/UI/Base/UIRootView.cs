@@ -1,32 +1,14 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.Base
 {
     public class UIRootView : MonoBehaviour
     {
-        [SerializeField] private GameObject _loadingScreen;
-        [SerializeField] private Image _progressBar;
+        [SerializeField] private Transform _uiSceneContainer;
 
-        private void Awake()
+        public void AttachSceneUI(GameObject sceneUI)
         {
-            HideLoadingScreen();
-        }
-
-        public void ShowLoadingScreen()
-        {
-            _loadingScreen.SetActive(true);
-        }
-
-        public void HideLoadingScreen()
-        {
-            _loadingScreen.SetActive(false);
-            SetLoadingProgress(0f);
-        }
-
-        public void SetLoadingProgress(float progress)
-        {
-            _progressBar.fillAmount = progress;
+            sceneUI.transform.SetParent(_uiSceneContainer, false);
         }
     }
 }

@@ -7,10 +7,10 @@ using Core.GameStates;
 using Core.Instances.RecruitSystem;
 using GameEntity.Unit.Data;
 using Mono.UI.HeroListUI;
+using R3;
 using Scripts.GameEntity.DataInstance;
 using SO.Containers.Configs;
 using SO.Containers.GameEntity;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +37,7 @@ namespace UI.HeroRecruitingUI
         private HeroGenerator _generator;
         private CommandProcessor _processor;
 
-        public event Action<IInstance> OnInstanceSelected;
+        public Observable<IInstance> InstanceAdded { get; }
 
         private void Awake()
         {
@@ -114,7 +114,7 @@ namespace UI.HeroRecruitingUI
                 return;
 
             _imperiumResources.Spend(Core.EntityDatas.Resource.ResourceType.Void_Matter, cost);
-            OnInstanceSelected?.Invoke(addedHero);
+            //OnInstanceAdded?.OnNext(addedHero);
         }
     }
 }

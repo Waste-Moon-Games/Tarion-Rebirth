@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 5981066882939966081}
   - component: {fileID: 4671193207029066571}
   - component: {fileID: 6760020749106594671}
-  - component: {fileID: 8865334419176535991}
+  - component: {fileID: -954740776531849795}
   - component: {fileID: 6402188354481310636}
   m_Layer: 5
   m_Name: UILoadingScreen
@@ -365,7 +365,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &4671193207029066571
 MonoBehaviour:
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8865334419176535991
+--- !u!114 &-954740776531849795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -416,9 +416,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5629811315273727153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134cb9cdbab1c3c43af709fef3eef2b0, type: 3}
+  m_Script: {fileID: 11500000, guid: c7b0c3d6d90b01a4ca80bad8838ca8ec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UI.Base::UI.Base.UILoadingView
   _loadingScreen: {fileID: 1924783363340602027}
   _progressBar: {fileID: 7056279782713657170}
 --- !u!114 &6402188354481310636
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab39a583e2f94f4689c967b951ca0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uniqID: UI Root
+  _uniqID: UI Loading View
 --- !u!1 &6392960045413373194
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,11 @@
 ﻿using Core.Common.Abstractions;
 using Core.Common.Instances;
-using System;
+using R3;
 
 namespace Core.Common
 {
     public interface IController : IInstanceWriteService
     {
-        event Action<IInstance> OnInstanceSelected;
+        Observable<IInstance> InstanceAdded { get; }
     }
 }

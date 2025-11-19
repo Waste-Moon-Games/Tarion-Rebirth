@@ -101,18 +101,8 @@ namespace UI.MainMenu
 
         private void HandleImperiumResourcesUpdated(int count, ResourceType type)
         {
-            switch (type)
-            {
-                case ResourceType.Void_Matter:
-                    UpdateVoidMatterCount(count);
-                    break;
-                case ResourceType.Dark_Energy:
-                    UpdateDarkEnergyCount(count);
-                    break;
-                case ResourceType.Mineral_Crystalls:
-                    UpdateMineralsCount(count);
-                    break;
-            }
+            if (_resourcesText.TryGetValue(type, out var text))
+                text.text = _formatter.FormatNumber(count);
         }
 
         private void HandleImperiumInstancesInfoUpdated(int count, InstanceUpdateType type)

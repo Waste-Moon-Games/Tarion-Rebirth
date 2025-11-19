@@ -10,7 +10,7 @@ namespace Utils.SceneLoader
 {
     public class SceneLoaderService : ISceneLoaderService
     {
-        private readonly UIRootView _loadindScreen;
+        private readonly UILoadingView _loadindScreen;
         private readonly Coroutines _coroutine;
 
         private readonly Subject<float> _progressUpdated;
@@ -20,7 +20,7 @@ namespace Utils.SceneLoader
 
         public Subject<string> OnSceneLoaded => _sceneLoaded;
 
-        public SceneLoaderService(UIRootView loadindScreen, Coroutines coroutine)
+        public SceneLoaderService(UILoadingView loadindScreen, Coroutines coroutine)
         {
             _loadindScreen = loadindScreen;
             _coroutine = coroutine;

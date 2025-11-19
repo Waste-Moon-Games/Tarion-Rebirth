@@ -3,6 +3,7 @@ using Core.CommandSystem.ConcreteCommands;
 using Core.Common;
 using Core.Common.Instances;
 using GameEntity.DataInstance.Main;
+using R3;
 using Scripts.GameEntity.DataInstance;
 
 namespace Core.ConcreteBinders
@@ -12,6 +13,7 @@ namespace Core.ConcreteBinders
         private readonly IController _controller;
         private readonly ImperiumInstancesHolder _instanceHolder;
         private readonly CommandProcessor _processor;
+        private readonly CompositeDisposable _disposables = new();
 
         public RecruitHeroSystemBinder(IController controller, ImperiumInstancesHolder instanceHolder, CommandProcessor processor)
         {
@@ -22,12 +24,12 @@ namespace Core.ConcreteBinders
 
         public void Bind()
         {
-            _controller.OnInstanceSelected += HandleSelectedPlanet;
+            _controller.InstanceAdded.Subscribe(HandleSelectedPlanet).AddTo(_disposables);
         }
 
         public void Unbind()
         {
-            _controller.OnInstanceSelected -= HandleSelectedPlanet;
+            _disposables.Dispose();
         }
 
         public void Dispose()

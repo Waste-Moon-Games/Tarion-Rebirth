@@ -1,11 +1,10 @@
 ﻿using Contex.MissionInfo;
-using Core.Factories.Stage_Factory;
 using GameEntity.DataInstance;
 using Mono.UI.PlanetListUI;
 using StateMachine.Base;
 using Core.Common;
-using UnityEngine;
 using Core.GameStates;
+using Entry.EntryData;
 
 namespace StateMachine.Stages
 {

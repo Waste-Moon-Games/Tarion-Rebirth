@@ -26,6 +26,8 @@ namespace SO.Containers.Configs
 
             if(PlanetsConfig.Templates != null)
                 PlanetsConfig.LoadTemplates();
+
+            PlanetCount = PlanetsConfig.LowLevelPlanetCount + PlanetsConfig.MidLevelPlanetCount + PlanetsConfig.HighLevelPlanetCount;
         }
 #endif
     }

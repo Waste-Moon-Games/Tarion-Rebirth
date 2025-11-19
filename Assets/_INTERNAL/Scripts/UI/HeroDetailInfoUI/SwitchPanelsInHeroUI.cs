@@ -4,7 +4,7 @@ namespace UI.HeroDetailInfoUI
 {
     public class SwitchPanelsInHeroUI : MonoBehaviour
     {
-        [SerializeField] private OwnedHeroInfoHolder _ownedHeros;
+        [SerializeField] private OwnedHeroInfoHolderView _ownedHeros;
         [SerializeField] private GameObject _candidates;
 
         [Space(10), Header("Buttons")]

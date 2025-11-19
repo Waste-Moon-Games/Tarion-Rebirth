@@ -4,6 +4,7 @@ using Core.Common;
 using Core.Common.Instances;
 using Core.GameStates;
 using GameEntity.DataInstance;
+using R3;
 
 namespace Core.ConcreteBinders
 {
@@ -12,6 +13,7 @@ namespace Core.ConcreteBinders
         private readonly IController _controller;
         private readonly ImperiumState _imperiumState;
         private readonly CommandProcessor _processor;
+        private readonly CompositeDisposable _disposables = new();
 
         public GalaxyMapBinder(IController controller, ImperiumState imperiumState, CommandProcessor processor)
         {
@@ -22,12 +24,12 @@ namespace Core.ConcreteBinders
 
         public void Bind()
         {
-            _controller.OnInstanceSelected += HandleSelectedPlanet;
+            _controller.InstanceAdded.Subscribe(HandleAddedPlanet).AddTo(_disposables);
         }
 
         public void Unbind()
         {
-            _controller.OnInstanceSelected -= HandleSelectedPlanet;
+            _disposables.Dispose();
         }
 
         public void Dispose()
@@ -35,11 +37,11 @@ namespace Core.ConcreteBinders
             Unbind();
         }
 
-        private void HandleSelectedPlanet(IInstance selectedPlanet)
+        private void HandleAddedPlanet(IInstance addedPlanet)
         {
             var command = new AddPlanetToTargetListCommand
                 (
-                selectedPlanet as PlanetInstance,
+                addedPlanet as PlanetInstance,
                 _controller,
                 _imperiumState.TargetsListState
                 );

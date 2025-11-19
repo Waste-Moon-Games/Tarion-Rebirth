@@ -14,7 +14,7 @@ namespace UI.HeroRecruitingUI
     {
         [Header("UI systems")]
         [SerializeField] private CandidateHeroListController _herosList;
-        [SerializeField] private HeroDetailUI _heroDetailUI;
+        [SerializeField] private HeroDetailUIView _heroDetailUI;
         [SerializeField] private HeroStatsView _heroStatsView;
         [SerializeField] private HeroCost _cost;
 

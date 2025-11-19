@@ -1,0 +1,32 @@
+{
+    "name": "Game.ScenesEntry",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a7de66735a763ec4d9c732db95446355",
+        "GUID:5bb2324bb3260624793a78150b047466",
+        "GUID:7dba7aa9286f9464988407d8c3ea11bb",
+        "GUID:0397da89b2f304e4890c302dd03d3cdf",
+        "GUID:f324ff6c5237f044094d9df96a00ad48",
+        "GUID:0bd6dd0fa2624254da19cd74c6cef9b6",
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:34eac6d5a7d075b42b9999e2a900b393",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:edf3fef3c1db9904eb77b60b13c66af3",
+        "GUID:89c709e66ab016540985805c7855e31a",
+        "GUID:415d49886ea3bb64d83c7c7d53705a44",
+        "GUID:ade57361da74e0246ac345f441b938aa"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

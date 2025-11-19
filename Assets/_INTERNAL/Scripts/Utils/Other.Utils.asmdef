@@ -1,0 +1,21 @@
+{
+    "name": "Other.Utils",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:a7de66735a763ec4d9c732db95446355"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

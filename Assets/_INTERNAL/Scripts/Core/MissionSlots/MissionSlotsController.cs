@@ -1,5 +1,5 @@
 using Contex.MissionInfo;
-using Core.Factories.Stage_Factory;
+using Entry.EntryData;
 using Mono.StateMachine;
 using System;
 using System.Collections.Generic;

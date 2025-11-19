@@ -1,4 +1,5 @@
-﻿using StateMachine.Base;
+﻿using Entry.EntryData;
+using StateMachine.Base;
 using StateMachine.Stages;
 using System;
 

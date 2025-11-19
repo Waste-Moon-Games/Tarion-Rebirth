@@ -11,6 +11,7 @@ namespace Core.GameStates
     {
         [field: SerializeField] public ImperiumState ImperiumState { get; private set; }
         [field: SerializeField] public ImperiumStateController ImperiumStateController { get; private set; }
+        [field: SerializeField] public MissionRuntimeService MissionRuntimeService { get; private set; }
 
         public GameState
             (List<HeroDataContainer> heroDatas,
@@ -23,6 +24,17 @@ namespace Core.GameStates
             ImperiumState = new(heroDatas,planetDatas,missionDatas,progressionConfig,limitsConfig, coroutines);
 
             ImperiumStateController = new(ImperiumState);
+            MissionRuntimeService = new();
+
+            ImperiumState.ResourceService.StartExtraction();
+        }
+
+        public void Dispose()
+        {
+            ImperiumState.ResourceService.StopExtaction();
+            ImperiumState = null;
+            MissionRuntimeService = null;
+            ImperiumStateController = null;
         }
     }
 }

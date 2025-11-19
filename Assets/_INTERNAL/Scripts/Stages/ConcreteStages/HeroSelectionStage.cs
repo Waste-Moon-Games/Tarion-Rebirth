@@ -1,6 +1,6 @@
 ﻿using Contex.MissionInfo;
 using Core.Common;
-using Core.Factories.Stage_Factory;
+using Entry.EntryData;
 using GameEntity.DataInstance.Main;
 using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
