@@ -1,0 +1,21 @@
+{
+    "name": "UI.HeroMenu.Models",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:8dd7d41d8daace348bea711251ca1168"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,5 @@
-﻿using Mono.UI;
-using TMPro;
+﻿using TMPro;
+using UI.Base;
 using UnityEngine;
 
 namespace UI.MissionContexUI

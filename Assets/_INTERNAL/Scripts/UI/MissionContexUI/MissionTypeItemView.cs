@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Mono.UI.MissionContexUI
+namespace UI.MissionContexUI
 {
     public class MissionTypeItemView : MonoBehaviour
     {

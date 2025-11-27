@@ -1,0 +1,29 @@
+{
+    "name": "UI.HeroMenu.Views",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:a7de66735a763ec4d9c732db95446355",
+        "GUID:d4c4211594eb1b244afa977496643732",
+        "GUID:27d466e22e1bb5a47885713bdda9d3a3",
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:62f72973877f8bd4ba600d11aea7c8a9",
+        "GUID:47e9186edfe05814086da1dfb1d1c97c",
+        "GUID:535537d393009044fa628a97d0bec570",
+        "GUID:7bcdbc101ca3c4c4ca2e912f2c6566d9",
+        "GUID:ade57361da74e0246ac345f441b938aa"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 9093560068997925483}
   - component: {fileID: 8563782130387940676}
   - component: {fileID: 8017421414833752797}
-  - component: {fileID: 5115646617401956016}
   m_Layer: 5
   m_Name: DownButtonsPanel
   m_TagString: Untagged
@@ -215,22 +214,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5115646617401956016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2789159726939731074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07e481c9d46c0384eaad5107bbcac4ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ownedHeros: {fileID: 0}
-  _candidates: {fileID: 0}
-  _ownedHerosButton: {fileID: 4819001348667443448}
-  _candidateHerosButton: {fileID: 8508441517612909334}
 --- !u!1 &3036554133956498920
 GameObject:
   m_ObjectHideFlags: 0

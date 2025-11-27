@@ -1,0 +1,20 @@
+{
+    "name": "SO.Configs",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7bcdbc101ca3c4c4ca2e912f2c6566d9"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

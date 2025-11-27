@@ -3,10 +3,11 @@ using GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI.Base;
 using UnityEngine;
 using Utils;
 
-namespace Mono.UI.PlanetListUI
+namespace UI.PlanetListUI
 {
     public class TargetPlanetsListController : UIListBase
     {

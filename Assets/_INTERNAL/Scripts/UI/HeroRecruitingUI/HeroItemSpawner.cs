@@ -1,8 +1,7 @@
-﻿using GameEntity.DataInstance;
-using Mono.UI.HeroListUI;
-using Scripts.GameEntity.DataInstance;
+﻿using Scripts.GameEntity.DataInstance;
 using System.Collections.Generic;
 using System.Linq;
+using UI.HeroMenu.Views;
 using UnityEngine;
 using Utils;
 

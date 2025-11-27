@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a78ab4b1dc3ca2458faa42ac4281661, type: 3}
+  m_Name: AvailableHerosPoolConfig
+  m_EditorClassIdentifier: SO.Configs::SO.Configs.AvailableHerosPoolConfig
+  <HeroItemViewPrefab>k__BackingField: {fileID: 1718517717830998914, guid: 38bdf82e9ebd98343874427269c29d29, type: 3}
+  <InitCount>k__BackingField: 0
+  <Container>k__BackingField: {fileID: 2133015986198164211, guid: 0d91a1dfa83daa3458c9c13bb4c119ac, type: 3}

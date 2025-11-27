@@ -2,6 +2,7 @@
 using Core.Common.Instances;
 using GameEntity.Mission;
 using GameEntity.ScriptableObjects;
+using R3;
 using Scripts.GameEntity.DataInstance;
 using SO.Containers.Configs;
 using SO.Containers.GameEntity;
@@ -13,6 +14,8 @@ namespace GameEntity.DataInstance.Main
 {
     public class ImperiumInstancesHolder : IInstanceHolderWriteService
     {
+        private readonly Subject<HeroInstance> _heroListUpdatedSignal = new();
+
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
         [field: SerializeField] public List<MissionType> Missions { get; private set; } = new();
@@ -31,7 +34,7 @@ namespace GameEntity.DataInstance.Main
 
         public event Action<HeroInstance> OnHeroRejected;
         public event Action<int> OnHerosCountChanged;
-        public event Action<HeroInstance> OnHerosListUpdated;
+        public Observable<HeroInstance> HerosListUpdated => _heroListUpdatedSignal.AsObservable();
         public event Action<int> OnHerosLimitUpgraded;
 
         public ImperiumInstancesHolder(ImperiumConfig limitsConfig)
@@ -84,7 +87,7 @@ namespace GameEntity.DataInstance.Main
             if (!Heros.Contains(newHero))
             {
                 Heros.Add(newHero);
-                OnHerosListUpdated?.Invoke(newHero);
+                _heroListUpdatedSignal.OnNext(newHero);
                 OnHerosCountChanged?.Invoke(Heros.Count);
             }
         }

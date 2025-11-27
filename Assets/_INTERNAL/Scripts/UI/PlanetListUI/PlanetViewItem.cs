@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Utils.Formatter;
 
-namespace Mono.UI.PlanetListUI
+namespace UI.PlanetListUI
 {
     public class PlanetViewItem : MonoBehaviour
     {

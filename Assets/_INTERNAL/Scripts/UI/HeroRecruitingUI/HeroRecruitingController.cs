@@ -6,12 +6,12 @@ using Core.EntityGenerationSystem;
 using Core.GameStates;
 using Core.Instances.RecruitSystem;
 using GameEntity.Unit.Data;
-using Mono.UI.HeroListUI;
 using R3;
 using Scripts.GameEntity.DataInstance;
 using SO.Containers.Configs;
 using SO.Containers.GameEntity;
 using System.Collections.Generic;
+using UI.HeroMenu.Views;
 using UnityEngine;
 
 namespace UI.HeroRecruitingUI
@@ -99,6 +99,9 @@ namespace UI.HeroRecruitingUI
 
         private void HandleRefreshedList()
         {
+            if (_generator == null)
+                return;
+
             List<HeroData> newHeros = _generator.GenerateHeros(_config.Count);
             _localInsntace.SetGeneratedHeros(newHeros, _rankConfig);
 

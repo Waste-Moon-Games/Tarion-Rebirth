@@ -2,9 +2,10 @@
 using GameEntity.Mission;
 using System;
 using System.Collections.Generic;
+using UI.Base;
 using UnityEngine;
 
-namespace Mono.UI.MissionContexUI
+namespace UI.MissionContexUI
 {
     public class MissionTypeListController : UIListBase
     {

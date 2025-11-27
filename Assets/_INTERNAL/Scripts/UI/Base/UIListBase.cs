@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Mono.UI
+namespace UI.Base
 {
     public class UIListBase : MonoBehaviour
     {

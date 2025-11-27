@@ -2,10 +2,10 @@
 using Core.Common;
 using Entry.EntryData;
 using GameEntity.DataInstance.Main;
-using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
 using StateMachine.Base;
 using UI.Base;
+using UI.HeroMenu.Views;
 
 namespace StateMachine.Stages
 {
@@ -13,7 +13,7 @@ namespace StateMachine.Stages
     {
         private IGameStageController _controller;
         private MissionContex _missionContex;
-        private OwnedHeroListController _heroListController;
+        private AvailableHeroListView _heroListController;
         private ImperiumInstancesHolder _instanceHolder;
 
         public HeroSelectionStage(IGameStageController controller, StageDependencies dependencies)
@@ -26,8 +26,7 @@ namespace StateMachine.Stages
 
         public void Enter()
         {
-            _heroListController.Initialize(_instanceHolder);
-            _heroListController.OnHeroSelected += HandleSelectedHero;
+            //_heroListController.OnHeroSelected += HandleSelectedHero;
 
             if (!_heroListController.gameObject.activeSelf)
                 _heroListController.Show();
@@ -45,7 +44,7 @@ namespace StateMachine.Stages
 
         public void Exit()
         {
-            _heroListController.OnHeroSelected -= HandleSelectedHero;
+            //_heroListController.OnHeroSelected -= HandleSelectedHero;
             _heroListController.Hide();
         }
 

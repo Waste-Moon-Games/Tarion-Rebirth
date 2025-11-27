@@ -1,10 +1,9 @@
 ﻿using Core.Instances.RecruitSystem;
-using Mono.UI.HeroListUI;
 using Scripts.GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
 using UI.HeroDetailInfoUI;
-using UI.HeroListUI;
+using UI.HeroMenu.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,8 +52,8 @@ namespace UI.HeroRecruitingUI
 
             foreach (var view in newHeros)
             {
-                view.OnHeroSelected -= HandleSelectedHero;
-                view.OnHeroSelected += HandleSelectedHero;
+                //view.SelectedHero -= HandleSelectedHero;
+                //view.SelectedHero += HandleSelectedHero;
                 _herosList.AddNewItemToList(view);
             }
 
