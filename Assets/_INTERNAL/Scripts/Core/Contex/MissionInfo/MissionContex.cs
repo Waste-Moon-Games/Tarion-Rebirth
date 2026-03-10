@@ -16,7 +16,7 @@ namespace Contex.MissionInfo
         [field: SerializeField] public MissionData CurrentMissionData { get; private set; }
 
         public event Action<PlanetInstance> OnPlanetSelected;
-        public event Action<PlanetInstance> OnPlanetCaprured;
+        public event Action<PlanetInstance> OnPlanetCaptured;
         public event Action<HeroInstance> OnHeroSelected;
         public event Action<MissionType> OnMissionTypeSelected;
         public event Action<MissionInstance> OnMissionPrepared;
@@ -86,7 +86,7 @@ namespace Contex.MissionInfo
             SelectedPlanet.SetPlanetStatus(PreparedMission.MissionSuccessful);
 
             if (PreparedMission.MissionSuccessful)
-                OnPlanetCaprured?.Invoke(SelectedPlanet);
+                OnPlanetCaptured?.Invoke(SelectedPlanet);
 
             SelectedPlanet.CalculatePower();
 

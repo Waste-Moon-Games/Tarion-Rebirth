@@ -73,7 +73,7 @@ namespace Core.EntityGenerationSystem
         }
 
         /// <summary>
-        /// Сброс занятых имён планет
+        /// Сброс занятых имён героев
         /// </summary>
         public void ResetUsedNames()
         {

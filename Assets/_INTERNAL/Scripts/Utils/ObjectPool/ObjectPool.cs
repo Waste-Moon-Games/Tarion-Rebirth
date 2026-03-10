@@ -82,8 +82,12 @@ namespace Utils
 
         private T CreateObject(List<T> pool)
         {
-            T newObject = Object.Instantiate(Prefab, Container);
+            T newObject = Object.Instantiate(Prefab);
             newObject.gameObject.SetActive(false);
+
+            if (Container != null)
+                newObject.transform.SetParent(Container, false);
+
             pool.Add(newObject);
 
             return newObject;

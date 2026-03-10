@@ -19,20 +19,26 @@ namespace Entry.ScenesEntry.ResourceLoaders
             navigationView = Object.Instantiate(navigationViewPrefab);
         }
 
-        public void LoadBarrackViews(out HeroBarracksView heroBarracksView, out AvailableHeroListView aView)
+        public void LoadBarrackViews(out HeroBarracksView heroBarracksView, out AvailableHeroListView aView, out SelectedHeroInfoView sBInfoVIew)
         {
             var hbPrefab = Resources.Load<HeroBarracksView>("UI/Views/Heros/Barracks/BarracksView");
             var aPrefab = Resources.Load<AvailableHeroListView>("UI/Views/Heros/Barracks/AvailableHerosListView");
+            var sBInfoPrefab = Resources.Load<SelectedHeroInfoView>("UI/Views/Heros/Barracks/SelectedHeroInfoView");
 
             heroBarracksView = Object.Instantiate(hbPrefab);
             aView = Object.Instantiate(aPrefab);
+            sBInfoVIew = Object.Instantiate(sBInfoPrefab);
         }
 
-        public void LoadRecruitViews(out HeroRecruitView heroRecruitView)
+        public void LoadRecruitViews(out HeroRecruitView heroRecruitView, out AvailableHerosToRecruitListView arView, out SelectedHeroInfoView sRInfoView)
         {
             var hrPrefab = Resources.Load<HeroRecruitView>("UI/Views/Heros/Recruit/RecruitView");
+            var arViewPrefab = Resources.Load<AvailableHerosToRecruitListView>("UI/Views/Heros/Recruit/AvailableHerosToRecruitListView");
+            var sRInfoViewPrefab = Resources.Load<SelectedHeroInfoView>("UI/Views/Heros/Recruit/SelectedHeroInfoView");
 
             heroRecruitView = Object.Instantiate(hrPrefab);
+            arView = Object.Instantiate(arViewPrefab);
+            sRInfoView = Object.Instantiate(sRInfoViewPrefab);
         }
 
         public void LoadConfigs(out AvailableHerosPoolConfig herosPoolConfig)

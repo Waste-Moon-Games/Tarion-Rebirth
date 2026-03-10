@@ -3,13 +3,14 @@ using GameEntity.DataInstance.Main;
 using R3;
 using Scripts.GameEntity.DataInstance;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace UI.HeroMenu.Models
 {
     public class HeroBarracksModel : IModel
     {
         private readonly Subject<bool> _stateChangedSignal = new();
-        private readonly Subject<ImperiumInstancesHolder> _availableHerosRequestSignal = new();
+        private readonly Subject<List<HeroInstance>> _availableHerosRequestSignal = new();
         private readonly Subject<HeroInstance> _heroListUpdatedSignal = new();
         private readonly Subject<HeroInstance> _heroSelectedSignal = new();
 
@@ -18,7 +19,7 @@ namespace UI.HeroMenu.Models
         private bool _state = true;
 
         public Observable<bool> StateChanged => _stateChangedSignal.AsObservable();
-        public Observable<ImperiumInstancesHolder> AvailableHerosRequest => _availableHerosRequestSignal.AsObservable();
+        public Observable<List<HeroInstance>> AvailableHerosRequest => _availableHerosRequestSignal.AsObservable();
         public Observable<HeroInstance> HeroListUpdated => _heroListUpdatedSignal.AsObservable();
         public Observable<HeroInstance> SelectedHero => _heroSelectedSignal.AsObservable();
 
@@ -51,10 +52,17 @@ namespace UI.HeroMenu.Models
         /// </summary>
         public void RequestAvailableHeros()
         {
-            _availableHerosRequestSignal.OnNext(_instancesHolder);
+            _availableHerosRequestSignal.OnNext(_instancesHolder.Heros);
         }
 
-        public void SelectHero(HeroInstance selectedHero) => _heroSelectedSignal.OnNext(selectedHero);
+        /// <summary>
+        /// Выбрать героя
+        /// </summary>
+        /// <param name="selectedHero"></param>
+        public void SelectHero(HeroInstance selectedHero)
+        {
+            _heroSelectedSignal.OnNext(selectedHero);
+        }
 
         private void HandleHerosListUpdated(HeroInstance newHero) => _heroListUpdatedSignal.OnNext(newHero);
     }

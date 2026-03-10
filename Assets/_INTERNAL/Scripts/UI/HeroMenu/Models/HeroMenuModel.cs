@@ -1,22 +1,22 @@
 ﻿using Core.Common.MVVM;
+using Core.GameStates;
 using GameEntity.DataInstance.Main;
 
 namespace UI.HeroMenu.Models
 {
-    public class HeroInfoModel : IModel
+    public class HeroMenuModel : IModel
     {
         //private readonly StatsModel _statsModel;
-        //private readonly ListModel _listModel;
         private readonly HeroBarracksModel _barracksModel;
         private readonly RecruitHerosModel _recruitModel;
 
         public HeroBarracksModel HeroBarracksModel => _barracksModel;
         public RecruitHerosModel RecruitHerosModel => _recruitModel;
 
-        public HeroInfoModel(ImperiumInstancesHolder instancesHolder)
+        public HeroMenuModel(ImperiumInstancesHolder instancesHolder, ImperiumState imperiumState)
         {
             _barracksModel = new(instancesHolder);
-            _recruitModel = new();
+            _recruitModel = new(imperiumState);
         }
 
         public void ToggleBarracks()

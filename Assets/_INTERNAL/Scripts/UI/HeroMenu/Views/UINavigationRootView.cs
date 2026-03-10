@@ -1,5 +1,5 @@
 using Core.Common.MVVM;
-using UI.HeroMenu.ViewModel;
+using UI.HeroMenu.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
 

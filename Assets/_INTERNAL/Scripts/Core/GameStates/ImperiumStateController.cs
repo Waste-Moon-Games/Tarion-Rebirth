@@ -18,13 +18,13 @@ namespace Core.GameStates
         {
             Dispose(activeContex);
             _activeContexes.Add(activeContex);
-            activeContex.OnPlanetCaprured += HandleCapturedPlanet;
+            activeContex.OnPlanetCaptured += HandleCapturedPlanet;
         }
 
         private void Dispose(MissionContex activeContex)
         {
             if(activeContex != null)
-                activeContex.OnPlanetCaprured -= HandleCapturedPlanet;
+                activeContex.OnPlanetCaptured -= HandleCapturedPlanet;
 
             _activeContexes.Remove(activeContex);
         }

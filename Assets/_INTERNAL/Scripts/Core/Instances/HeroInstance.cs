@@ -3,6 +3,7 @@ using Core.EntityDatas.Unit.Data;
 using Core.GrowthSystem;
 using GameEntity.ScriptableObjects;
 using GameEntity.Unit.Data;
+using R3;
 using SO.Containers.GameEntity;
 using System;
 using UnityEngine;
@@ -19,6 +20,10 @@ namespace Scripts.GameEntity.DataInstance
         private readonly HeroGrowthSystem _growthSystem;
         private readonly HeroRankUpSystem _rankSystem;
 
+        private readonly Subject<int> _levelUpSignal = new();
+        private readonly Subject<float> _powerChangedSignal = new();
+        private readonly Subject<int> _expChangedSignal = new();
+
         private bool _isBusy = false;
 
         public HeroRuntimeData RuntimeData => _runtimeData;
@@ -26,9 +31,9 @@ namespace Scripts.GameEntity.DataInstance
         public int HeroLevel => _runtimeData.Level;
         public bool IsBusy => _isBusy;
 
-        public event Action<int> OnLevelUp;
-        public event Action<float> OnPowerChanged;
-        public event Action<int> OnExpChanged;
+        public Observable<int> LevelUp => _levelUpSignal.AsObservable();
+        public Observable<float> PowerChanged => _powerChangedSignal.AsObservable();
+        public Observable<int> ExpChanged => _expChangedSignal.AsObservable();
 
         public HeroInstance(HeroDataContainer baseData, RankProgressionConfig config)
         {
@@ -68,7 +73,7 @@ namespace Scripts.GameEntity.DataInstance
 
             _runtimeData.Experience = _growthSystem.CurrentExperience;
             _growthSystem.SetLevelFromDataObject(_runtimeData.Level);
-            OnExpChanged?.Invoke(_runtimeData.Experience);
+            _expChangedSignal.OnNext(_runtimeData.Experience);
         }
 
         public void SetBusyStatus(bool value)
@@ -101,13 +106,13 @@ namespace Scripts.GameEntity.DataInstance
 
             HeroPower = CalculatePower();
 
-            OnLevelUp?.Invoke(skillPoints);
+            _levelUpSignal.OnNext(skillPoints);
         }
 
         private void HandleChangedStats(HeroRuntimeStats stats)
         {
             HeroPower = CalculatePower();
-            OnPowerChanged?.Invoke(HeroPower);
+            _powerChangedSignal.OnNext(HeroPower);
         }
     }
 }

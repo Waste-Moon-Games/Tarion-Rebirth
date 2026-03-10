@@ -7,10 +7,11 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Utils.Formatter;
 
-namespace UI.HeroMenu.Views
+namespace UI.HeroMenu.AdditionalViews
 {
     public class HeroItemView : MonoBehaviour
     {
+        private readonly CompositeDisposable _disposables = new();
         private readonly Subject<HeroInstance> _selectedHeroSignal = new();
 
         [Header("Text")]
@@ -37,9 +38,6 @@ namespace UI.HeroMenu.Views
         {
             if(_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
-
-            if(_heroInstance != null)
-                _heroInstance.OnPowerChanged -= HandleChangedPower;
         }
 
         public void Setup(HeroInstance heroInstance)
@@ -47,7 +45,7 @@ namespace UI.HeroMenu.Views
             _formatter ??= new();
 
             _heroInstance = heroInstance;
-            _heroInstance.OnPowerChanged += HandleChangedPower;
+            _heroInstance.PowerChanged.Subscribe(HandleChangedPower).AddTo(_disposables);
             SetupText(_heroInstance);
 
             if (_heroArt == null)
@@ -59,18 +57,25 @@ namespace UI.HeroMenu.Views
 
         public void InitializeButton()
         {
-            if(_selectButton == null)
+            if (_selectButton == null)
                 _selectButton = GetComponent<Button>();
 
             if (_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
 
-            _clickHandler = () => _selectedHeroSignal.OnNext(_heroInstance);
+            _clickHandler = () => HandleButtonClick();
             _selectButton.onClick.AddListener(_clickHandler);
+        }
+
+        private void HandleButtonClick()
+        {
+            _selectedHeroSignal.OnNext(_heroInstance);
+            Debug.Log("Button clicked");
         }
 
         public void Clear()
         {
+            _disposables.Clear();
             _heroInstance = null;
             _heroName.text = string.Empty;
             _heroPower.text = string.Empty;

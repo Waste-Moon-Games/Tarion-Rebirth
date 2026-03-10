@@ -2,7 +2,7 @@
 using Scripts.GameEntity.DataInstance;
 using System;
 using System.Collections.Generic;
-using UI.HeroDetailInfoUI;
+using UI.HeroMenu.AdditionalViews;
 using UI.HeroMenu.Views;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +12,7 @@ namespace UI.HeroRecruitingUI
     public class RecruitingUI : MonoBehaviour
     {
         [Header("UI systems")]
-        [SerializeField] private CandidateHeroListController _herosList;
+        [SerializeField] private AvailableHerosToRecruitListView _herosList;
         [SerializeField] private HeroDetailUIView _heroDetailUI;
         [SerializeField] private HeroStatsView _heroStatsView;
         [SerializeField] private HeroCost _cost;
@@ -23,38 +23,28 @@ namespace UI.HeroRecruitingUI
         public event Action OnListRefreshed;
         public event Action<HeroInstance> OnHireButtonClicked;
 
-        private void Awake()
-        {
-            if (_herosList.HeroItems.Count == 0)
-                OnListRefreshed?.Invoke();
-        }
-
         private void OnEnable()
         {
             if(_refreshButton != null)
                 _refreshButton.onClick.AddListener(RefreshList);
-
-            _heroDetailUI.OnHireButtonClicked += HandleHireButtonClick;
         }
 
         private void OnDisable()
         {
             if (_refreshButton != null)
                 _refreshButton.onClick.RemoveListener(RefreshList);
-
-            _heroDetailUI.OnHireButtonClicked -= HandleHireButtonClick;
         }
 
         public void SetNewCandidates(List<HeroItemView> newHeros, RecruitSystemInstance instanceHolder)
         {
-            _herosList.Clear();
-            _herosList.Initialize(instanceHolder, newHeros);
+            //_herosList.Clear();
+            //_herosList.Initialize(instanceHolder, newHeros);
 
             foreach (var view in newHeros)
             {
                 //view.SelectedHero -= HandleSelectedHero;
                 //view.SelectedHero += HandleSelectedHero;
-                _herosList.AddNewItemToList(view);
+                //_herosList.AddNewItemToList(view);
             }
 
             if (!_herosList.gameObject.activeSelf)
@@ -63,7 +53,7 @@ namespace UI.HeroRecruitingUI
 
         public void RemoveCandidate(HeroInstance candidate)
         {
-            _herosList.RemoveItemFromList(candidate);
+            //_herosList.RemoveItemFromList(candidate);
             _heroDetailUI.Clear();
             _heroStatsView.Clear();
             _cost.Clear();

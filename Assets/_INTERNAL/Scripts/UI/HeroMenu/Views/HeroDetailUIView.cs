@@ -1,15 +1,20 @@
-﻿using GameEntity.Unit.Data;
+﻿using Core.Common.MVVM;
+using GameEntity.Unit.Data;
+using R3;
 using Scripts.GameEntity.DataInstance;
-using System;
 using TMPro;
+using UI.HeroMenu.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.Formatter;
 
-namespace UI.HeroDetailInfoUI
+namespace UI.HeroMenu.Views
 {
-    public class HeroDetailUIView : MonoBehaviour
+    public class HeroDetailUIView : MonoBehaviour, IView
     {
+        private readonly CompositeDisposable _disposables = new();
+        private readonly NumberFormatter _formatter = new();
+
         [Header("Hero Info")]
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private TextMeshProUGUI _power;
@@ -25,13 +30,12 @@ namespace UI.HeroDetailInfoUI
         [SerializeField] private Image _art;
         [SerializeField] private GameObject _heroArtPanel;
 
-        [Space(10), Header("Buttons")]
-        [SerializeField] private Button _recruitHeroButton;
-
         private HeroInstance _selectedHero;
-        private NumberFormatter _formatter;
 
-        public event Action<HeroInstance> OnHireButtonClicked;
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
+        }
 
         private void OnEnable()
         {
@@ -40,26 +44,18 @@ namespace UI.HeroDetailInfoUI
 
         private void OnDisable()
         {
-            if(_selectedHero != null)
-            {
-                _selectedHero.OnPowerChanged -= HandleChangedPower;
-                _selectedHero.OnExpChanged -= HandleChangedExp;
-            }
-
-            if (_recruitHeroButton != null)
-                _recruitHeroButton.onClick.RemoveListener(RecruitHero);
-
             _heroArtPanel.SetActive(false);
         }
+
+        public void BindViewModel(IViewModel viewModel) { }
 
         public void Setup(HeroInstance heroInstance)
         {
             HeroRuntimeData heroData = heroInstance.RuntimeData;
-            _formatter ??= new();
 
             _selectedHero = heroInstance;
-            heroInstance.OnPowerChanged += HandleChangedPower;
-            heroInstance.OnExpChanged += HandleChangedExp;
+            heroInstance.PowerChanged.Subscribe(HandleChangedPower).AddTo(_disposables);
+            heroInstance.ExpChanged.Subscribe(HandleChangedExp).AddTo(_disposables);
 
             SetupMainText(heroInstance, heroData);
 
@@ -72,8 +68,6 @@ namespace UI.HeroDetailInfoUI
                 _art.enabled = false;
 
             _heroArtPanel.SetActive(true);
-
-            InitializeButton();
         }
 
         public void Clear()
@@ -87,14 +81,6 @@ namespace UI.HeroDetailInfoUI
             _level.text = "Уровень:";
 
             _heroArtPanel.SetActive(false);
-        }
-
-        private void InitializeButton()
-        {
-            if (_recruitHeroButton == null)
-                return;
-
-            _recruitHeroButton.onClick.AddListener(RecruitHero);
         }
 
         private void SetupMainText(HeroInstance heroInstance, HeroRuntimeData heroData)
@@ -156,11 +142,6 @@ namespace UI.HeroDetailInfoUI
                 return;
 
             _levelProgression.fillAmount = _selectedHero.GetExperienceProgress();
-        }
-
-        private void RecruitHero()
-        {
-            OnHireButtonClicked?.Invoke(_selectedHero);
         }
     }
 }

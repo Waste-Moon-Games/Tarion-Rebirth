@@ -9,14 +9,17 @@ namespace Core.Instances.RecruitSystem
     public class RecruitSystemInstance
     {
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
+        [field: SerializeField] public RankProgressionConfig Config { get; private set; }
 
-        public void SetGeneratedHeros(List<HeroData> generatedHeros, RankProgressionConfig config)
+        public RecruitSystemInstance(RankProgressionConfig config) => Config = config;
+
+        public void SetGeneratedHeros(List<HeroData> generatedHeros)
         {
             Heros.Clear();
 
             foreach (HeroData data in generatedHeros)
             {
-                Heros.Add(new(data, config));
+                Heros.Add(new(data, Config));
             }
         }
     }

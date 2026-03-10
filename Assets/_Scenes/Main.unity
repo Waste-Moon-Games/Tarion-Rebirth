@@ -915,9 +915,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e89b839f76ba1440ad2fe031de59906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contentParent: {fileID: 1515140208}
-  _heroItemPrefab: {fileID: 5961015308531951062, guid: a64a21fec175eb740bd81f908b028757, type: 3}
-  _autoExpand: 1
+  _contentContainer: {fileID: 1515140208}
+  _isEnchantedView: 1
 --- !u!114 &357186687
 MonoBehaviour:
   m_ObjectHideFlags: 0

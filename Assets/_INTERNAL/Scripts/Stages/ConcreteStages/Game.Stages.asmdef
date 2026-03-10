@@ -14,7 +14,12 @@
         "GUID:84ab4ae29abd5594a927561bf418b6ca",
         "GUID:ae9a2cf3a55bb2e449e3e42ee2934a59",
         "GUID:5bb2324bb3260624793a78150b047466",
-        "GUID:8df1b7c13652a8f42aed847a9450684a"
+        "GUID:31fee627ac33e5348b22ef272f088959",
+        "GUID:535537d393009044fa628a97d0bec570",
+        "GUID:8df1b7c13652a8f42aed847a9450684a",
+        "GUID:7bcdbc101ca3c4c4ca2e912f2c6566d9",
+        "GUID:f591164a9bd6c974aae922805d2b1201",
+        "GUID:ade57361da74e0246ac345f441b938aa"
     ],
     "includePlatforms": [
         "Android",

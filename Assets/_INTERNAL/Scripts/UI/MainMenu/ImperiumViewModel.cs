@@ -1,15 +1,15 @@
-﻿using Core.EntityDatas.ImperiumInfo;
+﻿using Core.Common.MVVM;
+using Core.EntityDatas.ImperiumInfo;
 using Core.EntityDatas.Resource;
 using Core.GameStates;
-using Core.GameStates.Extensions;
-using Core.Instances.Extensions;
 using R3;
+using System.Collections.Generic;
 
 namespace UI.MainMenu
 {
-    public class ImperiumViewModel
+    public class ImperiumViewModel : IViewModel
     {
-        private readonly ImperiumState _imperiumState;
+        private ImperiumState _model;
 
         private int _currentHeroCount;
         private int _maxHeroCount;
@@ -23,9 +23,8 @@ namespace UI.MainMenu
 
         private readonly CompositeDisposable _disposables = new();
 
-        private readonly Subject<(int, InstanceUpdateType)> _instanceUpdates;
-
-        private readonly Subject<(int, ResourceType)> _resourceUpdates;
+        private readonly Subject<(int, InstanceUpdateType)> _instanceUpdatesSignal = new();
+        private readonly Subject<(int, ResourceType)> _resourceUpdatesSignal = new();
 
         public int CurrentHeroCount => _currentHeroCount;
         public int MaxHerosCount => _maxHeroCount;
@@ -37,52 +36,29 @@ namespace UI.MainMenu
         public int DarkEnergyCount => _darkEnergyCount;
         public int MineralsCount => _mineralsCount;
 
-        public Observable<(int, InstanceUpdateType)> ImperiumInstancesInfo { get; }
-        public Observable<(int, ResourceType)> ImperiumResourcesInfo { get; }
+        public Observable<(int, InstanceUpdateType)> ImperiumInstancesInfo => _instanceUpdatesSignal.AsObservable();
+        public Observable<(int, ResourceType)> ImperiumResourcesInfo => _resourceUpdatesSignal.AsObservable();
 
-        public ImperiumViewModel(ImperiumState imperium)
+        public void BindModel(IModel model)
         {
-            _imperiumState = imperium;
+            _model = model as ImperiumState;
 
-            _currentHeroCount = _imperiumState.InstanceHolder.Heros.Count;
-            _maxHeroCount = _imperiumState.InstanceHolder.MaxHeros;
+            _model.ResourcesStateRequest.Subscribe(HandleResourcesCountUpdated).AddTo(_disposables);
 
-            _currentPlanetCount = _imperiumState.InstanceHolder.Planets.Count;
-            _maxPlanetCount = _imperiumState.InstanceHolder.MaxPlanets;
+            _model.CurrentCountRequest.Subscribe(value =>
+            {
+                HandleCurrentHerosCountUpdated(value.Item1);
+                HandleCurrentPlanetsCountUpdated(value.Item2);
+            }).AddTo(_disposables);
+            _model.MaxCountRequest.Subscribe(value =>
+            {
+                HandleMaxHerosCountUpdated(value.Item1);
+                HandleMaxPlanetsCountUpdated(value.Item2);
+            }).AddTo(_disposables);
 
-            _voidMatterCount = _imperiumState.ImperiumResource.Get(ResourceType.Void_Matter);
-            _darkEnergyCount = _imperiumState.ImperiumResource.Get(ResourceType.Dark_Energy);
-            _mineralsCount = _imperiumState.ImperiumResource.Get(ResourceType.Mineral_Crystalls);
-
-            _instanceUpdates = new();
-            _resourceUpdates = new();
-
-            ImperiumInstancesInfo = _instanceUpdates.AsObservable();
-
-            ImperiumResourcesInfo = _resourceUpdates.AsObservable();
-        }
-
-        public void Subscribe()
-        {
-            _imperiumState.ImperiumResource.OnResourceChangedAsObservable()
-                .Subscribe(v => HandleResourcesCountUpdated(v.type, v.value))
-                .AddTo(_disposables);
-
-            _imperiumState.InstanceHolder.OnHerosCountChangedAsObservable()
-                .Subscribe(HandleCurrentHerosCountUpdated)
-                .AddTo(_disposables);
-
-            _imperiumState.InstanceHolder.OnPlanetsCountChangedAsObservable()
-                .Subscribe(HandleCurrentPlanetsCountUpdated)
-                .AddTo(_disposables);
-
-            _imperiumState.InstanceHolder.OnHerosLimitChangedAsObservable()
-                .Subscribe(HandleMaxHerosCountUpdated)
-                .AddTo(_disposables);
-
-            _imperiumState.InstanceHolder.OnPlanetsLimitChangedAsObservable()
-                .Subscribe(HandleMaxPlanetsCountUpdated)
-                .AddTo(_disposables);
+            _model.RequestCurrentInstancesCount();
+            _model.RequestMaxInstancesCount();
+            _model.RequestResourcesState();
         }
 
         public void Dispose()
@@ -93,44 +69,48 @@ namespace UI.MainMenu
         private void HandleCurrentHerosCountUpdated(int value)
         {
             _currentHeroCount = value;
-            _instanceUpdates.OnNext((value, InstanceUpdateType.HeroCount));
+            _instanceUpdatesSignal.OnNext((value, InstanceUpdateType.HeroCount));
         }
 
         private void HandleMaxHerosCountUpdated(int value)
         {
             _maxHeroCount = value;
-            _instanceUpdates.OnNext((value, InstanceUpdateType.MaxHeroCount));
+            _instanceUpdatesSignal.OnNext((value, InstanceUpdateType.MaxHeroCount));
         }
 
         private void HandleCurrentPlanetsCountUpdated(int value)
         {
             _currentPlanetCount = value;
-            _instanceUpdates.OnNext((value, InstanceUpdateType.PlanetCount));
+            _instanceUpdatesSignal.OnNext((value, InstanceUpdateType.PlanetCount));
 
         }
 
         private void HandleMaxPlanetsCountUpdated(int value)
         {
             _maxPlanetCount = value;
-            _instanceUpdates.OnNext((value, InstanceUpdateType.MaxPlanetCount));
+            _instanceUpdatesSignal.OnNext((value, InstanceUpdateType.MaxPlanetCount));
         }
 
-        private void HandleResourcesCountUpdated(ResourceType type, int value)
+        private void HandleResourcesCountUpdated(Dictionary<ResourceType, int> resources)
         {
-            switch (type)
+            foreach (KeyValuePair<ResourceType, int> resource in resources)
             {
-                case ResourceType.Void_Matter:
-                    _voidMatterCount = value;
-                    break;
-                case ResourceType.Dark_Energy:
-                    _darkEnergyCount = value;
-                    break;
-                case ResourceType.Mineral_Crystalls:
-                    _mineralsCount = value;
-                    break;
+                switch (resource.Key)
+                {
+                    case ResourceType.Void_Matter:
+                        _voidMatterCount = resource.Value;
+                        _resourceUpdatesSignal.OnNext((resource.Value, resource.Key));
+                        break;
+                    case ResourceType.Mineral_Crystalls:
+                        _mineralsCount = resource.Value;
+                        _resourceUpdatesSignal.OnNext((resource.Value, resource.Key));
+                        break;
+                    case ResourceType.Dark_Energy:
+                        _darkEnergyCount = resource.Value;
+                        _resourceUpdatesSignal.OnNext((resource.Value, resource.Key));
+                        break;
+                }
             }
-
-            _resourceUpdates.OnNext((value, type));
         }
     }
 }

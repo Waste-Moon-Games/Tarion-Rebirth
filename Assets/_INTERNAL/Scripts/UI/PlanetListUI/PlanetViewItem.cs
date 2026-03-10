@@ -31,6 +31,9 @@ namespace UI.PlanetListUI
             if (_clickHandler != null)
                 _selectButton.onClick.RemoveListener(_clickHandler);
 
+            if (_planetInstance == null)
+                return;
+
             _planetInstance.OnPowerChanged -= HandleChangedPower;
         }
 

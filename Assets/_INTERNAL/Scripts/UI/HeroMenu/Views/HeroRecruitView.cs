@@ -22,9 +22,8 @@ namespace UI.HeroMenu.Views
             _viewModel.StateChanged.Subscribe(Toggle).AddTo(_disposables);
         }
 
-        private void Toggle(bool state)
-        {
-            gameObject.SetActive(state);
-        }
+        public void AttachUI(GameObject view) => view.transform.SetParent(transform, false);
+
+        private void Toggle(bool state) => gameObject.SetActive(state);
     }
 }

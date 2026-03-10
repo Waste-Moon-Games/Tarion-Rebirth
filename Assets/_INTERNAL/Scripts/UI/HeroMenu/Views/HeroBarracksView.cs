@@ -1,7 +1,5 @@
 ﻿using Core.Common.MVVM;
-using GameEntity.DataInstance.Main;
 using R3;
-using UI.HeroDetailInfoUI;
 using UI.HeroMenu.ViewModels;
 using UnityEngine;
 
@@ -9,8 +7,6 @@ namespace UI.HeroMenu.Views
 {
     public class HeroBarracksView : MonoBehaviour, IView
     {
-        [field: SerializeField] public OwnedHeroInfoHolderView OwnedHeroInfoHolderView { get; private set; }
-
         private readonly CompositeDisposable _disposables = new();
 
         private HeroBarracksViewModel _viewModel;
@@ -25,7 +21,6 @@ namespace UI.HeroMenu.Views
             _viewModel = viewModel as HeroBarracksViewModel;
 
             _viewModel.StateChanged.Subscribe(Toggle).AddTo(_disposables);
-            _viewModel.AvailableHerosRequest.Subscribe(InitAvailableHeros).AddTo(_disposables);
         }
 
         public void AttachView(GameObject view)
@@ -39,11 +34,6 @@ namespace UI.HeroMenu.Views
 
             if (state)
                 _viewModel.RequestInstances();
-        }
-
-        private void InitAvailableHeros(ImperiumInstancesHolder instancesHolder)
-        {
-            //OwnedHeroInfoHolderView.Init(instancesHolder);
         }
     }
 }

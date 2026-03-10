@@ -1,4 +1,5 @@
-﻿using Core.EntityDatas.ImperiumInfo;
+﻿using Core.Common.MVVM;
+using Core.EntityDatas.ImperiumInfo;
 using Core.EntityDatas.Resource;
 using R3;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using Utils.Formatter;
 
 namespace UI.MainMenu
 {
-    public class ImperiumHUDView : MonoBehaviour
+    public class ImperiumHUDView : MonoBehaviour, IView
     {
         private ImperiumViewModel _viewModel;
 
@@ -33,7 +34,7 @@ namespace UI.MainMenu
 
         private Dictionary<ResourceType, TextMeshProUGUI> _resourcesText;
 
-        public void Bind(ImperiumViewModel viewModel)
+        public void BindViewModel(IViewModel viewModel)
         {
             _formatter ??= new();
 
@@ -44,7 +45,7 @@ namespace UI.MainMenu
                 { ResourceType.Mineral_Crystalls, _mineralsCount }
             };
 
-            _viewModel = viewModel;
+            _viewModel = viewModel as ImperiumViewModel;
 
             _maxHeroCount = _viewModel.MaxHerosCount;
             _maxPlanetCount = _viewModel.MaxPlanetsCount;
@@ -62,8 +63,8 @@ namespace UI.MainMenu
 
         private void RefreshAllText()
         {
-            UpdatePlanetsCount(_viewModel.CurrentPlanetCount, _maxPlanetCount);
-            UpdateHerosCount(_viewModel.CurrentHeroCount, _maxHeroCount);
+            UpdatePlanetsCount(_viewModel.CurrentPlanetCount, _viewModel.MaxPlanetsCount);
+            UpdateHerosCount(_viewModel.CurrentHeroCount, _viewModel.MaxHerosCount);
 
             UpdateVoidMatterCount(_viewModel.VoidMatterCount);
             UpdateDarkEnergyCount(_viewModel.DarkEnergyCount);

@@ -51,7 +51,7 @@ namespace Entry.Mono.ScenesEntry.MainMenu
             _missionPreparationWindow = null;
 
             _binder.Bind(_view, _mainMenuViewModel);
-            _hudView.Bind(_imperiumViewModel);
+            _hudView.BindViewModel(_imperiumViewModel);
             _dependencies.Init();
 
             for (int i = 0; i < _view.Timers.Count; i++)
@@ -73,8 +73,8 @@ namespace Entry.Mono.ScenesEntry.MainMenu
             _hudView = _hudView == null ? Instantiate(_hudViewPrefab) : _hudView;
 
             _mainMenuViewModel ??= new();
-            _imperiumViewModel ??= new(imperiumState);
-            _imperiumViewModel.Subscribe();
+            _imperiumViewModel ??= new();
+            _imperiumViewModel.BindModel(imperiumState);
 
             return mainMenuContainer;
         }

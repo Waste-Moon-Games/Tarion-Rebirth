@@ -1,0 +1,22 @@
+{
+    "name": "UI.HeroMenu.Services",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8dd7d41d8daace348bea711251ca1168",
+        "GUID:7bcdbc101ca3c4c4ca2e912f2c6566d9",
+        "GUID:ade57361da74e0246ac345f441b938aa"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,4 +1,5 @@
 ﻿using Core.EntityDatas.Resource;
+using R3;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ namespace Core.GameStates
 {
     public class ImperiumResourceState
     {
+        private readonly Subject<Dictionary<ResourceType, int>> _requestResourcesCountSignal = new();
         private readonly Dictionary<ResourceType, int> _resources = new();
 
-        public event Action<ResourceType, int> OnResourceChanged;
+        public Observable<Dictionary<ResourceType, int>> RequestResources => _requestResourcesCountSignal.AsObservable();
 
         public ImperiumResourceState()
         {
@@ -25,7 +27,7 @@ namespace Core.GameStates
 
             _resources[id] += amount;
 
-            OnResourceChanged?.Invoke(id, Get(id));
+            _requestResourcesCountSignal.OnNext(_resources);
         }
 
         public void Spend(ResourceType id, int amount)
@@ -37,9 +39,10 @@ namespace Core.GameStates
                 return;
 
             _resources[id] -= amount;
-            OnResourceChanged?.Invoke(id, Get(id));
+
+            _requestResourcesCountSignal.OnNext(_resources);
         }
 
-        public int Get(ResourceType type) => _resources.TryGetValue(type, out int value) ? value : 0;
+        public void RequestResourcesState() => _requestResourcesCountSignal.OnNext(_resources);
     }
 }

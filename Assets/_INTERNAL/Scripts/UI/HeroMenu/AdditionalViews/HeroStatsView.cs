@@ -4,12 +4,11 @@ using GameEntity.Unit.Data;
 using Scripts.GameEntity.DataInstance;
 using System;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace UI.HeroDetailInfoUI
+namespace UI.HeroMenu.AdditionalViews
 {
     public class HeroStatsView : MonoBehaviour, IStatsUpgradeView
     {

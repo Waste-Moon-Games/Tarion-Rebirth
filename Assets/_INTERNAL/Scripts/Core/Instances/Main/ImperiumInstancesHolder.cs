@@ -15,6 +15,7 @@ namespace GameEntity.DataInstance.Main
     public class ImperiumInstancesHolder : IInstanceHolderWriteService
     {
         private readonly Subject<HeroInstance> _heroListUpdatedSignal = new();
+        private readonly Subject<List<HeroInstance>> _availableHerosRequestSignal = new();
 
         [field: SerializeField] public List<HeroInstance> Heros { get; private set; } = new();
         [field: SerializeField] public List<PlanetInstance> Planets { get; private set; } = new();
@@ -35,6 +36,7 @@ namespace GameEntity.DataInstance.Main
         public event Action<HeroInstance> OnHeroRejected;
         public event Action<int> OnHerosCountChanged;
         public Observable<HeroInstance> HerosListUpdated => _heroListUpdatedSignal.AsObservable();
+        public Observable<List<HeroInstance>> AvailableHerosRequest => _availableHerosRequestSignal.AsObservable();
         public event Action<int> OnHerosLimitUpgraded;
 
         public ImperiumInstancesHolder(ImperiumConfig limitsConfig)
@@ -103,6 +105,8 @@ namespace GameEntity.DataInstance.Main
             _maxHeros += amount;
             OnHerosLimitUpgraded?.Invoke(_maxHeros);
         }
+
+        public void RequestAvailableHeros() => _availableHerosRequestSignal.OnNext(Heros);
 
         private void InitializeHeros(List<HeroDataContainer> heroDatas, RankProgressionConfig config)
         {

@@ -73,6 +73,7 @@ namespace Entry
 
         private static void HandleApplicationQuit()
         {
+            _instance._rootContainer.Resolve<GameState>().Dispose();
             _instance._rootContainer.Dispose();
         }
     }

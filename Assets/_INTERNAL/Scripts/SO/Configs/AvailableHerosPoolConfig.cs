@@ -1,14 +1,14 @@
-﻿using UI.HeroMenu.Views;
+﻿using UI.HeroMenu.AdditionalViews;
 using UnityEditor;
 using UnityEngine;
 
 namespace SO.Configs
 {
-    [CreateAssetMenu(menuName = "Config containers/Pool/Heros", fileName = "AvailableHerosPoolConfig")]
+    [CreateAssetMenu(menuName = "Config containers/Pool/Available Heros", fileName = "AvailableHerosPoolConfig")]
     public class AvailableHerosPoolConfig : ScriptableObject
     {
-        [field: SerializeField] public HeroItemView HeroItemViewPrefab { get; private set; }
-        [field: SerializeField] public int InitCount { get; private set; }
-        [field: SerializeField] public Transform Container {  get; private set; }
+        [field: SerializeField] public HeroItemView SimpleItemViewPrefab { get; private set; }
+        [field: SerializeField] public HeroItemView EnchantedItemViewPrefab { get; private set; }
+        [field: SerializeField, Range(1, 100)] public int InitCount { get; private set; }
     }
 }

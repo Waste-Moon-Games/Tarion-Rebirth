@@ -1,27 +1,17 @@
 ﻿using Scripts.GameEntity.DataInstance;
 using System.Collections.Generic;
 using System.Linq;
-using UI.HeroMenu.Views;
+using UI.HeroMenu.AdditionalViews;
 using UnityEngine;
 using Utils;
 
-namespace UI.HeroRecruitingUI
+namespace UI.HeroMenu.Services
 {
-    public class HeroItemSpawner : MonoBehaviour
+    public class HeroItemSpawner
     {
-        [SerializeField] private Transform _content;
-        [SerializeField] private HeroItemView _itemPrefab;
-        [SerializeField] private bool _autoExpand;
-
         private ObjectPool<HeroItemView> _itemsPool;
 
-        public void CreatePool(int count)
-        {
-            _itemsPool = new(_itemPrefab, count, _content)
-            {
-                AutoExpand = _autoExpand
-            };
-        }
+        public void SetPool(ObjectPool<HeroItemView> herosPool) => _itemsPool = herosPool;
 
         public List<HeroItemView> SpawnHeros(List<HeroInstance> heros)
         {

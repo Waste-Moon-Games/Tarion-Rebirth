@@ -27,6 +27,7 @@
   <Project Path="UI.HeroMenu.AdditionalViews.csproj" />
   <Project Path="Game.EntityGenerateSystem.csproj" />
   <Project Path="Game.Entry.csproj" />
+  <Project Path="UI.HeroMenu.Services.csproj" />
   <Project Path="Game.Contex.csproj" />
   <Project Path="UI.Base.csproj" />
   <Project Path="Game.Binders.csproj" />

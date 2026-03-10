@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a78ab4b1dc3ca2458faa42ac4281661, type: 3}
   m_Name: AvailableHerosPoolConfig
   m_EditorClassIdentifier: SO.Configs::SO.Configs.AvailableHerosPoolConfig
-  <HeroItemViewPrefab>k__BackingField: {fileID: 1718517717830998914, guid: 38bdf82e9ebd98343874427269c29d29, type: 3}
-  <InitCount>k__BackingField: 0
-  <Container>k__BackingField: {fileID: 2133015986198164211, guid: 0d91a1dfa83daa3458c9c13bb4c119ac, type: 3}
+  <SimpleItemViewPrefab>k__BackingField: {fileID: 1718517717830998914, guid: 38bdf82e9ebd98343874427269c29d29, type: 3}
+  <EnchantedItemViewPrefab>k__BackingField: {fileID: 5961015308531951062, guid: a64a21fec175eb740bd81f908b028757, type: 3}
+  <InitCount>k__BackingField: 3

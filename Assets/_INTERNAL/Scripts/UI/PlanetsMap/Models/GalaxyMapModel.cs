@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace UI.PlanetsMap.Models
 {
-    public class GalaxyMapModel : IController, IModel
+    public class GalaxyMapModel : IModel
     {
         private readonly DIContainer _sceneContainer;
 

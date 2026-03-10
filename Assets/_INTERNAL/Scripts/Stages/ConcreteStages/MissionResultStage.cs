@@ -4,6 +4,7 @@ using Entry.EntryData;
 using GameEntity.DataInstance.Main;
 using StateMachine.Base;
 using UI.Result;
+using UnityEngine;
 
 namespace StateMachine.Stages
 {
@@ -33,6 +34,9 @@ namespace StateMachine.Stages
                     _panelHolder.Show();
             }
             _missionContex.ApplyMissionResults();
+
+            // to do или придумать "самозавершение" стадии, либо переделать под новую систему уведомлений (предпочтительнее)
+            HandleAcceptedResult();
         }
 
         public void RefreshDeps(IDependence dependence)
@@ -53,6 +57,8 @@ namespace StateMachine.Stages
                 _panelHolder.Hide();
                 _panelHolder.OnResultAccepted -= HandleAcceptedResult;
             }
+
+            Debug.Log("Exit");
         }
 
         public void Dispose()

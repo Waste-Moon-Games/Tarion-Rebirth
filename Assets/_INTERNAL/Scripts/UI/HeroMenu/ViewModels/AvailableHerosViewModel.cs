@@ -5,8 +5,8 @@ using Scripts.GameEntity.DataInstance;
 using SO.Configs;
 using System.Collections.Generic;
 using System.Linq;
+using UI.HeroMenu.AdditionalViews;
 using UI.HeroMenu.Models;
-using UI.HeroMenu.Views;
 using UnityEngine;
 using Utils;
 
@@ -15,26 +15,21 @@ namespace UI.HeroMenu.ViewModels
     public class AvailableHerosViewModel : IViewModel
     {
         private readonly CompositeDisposable _disposables = new();
+
         private readonly Subject<List<HeroItemView>> _requestedHerosSignal = new();
+        private readonly Subject<HeroInstance> _selectedHeroSignal = new();
+        private readonly Subject<HeroItemView> _addedNewHeroSignal = new();
 
         private readonly List<HeroItemView> _availableHeros = new();
         private readonly Dictionary<HeroInstance, HeroItemView> _availableHerosDict = new();
 
-        private ObjectPool<HeroItemView> _herosPool;
         private HeroBarracksModel _model;
+        private ImperiumInstancesHolder _availableHerosModel;
+        private ObjectPool<HeroItemView> _herosPool;
 
         public Observable<List<HeroItemView>> RequestedHeros => _requestedHerosSignal.AsObservable();
-
-        public AvailableHerosViewModel(AvailableHerosPoolConfig config)
-        {
-            Transform container = config.Container.Find("Viewport").Find("Content");
-            Debug.Log($"Pool container: {container.GetType().Name}");
-
-            _herosPool = new(config.HeroItemViewPrefab, config.InitCount, container)
-            {
-                AutoExpand = true
-            };
-        }
+        public Observable<HeroInstance> SelectedHero => _selectedHeroSignal.AsObservable();
+        public Observable<HeroItemView> AddedNewHero => _addedNewHeroSignal.AsObservable();
 
         public void BindModel(IModel model)
         {
@@ -42,24 +37,45 @@ namespace UI.HeroMenu.ViewModels
 
             _model.AvailableHerosRequest.Subscribe(HandleRequestedHeros).AddTo(_disposables);
             _model.HeroListUpdated.Subscribe(AddNewItemToList).AddTo(_disposables);
-            _model.RequestAvailableHeros();
+        }
+
+        public void BindObjectPool(ObjectPool<HeroItemView> herosPool)
+        {
+            _herosPool = herosPool;
         }
 
         public void Dispose()
         {
-            _disposables.Dispose();
+            Clear();
+            _disposables.Clear();
         }
 
-        public void RequestAvailableHeros()
+        public void RequestAvailableHerosFromModel()
         {
             _model.RequestAvailableHeros();
         }
 
-        public void SetSelectedHero(HeroInstance selectedHero) => _model.SelectHero(selectedHero);
-
-        private void CreateList(ImperiumInstancesHolder instancesHolder)
+        public void RefreshSubscribes()
         {
-            IEnumerable<HeroInstance> freeHeros = instancesHolder.Heros.Where(h => !h.IsBusy);
+            foreach (HeroItemView itemView in _availableHeros)
+                itemView.InitializeButton();
+
+            _requestedHerosSignal.OnNext(_availableHeros);
+        }
+
+        public IReadOnlyList<HeroItemView> RequestHerosList() => _availableHeros.AsReadOnly();
+
+        public void SetSelectedHero(HeroInstance selectedHero)
+        {
+            _model.SelectHero(selectedHero);
+            _selectedHeroSignal.OnNext(selectedHero);
+        }
+
+        private void CreateList(List<HeroInstance> availableheros)
+        {
+            Clear();
+
+            IEnumerable<HeroInstance> freeHeros = availableheros.Where(h => !h.IsBusy);
             foreach (HeroInstance hero in freeHeros)
             {
                 HeroItemView itemView = _herosPool.GetFreeElement();
@@ -90,11 +106,11 @@ namespace UI.HeroMenu.ViewModels
             _availableHerosDict.Clear();
         }
 
-        private void HandleRequestedHeros(ImperiumInstancesHolder instancesHolder)
+        private void HandleRequestedHeros(List<HeroInstance> availableHeros)
         {
             if (_availableHeros.Count == 0)
             {
-                CreateList(instancesHolder);
+                CreateList(availableHeros);
             }
 
             _requestedHerosSignal.OnNext(_availableHeros);
@@ -108,6 +124,8 @@ namespace UI.HeroMenu.ViewModels
 
             _availableHeros.Add(item);
             _availableHerosDict[newHero] = item;
+
+            _addedNewHeroSignal.OnNext(item);
         }
     }
 }

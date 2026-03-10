@@ -2,7 +2,7 @@
 using R3;
 using UI.HeroMenu.Models;
 
-namespace UI.HeroMenu.ViewModel
+namespace UI.HeroMenu.ViewModels
 {
     public enum HeroMenuActions
     {
@@ -11,7 +11,7 @@ namespace UI.HeroMenu.ViewModel
 
     public class HeroNavigationUIViewModel : IViewModel
     {
-        private HeroInfoModel _model;
+        private HeroMenuModel _model;
 
         private readonly Subject<HeroMenuActions> _actions = new();
 
@@ -19,7 +19,8 @@ namespace UI.HeroMenu.ViewModel
 
         public void BindModel(IModel model)
         {
-            _model = model as HeroInfoModel;
+            _model = model as HeroMenuModel;
+            _model.ToggleBarracks();
         }
 
         public void Dispose() { }
