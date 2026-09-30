@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using Core.GameStates;
 using Core.MissionSlots;
 using Entry.EntryData;
@@ -19,7 +19,7 @@ namespace Mono.StateMachine
         private MissionSlotsController _slotsController;
 
         public MissionSlotsController SlotsController => _slotsController;
-        public MissionContex LastCreatedContex { get; private set; }
+        public MissionContext LastCreatedContex { get; private set; }
         public bool IsPreparationRunning { get; private set; }
 
         public event Action OnMissionStarted;
@@ -65,7 +65,7 @@ namespace Mono.StateMachine
 
         private StageDependencies CreateStageDeps()
         {
-            var contex = new MissionContex();
+            var contex = new MissionContext();
 
             var deps = new StageDependencies
                 (
@@ -100,19 +100,19 @@ namespace Mono.StateMachine
             }
         }
 
-        private void HandleStartedPreparationMission(MissionContex contex)
+        private void HandleStartedPreparationMission(MissionContext contex)
         {
             IsPreparationRunning = true;
         }
 
-        private void HandleStartedMission(MissionContex contex)
+        private void HandleStartedMission(MissionContext contex)
         {
             IsPreparationRunning = false;
             _missionRuntimeService.AddActiveMission(contex);
             OnMissionStarted?.Invoke();
         }
 
-        private void HandleFinishedMission(int arg1, MissionContex contex)
+        private void HandleFinishedMission(int arg1, MissionContext contex)
         {
             _missionRuntimeService.RemoveFinishedMission(contex);
         }

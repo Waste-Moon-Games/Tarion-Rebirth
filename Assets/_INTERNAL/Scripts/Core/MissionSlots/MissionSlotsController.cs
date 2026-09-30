@@ -1,4 +1,4 @@
-using Contex.MissionInfo;
+using Context.MissionInfo;
 using Entry.EntryData;
 using Mono.StateMachine;
 using System;
@@ -18,9 +18,9 @@ namespace Core.MissionSlots
         public int FreeSlots { get; private set; }
         public bool HasFreeSlots => FreeSlots > 0;
 
-        public event Action<MissionContex> OnMissionPreparationStarted;
-        public event Action<MissionContex> OnMissionStarted;
-        public event Action<int, MissionContex> OnMissionFinished;
+        public event Action<MissionContext> OnMissionPreparationStarted;
+        public event Action<MissionContext> OnMissionStarted;
+        public event Action<int, MissionContext> OnMissionFinished;
 
         public MissionSlotsController(int slotCount)
         {
@@ -81,7 +81,7 @@ namespace Core.MissionSlots
             OnMissionFinished?.Invoke(slot.SlotID, slot.Contex);
         }
 
-        private void HandleStartedMission(MissionContex contex)
+        private void HandleStartedMission(MissionContext contex)
         {
             OnMissionStarted?.Invoke(contex);
         }

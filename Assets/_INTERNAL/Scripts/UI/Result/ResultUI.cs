@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using System;
 using TMPro;
 using UI.Base;
@@ -39,20 +39,20 @@ namespace UI.Result
             _clickHandler?.Invoke();
         }
 
-        public void Initialize(MissionContex contex)
+        public void Initialize(MissionContext contex)
         {
             SetupText(contex);
             _resultText.text = CheckResultStatus(contex);
         }
 
-        private void SetupText(MissionContex contex)
+        private void SetupText(MissionContext contex)
         {
             _gainedExpText.text = $"Опыт: {contex.PreparedMission.GainedExp}";
             _selectedHeroText.text = $"Герой: {contex.SelectedHero.RuntimeData.Name}";
             _targetPlanetText.text = $"Планета: {contex.SelectedPlanet.RuntimeData.PlanetName}";
         }
 
-        private string CheckResultStatus(MissionContex contex)
+        private string CheckResultStatus(MissionContext contex)
         {
             if (contex.PreparedMission.MissionSuccessful)
                 return "Успех!";

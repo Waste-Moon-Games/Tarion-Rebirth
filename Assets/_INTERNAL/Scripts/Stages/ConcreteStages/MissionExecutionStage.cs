@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using Core.Common;
 using Core.Common.SimpleTimer;
 using Entry.EntryData;
@@ -13,7 +13,7 @@ namespace StateMachine.Stages
         private ISimpleTimer _timer;
         private IGameStageController _controller;
 
-        private MissionContex _missionContex;
+        private MissionContext _missionContex;
         private MissionExecutionTimer _uiController;
 
         public MissionExecutionStage(IGameStageController controller, StageDependencies dependencies)

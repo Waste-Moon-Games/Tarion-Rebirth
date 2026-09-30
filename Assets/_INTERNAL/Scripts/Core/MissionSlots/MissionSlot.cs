@@ -1,4 +1,4 @@
-using Contex.MissionInfo;
+using Context.MissionInfo;
 using Core.Factories.Stage_Factory;
 using Entry.EntryData;
 using Mono.StateMachine;
@@ -12,15 +12,15 @@ namespace Core.MissionSlots
         private readonly int _slotID;
         private GameStageController _controller;
         private StageDependencies _deps;
-        private MissionContex _contex;
+        private MissionContext _contex;
 
         public int SlotID => _slotID;
         public GameStageController Controller => _controller;
-        public MissionContex Contex => _contex;
+        public MissionContext Contex => _contex;
         public bool IsRunning => _controller != null;
         public bool IsStarted {  get; private set; }
 
-        public event Action<MissionContex> OnMissionStarted;
+        public event Action<MissionContext> OnMissionStarted;
         public event Action<MissionSlot> OnMissionFinished;
 
         public MissionSlot(int slotID)

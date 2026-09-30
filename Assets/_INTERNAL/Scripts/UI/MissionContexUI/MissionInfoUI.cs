@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using GameEntity.DataInstance;
 using GameEntity.Mission;
 using Scripts.GameEntity.DataInstance;
@@ -23,7 +23,7 @@ namespace Mono.UI.MissionContexUI
         [Space(10), Header("Close Button")]
         [SerializeField] private Button _closeButton;
 
-        private MissionContex _missionContex;
+        private MissionContext _missionContex;
         private DurationFormatter _durationFormatter;
 
         private void OnEnable()
@@ -37,7 +37,7 @@ namespace Mono.UI.MissionContexUI
             Clear();
         }
 
-        public void Initialize(MissionContex missionContex)
+        public void Initialize(MissionContext missionContex)
         {
             _missionContex = missionContex;
             _durationFormatter ??= new();

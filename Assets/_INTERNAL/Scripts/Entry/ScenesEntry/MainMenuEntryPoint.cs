@@ -36,7 +36,7 @@ namespace Entry.Mono.ScenesEntry.MainMenu
         {
             DIContainer mainMenuViewModelsContainer = CreateMainMenu(mainMenuContainer);
 
-            var gameStateMachineRuntimeService = FindFirstObjectByType<GameStateMachineRuntimeSevice>();
+            var gameStateMachineRuntimeService = FindAnyObjectByType<GameStateMachineRuntimeSevice>();
             var missionRuntimeService = mainMenuContainer.Resolve<GameState>().MissionRuntimeService;
             var imperiumState = mainMenuContainer.Resolve<GameState>().ImperiumState;
 

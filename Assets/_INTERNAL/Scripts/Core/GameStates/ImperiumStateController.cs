@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using GameEntity.DataInstance;
 using System.Collections.Generic;
 
@@ -7,21 +7,21 @@ namespace Core.GameStates
     public class ImperiumStateController
     {
         private readonly ImperiumState _state;
-        private readonly List<MissionContex> _activeContexes = new();
+        private readonly List<MissionContext> _activeContexes = new();
 
         public ImperiumStateController(ImperiumState state)
         {
             _state = state;
         }
 
-        public void SetActiveContex(MissionContex activeContex)
+        public void SetActiveContex(MissionContext activeContex)
         {
             Dispose(activeContex);
             _activeContexes.Add(activeContex);
             activeContex.OnPlanetCaptured += HandleCapturedPlanet;
         }
 
-        private void Dispose(MissionContex activeContex)
+        private void Dispose(MissionContext activeContex)
         {
             if(activeContex != null)
                 activeContex.OnPlanetCaptured -= HandleCapturedPlanet;

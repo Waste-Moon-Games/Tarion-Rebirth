@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using GameEntity.DataInstance;
 using StateMachine.Base;
 using Core.Common;
@@ -12,7 +12,7 @@ namespace StateMachine.Stages
     {
         private IGameStageController _controller;
         private TargetPlanetsListController _planetListController;
-        private MissionContex _contex;
+        private MissionContext _contex;
         private TargetsListState _targetList;
 
         public PlanetSelectionStage(IGameStageController controller, StageDependencies dependencies)

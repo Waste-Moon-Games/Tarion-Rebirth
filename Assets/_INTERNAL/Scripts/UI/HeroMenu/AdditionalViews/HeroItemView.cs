@@ -67,11 +67,7 @@ namespace UI.HeroMenu.AdditionalViews
             _selectButton.onClick.AddListener(_clickHandler);
         }
 
-        private void HandleButtonClick()
-        {
-            _selectedHeroSignal.OnNext(_heroInstance);
-            Debug.Log("Button clicked");
-        }
+        private void HandleButtonClick() => _selectedHeroSignal.OnNext(_heroInstance);
 
         public void Clear()
         {

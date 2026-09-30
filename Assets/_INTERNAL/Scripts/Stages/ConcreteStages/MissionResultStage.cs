@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using Core.Common;
 using Entry.EntryData;
 using GameEntity.DataInstance.Main;
@@ -12,7 +12,7 @@ namespace StateMachine.Stages
     {
         private ImperiumInstancesHolder _instancesHolder;
         private IGameStageController _controller;
-        private MissionContex _missionContex;
+        private MissionContext _missionContex;
         private ResultPanel _panelHolder;
 
         public MissionResultStage(IGameStageController controller, StageDependencies dependencies)

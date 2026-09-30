@@ -61,8 +61,7 @@ namespace Entry
                 gs.Resolve<Coroutines>()))
                 .AsSingle();
             _rootContainer.RegisterFactory(
-                c => new SceneLoaderService(c.Resolve<UILoadingView>(),
-                c.Resolve<Coroutines>()))
+                c => new SceneLoaderService(c.Resolve<UILoadingView>()))
                 .AsSingle();
         }
 

@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using Core.Common;
 using Entry.EntryData;
 using GameEntity.DataInstance.Main;
@@ -16,7 +16,7 @@ namespace StateMachine.Stages
         private readonly CompositeDisposable _disposables = new();
 
         private IGameStageController _controller;
-        private MissionContex _missionContex;
+        private MissionContext _missionContex;
         private AvailableHeroListView _availableHerosListView;
         private ImperiumInstancesHolder _instanceHolder;
         private AvailableHerosViewModel _availableHerosViewModel;

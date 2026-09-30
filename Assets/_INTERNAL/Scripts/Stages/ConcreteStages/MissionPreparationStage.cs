@@ -1,4 +1,4 @@
-﻿using Contex.MissionInfo;
+﻿using Context.MissionInfo;
 using Core.Common;
 using Entry.EntryData;
 using GameEntity.DataInstance;
@@ -9,7 +9,7 @@ namespace StateMachine.Stages
     public class MissionPreparationStage : IStage, IDisposable
     {
         private IGameStageController _controller;
-        private MissionContex _missionContex;
+        private MissionContext _missionContex;
 
         public MissionPreparationStage(IGameStageController controller, StageDependencies dependencies)
         {

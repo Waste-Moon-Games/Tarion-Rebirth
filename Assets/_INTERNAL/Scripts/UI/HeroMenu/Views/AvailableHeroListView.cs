@@ -17,6 +17,7 @@ namespace UI.HeroMenu.Views
         [SerializeField] private bool _isEnchantedView;
 
         private readonly CompositeDisposable _disposables = new();
+        private readonly CompositeDisposable _itemDisposables = new();
         private readonly List<HeroItemView> _availableHeros = new();
 
         private AvailableHerosViewModel _viewModel;
@@ -25,6 +26,11 @@ namespace UI.HeroMenu.Views
         private ObjectPool<HeroItemView> _herosPool;
 
         private void OnEnable() => _viewModel?.RefreshSubscribes();
+
+        private void OnDestroy()
+        {
+            Clear();
+        }
 
         public void BindViewModel(IViewModel viewModel)
         {
@@ -59,8 +65,8 @@ namespace UI.HeroMenu.Views
 
         private void HandleSelectedHero(HeroInstance selectedHero)
         {
-            Debug.Log(_viewModel != null);
             _viewModel.SetSelectedHero(selectedHero);
+            Debug.Log($"[Available Hero List View] Selected Hero: {selectedHero.RuntimeData.Name}");
         }
 
         private void HandleAddedNewHero(HeroItemView newHero) => _availableHeros.Add(newHero);
@@ -68,9 +74,11 @@ namespace UI.HeroMenu.Views
         private void HandleRequestedHeros(List<HeroItemView> heroItems)
         {
             _availableHeros.Clear();
+            _itemDisposables.Clear();
+
             foreach (HeroItemView heroItem in heroItems)
             {
-                heroItem.SelectedHero.Subscribe(HandleSelectedHero).AddTo(_disposables);
+                heroItem.SelectedHero.Subscribe(HandleSelectedHero).AddTo(_itemDisposables);
                 _availableHeros.Add(heroItem);
             }
         }

@@ -1,4 +1,6 @@
 ﻿<Solution>
+  <Project Path="UniTask.csproj" />
+  <Project Path="UniTask.Linq.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Game.Data.csproj" />
   <Project Path="UI.HeroMenu.Views.csproj" />
@@ -6,17 +8,24 @@
   <Project Path="Game.Core.csproj" />
   <Project Path="Game.Stages.csproj" />
   <Project Path="Other.Utils.csproj" />
+  <Project Path="UniTask.Addressables.csproj" />
   <Project Path="Game.MissionSlots.csproj" />
+  <Project Path="R3.Unity.csproj" />
   <Project Path="UI.HeroMenu.Models.csproj" />
+  <Project Path="NuGetForUnity.csproj" />
   <Project Path="UI.MainMenu.csproj" />
   <Project Path="Game.StageController.csproj" />
   <Project Path="UI.HeroRecruiting.csproj" />
+  <Project Path="Game.Context.csproj" />
   <Project Path="UI.GalaxyMapUI.csproj" />
+  <Project Path="R3.Unity.Editor.csproj" />
   <Project Path="Game.StageFactory.csproj" />
   <Project Path="UI.HeroUI.csproj" />
+  <Project Path="UniTask.TextMeshPro.csproj" />
   <Project Path="UI.MissionUI.csproj" />
   <Project Path="Game.States.csproj" />
   <Project Path="UI.HeroMenu.ViewModels.csproj" />
+  <Project Path="R3.Unity.TextMeshPro.csproj" />
   <Project Path="Game.EntityContainers.csproj" />
   <Project Path="UI.Binders.csproj" />
   <Project Path="SO.Configs.csproj" />
@@ -28,10 +37,11 @@
   <Project Path="Game.EntityGenerateSystem.csproj" />
   <Project Path="Game.Entry.csproj" />
   <Project Path="UI.HeroMenu.Services.csproj" />
-  <Project Path="Game.Contex.csproj" />
   <Project Path="UI.Base.csproj" />
   <Project Path="Game.Binders.csproj" />
   <Project Path="Game.HeroStatsUpgradeSystem.csproj" />
+  <Project Path="R3.Unity.XRInteractionToolkit.csproj" />
+  <Project Path="UniTask.Editor.csproj" />
   <Project Path="Game.CommandSystem.csproj" />
   <Project Path="Game.EntityGenerationConfigs.csproj" />
   <Project Path="UI.ResultUI.csproj" />
@@ -39,6 +49,7 @@
   <Project Path="Game.ScenesEntry.csproj" />
   <Project Path="Dev.Debugger.csproj" />
   <Project Path="UI.PlanetListUI.csproj" />
+  <Project Path="UniTask.DOTween.csproj" />
   <Project Path="UI.SelectionPanelUI.csproj" />
   <Project Path="Game.ConcreteSceneParams.csproj" />
   <Project Path="UI.MissionSlotsUI.csproj" />
